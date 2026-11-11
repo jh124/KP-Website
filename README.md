@@ -1,6 +1,6 @@
 # Kidderminster Press
 
-A small, responsive publisher website using the original Kidderminster Press artwork and Lulu Direct Buy Button widgets. The catalogue is intentionally empty until books are ready.
+A small, responsive publisher website using the original Kidderminster Press artwork and Lulu Direct Buy Button widgets.
 
 ## Preview
 
