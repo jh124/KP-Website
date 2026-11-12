@@ -36,6 +36,10 @@ Widget appearance is controlled in Lulu Direct under **Customize Appearance**. T
 
 Lulu references: [Buy Button setup guide](https://blog.lulu.com/buy-button-guide/) · [Create and manage a Buy Button](https://help.luludirect.lulu.com/en/support/solutions/articles/64000311603-how-to-create-and-manage-a-lulu-direct-buy-button).
 
+## Ebooks
+
+The Ebooks section links directly to the screen PDFs in `downloads/` and uses the finished front covers in `assets/covers/`. Both the cover and the Download PDF link start a download. These listings work without JavaScript; Lulu's print catalogue is separate.
+
 ## GitHub Pages
 
 The root directory is ready for GitHub Pages. In the repository's **Settings → Pages**, select **Deploy from a branch**, choose **main** and **/ (root)**, then save. Asset paths are relative, so the site works under `/KP-Website/` as well as on a custom domain. No workflow or paid hosting is required.

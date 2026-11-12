@@ -50,6 +50,7 @@ button { font: inherit; }
 .brand img { width: 30px; height: 34px; opacity: 0.86; }
 .brand > span { font-size: 14px; line-height: 1.32; letter-spacing: 0.07em; }
 .brand-second-line { display: block; }
+.site-header nav { display: flex; align-items: center; gap: 28px; }
 .nav-link { display: inline-flex; align-items: center; font-size: 15px; text-decoration: none; }
 .nav-link:hover { text-decoration: underline; }
 
@@ -76,6 +77,15 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
 .retry:hover { border-color: var(--ink); }
 .noscript-note { text-align: center; font-size: 14px; color: var(--muted); }
 
+.ebooks { padding-top: 16px; }
+.ebook-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 48px; width: min(100%, 900px); margin: 40px auto 8px; }
+.ebook { min-width: 0; max-width: 340px; width: 100%; margin-inline: auto; text-align: center; }
+.ebook-cover { display: block; width: 260px; max-width: 100%; margin: 0 auto 24px; box-shadow: 0 8px 24px #292d2614; }
+.ebook-cover img { width: 100%; height: auto; }
+.ebook h3 { margin: 0 0 10px; font-weight: 400; font-size: 23px; line-height: 1.35; letter-spacing: -0.015em; text-wrap: balance; }
+.ebook-byline { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.ebook-download { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 10px; padding: 8px 4px; font-size: 14px; }
+
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 88px; border-top: 1px solid var(--rule); color: var(--muted); }
 .site-footer p { margin: 0; font-size: 12px; letter-spacing: 0.015em; }
 
@@ -92,6 +102,8 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
   .site-header { min-height: 84px; }
   .brand > span { font-size: 12px; }
   .brand img { width: 26px; height: 30px; }
+  .site-header { gap: 12px; }
+  .site-header nav { gap: 16px; }
   .nav-link { font-size: 14px; gap: 12px; min-height: 44px; padding-inline: 3px; }
   .introduction { padding: 52px 0 60px; }
   .crest { width: 120px; margin-bottom: 28px; }
@@ -102,6 +114,9 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
   .empty-state .empty-title { font-size: 26px; }
   .empty-state p { font-size: 14px; }
   .book-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .ebook-grid { grid-template-columns: minmax(0, 1fr); gap: 44px; margin-top: 32px; }
+  .ebook-cover { width: 240px; }
+  .ebook h3 { font-size: 22px; }
   .site-footer { min-height: 80px; }
 }
 

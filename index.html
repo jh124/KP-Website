@@ -22,7 +22,8 @@
         <span>Kidderminster <span class="brand-second-line">Press</span></span>
       </a>
       <nav aria-label="Main navigation">
-        <a class="nav-link" href="#books">Books</a>
+        <a class="nav-link" href="#books">Print books</a>
+        <a class="nav-link" href="#ebooks">Ebooks</a>
       </nav>
     </header>
 
@@ -34,7 +35,7 @@
 
       <section id="books" class="books" aria-labelledby="books-heading">
         <div class="section-heading">
-          <h2 id="books-heading">Books</h2>
+          <h2 id="books-heading">Print books</h2>
           <span class="section-rule" aria-hidden="true"></span>
         </div>
         <div id="catalogue" class="catalogue">
@@ -44,6 +45,31 @@
           </div>
         </div>
         <noscript><p class="noscript-note">JavaScript is needed for purchasing books.</p></noscript>
+      </section>
+
+      <section id="ebooks" class="books ebooks" aria-labelledby="ebooks-heading">
+        <div class="section-heading">
+          <h2 id="ebooks-heading">Ebooks</h2>
+          <span class="section-rule" aria-hidden="true"></span>
+        </div>
+        <div class="ebook-grid">
+          <article class="ebook" aria-labelledby="ebook-confessions-title">
+            <a class="ebook-cover" href="./downloads/reformed-confessions-reader.pdf" download="Reformed_Confessions_Reader.pdf" aria-label="Download A Topical Reader of the Reformed Confessions as a PDF">
+              <img src="./assets/covers/reformed-confessions-reader.jpg" alt="Front cover of A Topical Reader of the Reformed Confessions" width="700" height="1058" loading="lazy" decoding="async">
+            </a>
+            <h3 id="ebook-confessions-title">A Topical Reader of the Reformed Confessions</h3>
+            <p class="ebook-byline">Edited by Jackson Harper</p>
+            <a class="ebook-download" href="./downloads/reformed-confessions-reader.pdf" download="Reformed_Confessions_Reader.pdf" aria-label="Download A Topical Reader of the Reformed Confessions as a PDF">Download PDF</a>
+          </article>
+          <article class="ebook" aria-labelledby="ebook-burges-title">
+            <a class="ebook-cover" href="./downloads/baptismal-regeneration-of-elect-infants.pdf" download="Burges_Baptismal_Regeneration.pdf" aria-label="Download Baptismal Regeneration of Elect Infants as a PDF">
+              <img src="./assets/covers/baptismal-regeneration-of-elect-infants.jpg" alt="Front cover of Baptismal Regeneration of Elect Infants" width="700" height="1058" loading="lazy" decoding="async">
+            </a>
+            <h3 id="ebook-burges-title">Baptismal Regeneration of Elect Infants</h3>
+            <p class="ebook-byline">Cornelius Burges</p>
+            <a class="ebook-download" href="./downloads/baptismal-regeneration-of-elect-infants.pdf" download="Burges_Baptismal_Regeneration.pdf" aria-label="Download Baptismal Regeneration of Elect Infants as a PDF">Download PDF</a>
+          </article>
+        </div>
       </section>
     </main>
 
