@@ -38,7 +38,7 @@ Lulu references: [Buy Button setup guide](https://blog.lulu.com/buy-button-guide
 
 ## Ebooks
 
-The Ebooks section links directly to the screen PDFs in `downloads/` and uses the finished front covers in `assets/covers/`. Both the cover and the Download PDF link start a download. These listings work without JavaScript; Lulu's print catalogue is separate.
+The Ebooks section offers screen PDFs and reflowable EPUBs from `downloads/` and uses the finished front covers in `assets/covers/`. Covers are not interactive; downloads start only from the Download PDF and Download EPUB links. These listings work without JavaScript; Lulu's print catalogue is separate.
 
 ## GitHub Pages
 
