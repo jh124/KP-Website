@@ -4,6 +4,24 @@ const catalogue = document.querySelector("#catalogue");
 const emptyState = catalogue.firstElementChild.cloneNode(true);
 document.querySelector("#year").textContent = String(new Date().getFullYear());
 let luluLoading;
+let catalogueRequest = 0;
+let printPurchasesClosed;
+let dayChangeTimer;
+
+function isLordsDay() {
+  return new Date().getDay() === 0;
+}
+
+function showLordsDayMessage() {
+  const message = document.createElement("div");
+  message.className = "empty-state";
+  message.setAttribute("role", "status");
+  const text = document.createElement("p");
+  text.textContent = "Books are not available for purchase on the Lord’s Day. Please check back tomorrow.";
+  message.append(text);
+  catalogue.replaceChildren(message);
+  catalogue.setAttribute("aria-busy", "false");
+}
 
 function loadLulu() {
   if (customElements.get("lulu-buy-button")) return Promise.resolve();
@@ -87,14 +105,30 @@ function renderBooks(books) {
 }
 
 async function loadCatalogue() {
+  const request = ++catalogueRequest;
+  if (isLordsDay()) {
+    showLordsDayMessage();
+    return;
+  }
+
   catalogue.setAttribute("aria-busy", "true");
   try {
     const response = await fetch(new URL("../data/books.json", import.meta.url), { cache: "no-cache" });
     if (!response.ok) throw new Error(`Catalogue request failed (${response.status}).`);
     const books = validateBooks(await response.json());
+    if (request !== catalogueRequest) return;
+    if (isLordsDay()) {
+      showLordsDayMessage();
+      return;
+    }
     if (books.length) renderBooks(books);
     else catalogue.replaceChildren(emptyState.cloneNode(true));
   } catch (error) {
+    if (request !== catalogueRequest) return;
+    if (isLordsDay()) {
+      showLordsDayMessage();
+      return;
+    }
     console.error("Unable to load the catalogue:", error);
     const message = document.createElement("div");
     message.className = "empty-state";
@@ -109,8 +143,28 @@ async function loadCatalogue() {
     message.append(text, retry);
     catalogue.replaceChildren(message);
   } finally {
-    catalogue.setAttribute("aria-busy", "false");
+    if (request === catalogueRequest) catalogue.setAttribute("aria-busy", "false");
   }
 }
 
-loadCatalogue();
+function refreshLocalDay() {
+  const now = new Date();
+  const closed = now.getDay() === 0;
+  if (closed !== printPurchasesClosed) {
+    printPurchasesClosed = closed;
+    loadCatalogue();
+  }
+
+  // Use the visitor's next local midnight, including daylight-saving changes.
+  clearTimeout(dayChangeTimer);
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  dayChangeTimer = setTimeout(refreshLocalDay, midnight.getTime() - now.getTime());
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) refreshLocalDay();
+});
+window.addEventListener("pageshow", refreshLocalDay);
+window.addEventListener("focus", refreshLocalDay);
+refreshLocalDay();
