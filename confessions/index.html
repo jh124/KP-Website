@@ -24,8 +24,8 @@
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" sizes="any">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="../assets/confessions.css?v=3">
-    <script type="module" src="../assets/confessions.js?v=3"></script>
+    <link rel="stylesheet" href="../assets/confessions.css?v=4">
+    <script type="module" src="../assets/confessions.js?v=4"></script>
   </head>
   <body class="comparison-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -58,10 +58,10 @@
             </div>
             <div class="topic-field">
               <label id="topic-label" for="topic">Topic</label>
-              <button id="topic" class="topic-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="topic-browser" aria-labelledby="topic-label topic-name" disabled><span id="topic-name">Loading topics…</span></button>
-              <div id="topic-browser" class="topic-browser" role="dialog" aria-label="Browse topics" hidden>
-                <div class="topic-browser-heading"><span>All topics</span><button id="close-topic-browser" type="button" class="text-button" aria-label="Close topic browser">Close</button></div>
-                <div id="topic-list" class="topic-list" role="region" aria-label="All topics" tabindex="0"></div>
+              <button id="topic" class="dropdown-trigger topic-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="topic-browser" aria-labelledby="topic-label topic-name" disabled><span id="topic-name">Loading topics…</span></button>
+              <div id="topic-browser" class="dropdown-panel topic-browser" role="dialog" aria-label="Browse topics" hidden>
+                <div class="dropdown-heading topic-browser-heading"><span>All topics</span><button id="close-topic-browser" type="button" class="text-button" aria-label="Close topic browser">Close</button></div>
+                <div id="topic-list" class="dropdown-list topic-list" role="region" aria-label="All topics" tabindex="0"></div>
               </div>
             </div>
             <div class="topic-steps" role="group" aria-label="Browse topics">
@@ -70,11 +70,12 @@
             </div>
           </div>
           <div class="reader-options">
-            <details id="confession-picker" class="toolbar-disclosure">
-              <summary>Choose confessions <span id="selection-count"></span></summary>
-              <div class="disclosure-panel confession-panel">
-                <p>Select up to four. Your choices stay selected as you browse topics.</p>
-                <div id="confession-choices" class="confession-choices" role="group" aria-label="Choose up to four confessions"></div>
+            <details id="confession-picker" class="reader-dropdown toolbar-disclosure">
+              <summary class="dropdown-trigger"><span>Choose confessions <span id="selection-count"></span></span></summary>
+              <div class="dropdown-panel confession-panel">
+                <div class="dropdown-heading"><span>Choose confessions</span><button type="button" class="text-button close-dropdown" aria-label="Close confession choices">Close</button></div>
+                <p class="dropdown-help">Select up to four. Your choices stay selected as you browse topics.</p>
+                <div id="confession-choices" class="dropdown-list confession-choices" role="group" aria-label="Choose up to four confessions"></div>
               </div>
             </details>
             <button id="compare-available" class="text-button" type="button" disabled>Compare available</button>
@@ -83,21 +84,24 @@
             <button id="next-match" class="text-button" type="button" hidden>Next match</button>
             <div class="reader-actions">
               <button id="copy-comparison" class="text-button" type="button" disabled>Copy link</button>
-              <details id="reading-options" class="toolbar-disclosure reading-disclosure">
-                <summary>Reading options</summary>
-                <div class="disclosure-panel reading-panel">
-                  <div class="font-controls" role="group" aria-label="Text size">
-                    <span>Text size</span>
-                    <button id="smaller-text" type="button" aria-label="Smaller text">A−</button>
-                    <output id="font-size" aria-live="polite">17px</output>
-                    <button id="larger-text" type="button" aria-label="Larger text">A+</button>
+              <details id="reading-options" class="reader-dropdown toolbar-disclosure reading-disclosure">
+                <summary class="dropdown-trigger"><span>Reading options</span></summary>
+                <div class="dropdown-panel reading-panel">
+                  <div class="dropdown-heading"><span>Reading options</span><button type="button" class="text-button close-dropdown" aria-label="Close reading options">Close</button></div>
+                  <div class="dropdown-content reading-controls">
+                    <div class="font-controls" role="group" aria-label="Text size">
+                      <span>Text size</span>
+                      <button id="smaller-text" type="button" aria-label="Smaller text">A−</button>
+                      <output id="font-size" aria-live="polite">17px</output>
+                      <button id="larger-text" type="button" aria-label="Larger text">A+</button>
+                    </div>
+                    <div class="layout-controls" role="group" aria-label="Reading layout">
+                      <button id="columns-view" type="button" aria-pressed="true">Columns</button>
+                      <button id="stacked-view" type="button" aria-pressed="false">Stacked</button>
+                    </div>
+                    <button id="print-comparison" class="text-button" type="button">Print comparison</button>
+                    <button id="clear-confessions" class="text-button" type="button" disabled>Clear selections</button>
                   </div>
-                  <div class="layout-controls" role="group" aria-label="Reading layout">
-                    <button id="columns-view" type="button" aria-pressed="true">Columns</button>
-                    <button id="stacked-view" type="button" aria-pressed="false">Stacked</button>
-                  </div>
-                  <button id="print-comparison" class="text-button" type="button">Print comparison</button>
-                  <button id="clear-confessions" class="text-button" type="button" disabled>Clear selections</button>
                 </div>
               </details>
             </div>

@@ -22,7 +22,7 @@ function stored(key) { try { return JSON.parse(localStorage.getItem(key)); } cat
 function remember(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* Reading still works with storage disabled. */ } }
 function plain(html) {
   const template = document.createElement('template');
-  template.innerHTML = html.replace(/<\/(?:p|div|tr|h[1-6])>/gi, '$&\n');
+  template.innerHTML = html.replace(/<br\s*\/?>/gi, '\n').replace(/<\/(?:td|th)>/gi, '$&\t').replace(/<\/(?:p|div|tr|h[1-6])>/gi, '$&\n');
   return template.content.textContent.trim().replace(/\n{3,}/g, '\n\n');
 }
 function queryTerms(value) {
@@ -78,9 +78,48 @@ function preferences() {
 }
 function openPicker(event) {
   event?.stopPropagation();
-  picker.open = true;
-  $('#reading-options').open = false;
-  choices.find(({ button }) => !button.disabled)?.button.focus();
+  closeDisclosures(picker); closeTopicBrowser(); picker.open = true;
+}
+function closeDisclosure(menu, returnFocus = false) {
+  menu.open = false;
+  menu.closest('.confession-heading')?.classList.remove('has-open-menu');
+  if (returnFocus) menu.querySelector('summary').focus({ preventScroll: true });
+}
+function closeDisclosures(except = null) {
+  for (const menu of document.querySelectorAll('.reader-dropdown[open]')) if (menu !== except) closeDisclosure(menu);
+}
+function sizeDisclosure(menu) {
+  if (!menu.open) return;
+  const panel = menu.querySelector('.dropdown-panel');
+  const body = menu.querySelector('.dropdown-list, .dropdown-content');
+  menu.classList.remove('opens-up');
+  const below = window.innerHeight - panel.getBoundingClientRect().top - 20;
+  const above = menu.getBoundingClientRect().top - 20;
+  const upwards = below < 220 && above > below;
+  menu.classList.toggle('opens-up', upwards);
+  const room = upwards ? above : below;
+  const chrome = panel.offsetHeight - body.offsetHeight;
+  body.style.maxHeight = `${Math.max(100, Math.min(430, room - chrome))}px`;
+}
+function setupDisclosure(menu) {
+  menu.querySelector('.close-dropdown').addEventListener('click', () => closeDisclosure(menu, true));
+  const list = menu.querySelector('.dropdown-list');
+  list?.addEventListener('keydown', event => listKeys(event, list));
+  menu.querySelector('summary').addEventListener('keydown', event => {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (!menu.open) menu.open = true;
+      else menu.querySelector('.dropdown-list button:not(:disabled), .dropdown-content button:not(:disabled)')?.focus({ preventScroll: true });
+    }
+  });
+  menu.addEventListener('toggle', () => {
+    menu.closest('.confession-heading')?.classList.toggle('has-open-menu', menu.open);
+    if (!menu.open) return;
+    closeDisclosures(menu); closeTopicBrowser(); sizeDisclosure(menu);
+    const current = menu.querySelector('[aria-current="true"], [aria-pressed="true"]') || menu.querySelector('.dropdown-list button:not(:disabled), .dropdown-content button:not(:disabled)');
+    if (list && current) list.scrollTop = Math.max(0, current.offsetTop - 12);
+    current?.focus({ preventScroll: true });
+  });
 }
 function closeTopicBrowser(returnFocus = false) {
   topicBrowser.hidden = true;
@@ -94,7 +133,7 @@ function sizeTopicBrowser() {
 }
 function openTopicBrowser() {
   if (!data) return;
-  picker.open = false; $('#reading-options').open = false;
+  closeDisclosures();
   topicBrowser.hidden = false;
   topicTrigger.setAttribute('aria-expanded', 'true');
   if (window.innerHeight - topicBrowser.getBoundingClientRect().top < 220) {
@@ -115,7 +154,7 @@ function buildTopicBrowser() {
     const list = document.createElement('ul');
     for (const topic of data.topics.filter(item => item.group === groupName)) {
       const row = document.createElement('li');
-      const item = button(topic.title, 'topic-option', () => setTopic(topic.id));
+      const item = button(topic.title, 'dropdown-option topic-option', () => setTopic(topic.id));
       item.dataset.topic = topic.id;
       row.append(item); list.append(row); topicButtons.push({ id: topic.id, button: item });
     }
@@ -204,7 +243,7 @@ function renderSearchResults() {
   container.append(list);
 }
 function listKeys(event, container) {
-  const buttons = [...container.querySelectorAll('button')];
+  const buttons = [...container.querySelectorAll('button:not(:disabled)')];
   let index = buttons.indexOf(document.activeElement);
   if (event.key === 'Home') index = 0;
   else if (event.key === 'End') index = buttons.length-1;
@@ -237,7 +276,7 @@ function buildChoices() {
   group.replaceChildren();
   choices = data.documents.map(doc => {
     const button = document.createElement('button');
-    button.type = 'button'; button.className = 'confession-choice';
+    button.type = 'button'; button.className = 'dropdown-option confession-choice';
     const name = document.createElement('span'); name.textContent = doc.shortName;
     const detail = document.createElement('small');
     button.append(name, detail);
@@ -257,7 +296,7 @@ function updateChoices(topic) {
     button.setAttribute('aria-pressed', String(on));
     button.disabled = !on && (!available || state.cols.length === 4);
     const year = doc.name.match(/\d{4}/)?.[0] || '';
-    detail.textContent = year + (available ? ` · ${topic.cells[doc.id].length} passages` : ' · no passage on this topic');
+    detail.textContent = year + (available ? ` · ${topic.cells[doc.id].length} ${topic.cells[doc.id].length === 1 ? 'passage' : 'passages'}` : ' · no passage on this topic');
     button.title = !available ? 'No passage is assigned to this topic' : !on && state.cols.length === 4 ? 'Remove a confession to add another' : doc.name;
   }
 }
@@ -278,16 +317,62 @@ async function copyText(value, success, fallback = false) {
     } else $('#action-status').textContent = 'Select the passage text to copy it.';
   }
 }
+function citationReferences(passages) {
+  const refs = [...new Set(passages.map(passage => passage.ref))];
+  const ranges = [];
+  for (let i = 0; i < refs.length; i++) {
+    const start = refs[i].match(/^(.*?)(\d+)$/);
+    if (!start) { ranges.push(refs[i]); continue; }
+    let end = Number(start[2]);
+    while (i + 1 < refs.length) {
+      const next = refs[i + 1].match(/^(.*?)(\d+)$/);
+      if (!next || next[1] !== start[1] || Number(next[2]) !== end + 1) break;
+      end++; i++;
+    }
+    ranges.push(`${start[1]}${start[2]}${end > Number(start[2]) ? '–' + end : ''}`);
+  }
+  return ranges.join('; ');
+}
 function copyExcerpt(doc, topic) {
-  const list = topic.cells[doc.id] || [];
-  let chapter = '';
-  const text = list.map(key => {
-    const p = data.passages[key];
-    const label = p.chapterHeading && p.chapterHeading !== chapter ? p.chapterHeading + '\n' : '';
-    chapter = p.chapterHeading;
-    return label + plain(p.html) + `\n(Reader p. ${p.page})`;
-  }).join('\n\n');
-  copyText(`${doc.name}\n${topic.title}\n\n${text}\n\nKidderminster Press · A Topical Reader of the Reformed Confessions\n${new URL('../downloads/reformed-confessions-reader.pdf', import.meta.url).href}`, `${doc.shortName} passages copied.`);
+  const passages = (topic.cells[doc.id] || []).map(key => data.passages[key]);
+  const text = passages.map(passage => plain(passage.html)).join('\n\n');
+  const name = doc.name.replace(/\s*\(\d{4}\)$/, '');
+  copyText(`${text}\n\n— ${name}, ${citationReferences(passages)}`, `${doc.shortName} passages copied.`);
+}
+function confessionDropdown(doc, topic, slot, label) {
+  const menu = document.createElement('details'); menu.className = 'reader-dropdown confession-dropdown';
+  const trigger = document.createElement('summary'); trigger.id = `confession-${slot}`; trigger.className = 'dropdown-trigger';
+  trigger.setAttribute('aria-labelledby', `${label.id} ${trigger.id}-name`);
+  const selected = document.createElement('span'); selected.id = `${trigger.id}-name`; selected.textContent = doc.name;
+  trigger.append(selected);
+  const panel = document.createElement('div'); panel.className = 'dropdown-panel confession-menu';
+  const heading = document.createElement('div'); heading.className = 'dropdown-heading';
+  const title = document.createElement('span'); title.textContent = 'Choose a confession';
+  const close = document.createElement('button'); close.type = 'button'; close.className = 'text-button close-dropdown'; close.textContent = 'Close'; close.setAttribute('aria-label', `Close ${POSITIONS[slot].toLowerCase()} menu`);
+  heading.append(title, close);
+  const list = document.createElement('div'); list.className = 'dropdown-list'; list.setAttribute('role', 'group'); list.setAttribute('aria-label', `Choose ${POSITIONS[slot].toLowerCase()}`);
+  const choose = id => {
+    if (id) state.cols[slot] = id;
+    else state.cols.splice(slot, 1);
+    saveState(); render();
+    ($(`#confession-${slot}`) || $('#confession-picker summary')).focus({ preventScroll: true });
+  };
+  for (const optionDoc of data.documents) {
+    const available = Object.hasOwn(topic.cells, optionDoc.id);
+    const item = button('', 'dropdown-option confession-option', () => choose(optionDoc.id));
+    const name = document.createElement('span'); name.textContent = optionDoc.name;
+    item.append(name); item.dataset.confession = optionDoc.id;
+    item.setAttribute('aria-current', String(optionDoc.id === doc.id));
+    item.disabled = (state.cols.includes(optionDoc.id) && optionDoc.id !== doc.id) || (!available && optionDoc.id !== doc.id);
+    if (!available || (state.cols.includes(optionDoc.id) && optionDoc.id !== doc.id)) {
+      const detail = document.createElement('small'); detail.textContent = !available ? 'No passage on this topic' : 'Already selected'; item.append(detail);
+    }
+    list.append(item);
+  }
+  const footer = document.createElement('div'); footer.className = 'dropdown-footer';
+  footer.append(button('Remove this confession', 'dropdown-option remove-confession', () => choose('')));
+  panel.append(heading, list, footer); menu.append(trigger, panel); setupDisclosure(menu);
+  return menu;
 }
 const bodyObserver = new ResizeObserver(() => syncMobile());
 function renderColumns(topic) {
@@ -302,8 +387,8 @@ function renderColumns(topic) {
     section.className = 'confession-column'; section.setAttribute('aria-label', doc.name);
     const header = document.createElement('div'); header.className = 'confession-heading';
     const position = document.createElement('div'); position.className = 'column-position';
-    const label = document.createElement('label'); label.className = 'confession-label';
-    label.htmlFor = `confession-${slot}`; label.textContent = POSITIONS[slot];
+    const label = document.createElement('span'); label.className = 'confession-label';
+    label.id = `confession-label-${slot}`; label.textContent = POSITIONS[slot];
     const moves = document.createElement('div'); moves.className = 'move-controls';
     for (const [delta, arrow, direction] of [[-1, '←', 'left'], [1, '→', 'right']]) {
       const move = button(arrow, '', () => {
@@ -317,21 +402,7 @@ function renderColumns(topic) {
       moves.append(move);
     }
     position.append(label, moves);
-    const select = document.createElement('select');
-    select.id = label.htmlFor; select.className = 'confession-select';
-    select.append(new Option('Remove this confession', ''));
-    for (const optionDoc of data.documents) {
-      const available = Object.hasOwn(topic.cells, optionDoc.id);
-      const option = new Option(optionDoc.name + (available ? '' : ' — no passage'), optionDoc.id);
-      option.disabled = (state.cols.includes(optionDoc.id) && optionDoc.id !== key) || (!available && optionDoc.id !== key);
-      select.append(option);
-    }
-    select.value = key;
-    select.addEventListener('change', () => {
-      if (select.value) state.cols[slot] = select.value;
-      else state.cols.splice(slot, 1);
-      saveState(); render();
-    });
+    const select = confessionDropdown(doc, topic, slot, label);
     const name = document.createElement('h3'); name.className = 'confession-name'; name.textContent = doc.name;
     const tools = document.createElement('div'); tools.className = 'column-tools';
     const count = document.createElement('span');
@@ -512,19 +583,23 @@ $('#next-match').addEventListener('click', () => {
 grid.addEventListener('scroll', () => {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(() => { scrollFrame = null; syncMobile(); });
 }, { passive: true });
-window.addEventListener('resize', () => { syncMobile(); sizeTopicBrowser(); });
+window.addEventListener('resize', () => {
+  syncMobile(); sizeTopicBrowser();
+  for (const menu of document.querySelectorAll('.reader-dropdown[open]')) sizeDisclosure(menu);
+});
 window.addEventListener('popstate', locationChanged);
 window.addEventListener('hashchange', locationChanged);
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
-    picker.open = false; $('#reading-options').open = false;
+    const open = document.querySelector('.reader-dropdown[open]');
+    if (open) { closeDisclosure(open, true); event.preventDefault(); return; }
     if (!topicBrowser.hidden) { closeTopicBrowser(true); event.preventDefault(); return; }
     if (document.activeElement === search && search.value) { search.value = ''; applySearch(); }
   }
   if (event.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { event.preventDefault(); search.focus(); }
 });
 document.addEventListener('click', event => {
-  for (const details of [picker, $('#reading-options')]) if (!details.contains(event.target)) details.open = false;
+  for (const menu of document.querySelectorAll('.reader-dropdown[open]')) if (!menu.contains(event.target)) closeDisclosure(menu);
   if (!topicBrowser.contains(event.target) && !topicTrigger.contains(event.target)) closeTopicBrowser();
 });
 new ResizeObserver(entries => {
@@ -560,5 +635,6 @@ async function loadReader() {
     $('#load-error').hidden = false; $('#selection-status').textContent = 'The Reader could not be loaded.';
   }
 }
+for (const menu of document.querySelectorAll('.reader-dropdown')) setupDisclosure(menu);
 $('#retry-reader').addEventListener('click', loadReader);
 loadReader();
