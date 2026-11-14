@@ -40,6 +40,23 @@ Lulu references: [Buy Button setup guide](https://blog.lulu.com/buy-button-guide
 
 The Ebooks section offers screen PDFs and reflowable EPUBs from `downloads/` and uses the finished front covers in `assets/covers/`. Covers are not interactive; downloads start only from the Download PDF and Download EPUB links. These listings work without JavaScript; Lulu's print catalogue is separate.
 
+## Confession comparison
+
+`confessions/` compares up to four confessions and catechisms across 82 topics. It shares the site's typography, colors, navigation, and logo. On phones, readers select confessions and swipe between them. The current topic and selections are encoded in shareable URL fragments; there are no accounts or remote services.
+
+The 390 excerpts in `data/confessions.json` come from the corrected Reader EPUB in `downloads/`, checked against the matching screen PDF. Source SHA-256 hashes are retained in the data and verified by `npm run check`. The original topic framework comes from [Reformed-Confessions-Comparison](https://github.com/jh124/Reformed-Confessions-Comparison), commit `615673f1b07e8e01a473d3fd0f8ae5a2e06f64f0`.
+
+The corrected Heidelberg Q22 is included in the creeds topic. Second Helvetic chapter 11 passages omitted by the old tool are restored to the appropriate topics on Christ; Westminster 21.3–4 is included under Prayer. The script preserves the printed reading order of the biblical-books table after checking its text against the source.
+
+To rebuild after updating the Reader, use Python 3 and a checkout of the original framework:
+
+```sh
+python3 scripts/build-confessions.py --framework ../Reformed-Confessions-Comparison/data.json
+npm run check
+```
+
+The framework supplies placement, while the corrected EPUB supplies the prose and inline styling. Uncertain matches stop the build. Review the generated text diff before publishing a changed edition. Validation checks all 129 Heidelberg, 196 Larger Catechism, and 107 Shorter Catechism questions, representative corrected readings, and both source hashes.
+
 ## GitHub Pages
 
 The root directory is ready for GitHub Pages. In the repository's **Settings → Pages**, select **Deploy from a branch**, choose **main** and **/ (root)**, then save. Asset paths are relative, so the site works under `/KP-Website/` as well as on a custom domain. No workflow or paid hosting is required.
@@ -51,6 +68,8 @@ The root directory is ready for GitHub Pages. In the repository's **Settings →
 - `assets/app.js`: catalogue rendering and official Lulu widget loading.
 - `assets/catalogue.js`: catalogue validation.
 - `data/books.json`: book listings.
+- `confessions/`, `assets/confessions.*`, `data/confessions.json`: the topical comparison page.
+- `scripts/build-confessions.py`, `scripts/check-confessions.mjs`: corrected Reader import and verification.
 - `assets/crest.svg`, `assets/monogram.svg`: existing Kidderminster Press logo assets.
 
 No analytics, accounts, newsletter forms, or custom checkout are included.

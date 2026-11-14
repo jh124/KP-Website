@@ -1,0 +1,116 @@
+.reader-wide { width: min(1440px, calc(100% - 112px)); margin-inline: auto; }
+.nav-link[aria-current="page"] { text-decoration: underline; }
+.reader-introduction { padding-block: 54px 44px; text-align: center; }
+.reader-eyebrow { margin: 0 0 20px; color: var(--accent); font: 500 10px/1.5 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+.reader-introduction h1 { font-size: clamp(35px, 4.3vw, 60px); letter-spacing: -.043em; }
+.reader-introduction h1 em { display: block; margin-top: 5px; color: var(--accent); font-size: .76em; font-weight: 400; }
+.reader-lede { margin: 24px 0 9px; font-size: 17px; line-height: 1.5; }
+.reader-edition { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.reader-edition cite { font-style: normal; }
+.reader-toolbar { position: sticky; top: 0; z-index: 4; background: var(--paper); border-block: 1px solid var(--rule); }
+.topic-controls { display: flex; align-items: center; gap: 16px; padding-block: 17px; }
+.topic-field { display: flex; align-items: center; gap: 20px; min-width: 0; flex: 1; }
+.topic-field label { font: 500 10px/1.4 var(--sans); letter-spacing: .17em; text-transform: uppercase; color: var(--accent); }
+.comparison-page select { color: var(--ink); background-color: #fffdfa; border: 1px solid var(--rule); border-radius: 0; font-family: var(--serif); cursor: pointer; }
+.topic-field select { min-width: 0; width: 100%; padding: 11px 32px 11px 12px; font-size: 16px; line-height: 1.4; text-overflow: ellipsis; }
+.topic-steps { display: flex; gap: 6px; }
+.step-button { min-width: 40px; min-height: 44px; border: 1px solid var(--rule); border-radius: 0; color: var(--accent); background: transparent; cursor: pointer; font-size: 18px; }
+.step-button:hover:not(:disabled) { border-color: var(--accent); background: #4f5a4009; }
+.reader-actions { display: flex; align-items: center; gap: 22px; margin-left: 12px; }
+.text-button { border: 0; border-radius: 0; padding: 10px 0; min-height: 44px; background: none; color: var(--accent); cursor: pointer; white-space: nowrap; font-size: 13px; text-decoration: underline; text-underline-offset: .25em; }
+.text-button:hover { color: var(--ink); }
+.comparison-page button:disabled, .comparison-page select:disabled { opacity: .45; cursor: default; }
+.reader-results { padding-top: 23px; padding-bottom: 56px; }
+.reader-context { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+.reader-context p { margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+#topic-parent { max-width: 850px; }
+#selection-status { white-space: nowrap; }
+.action-status:empty { display: none; }
+.action-status { font-size: 13px; margin: 0 0 18px; color: var(--accent); }
+.share-fallback { padding: 0 0 22px; }
+.share-fallback label { display: block; font-size: 13px; margin-bottom: 8px; }
+.share-fallback input { width: 100%; padding: 10px; border: 1px solid var(--rule); background: #fffdfa; font-size: 14px; }
+.reader-error { padding: 32px 0; color: var(--muted); text-align: center; line-height: 1.6; }
+.reader-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 24px; }
+.confession-column { min-width: 0; border-top: 2px solid var(--rule); }
+.confession-column.filled { border-top-color: var(--accent); }
+.confession-heading { padding: 17px 0 16px; border-bottom: 1px solid var(--rule); }
+.confession-label { display: block; margin-bottom: 12px; color: var(--muted); font: 500 9px/1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase; }
+.confession-select { width: 100%; padding: 10px 25px 10px 9px; font-size: 14px; line-height: 1.5; min-height: 44px; text-overflow: ellipsis; }
+.confession-name { display: none; }
+.confession-text { padding: 23px 2px 16px; font-size: 16px; line-height: 1.65; overflow-wrap: break-word; }
+.confession-text p { margin: 0 0 1em; }
+.confession-text .lbl, .confession-text .q { margin: 1.5em 0 .45em; font-weight: 600; line-height: 1.5; }
+.confession-text .lbl:first-child, .confession-text .q:first-child { margin-top: 0; }
+.confession-text .dorthead { font-style: italic; font-weight: 600; }
+.confession-text strong, .confession-text b { font-weight: 600; }
+.confession-text .placeholder { padding: 25px 12px; text-align: center; color: var(--muted); font-size: 14px; font-style: italic; line-height: 1.7; }
+.confession-text .not-covered { color: var(--muted); font-size: 15px; font-style: italic; }
+.confession-text .booklist { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.6; margin-bottom: 1em; }
+.booklist td { vertical-align: top; width: 50%; padding-right: 10px; }
+.booklist .bl-head, .booklist .bl-sub { font-style: italic; }
+.booklist .bl-subitem { padding-left: 10px; }
+.mobile-choices, .mobile-pager, .swipe-note, .mobile-empty { display: none; }
+.reader-source { padding-block: 8px 45px; }
+.reader-source > p { max-width: 720px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.reader-source > p:first-of-type { margin-top: 22px; }
+.reader-source > p:last-child { margin-bottom: 0; font-size: 13px; }
+
+@media (max-width: 1100px) and (min-width: 681px) {
+  .reader-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; }
+  .reader-actions { gap: 16px; }
+}
+@media (max-width: 900px) {
+  .reader-wide { width: calc(100% - 64px); }
+  .topic-controls { flex-wrap: wrap; gap: 10px; }
+  .topic-field { flex-basis: calc(100% - 110px); }
+  .reader-actions { margin-left: 0; margin-top: 2px; gap: 24px; }
+  .reader-actions .text-button { padding-block: 5px; min-height: 32px; }
+}
+@media (max-width: 680px) {
+  .reader-wide { width: calc(100% - 40px); }
+  .reader-introduction { padding-block: 38px 32px; }
+  .reader-eyebrow { font-size: 9px; margin-bottom: 17px; }
+  .reader-introduction h1 { font-size: clamp(32px, 8vw, 48px); }
+  .reader-lede { font-size: 15px; margin-top: 21px; max-width: 300px; margin-inline: auto; }
+  .reader-edition { font-size: 12px; }
+  .topic-controls { padding-block: 12px 10px; gap: 8px; }
+  .topic-field { display: block; flex-basis: calc(100% - 90px); }
+  .topic-field label { display: block; margin-bottom: 8px; font-size: 9px; }
+  .topic-field select { font-size: 16px; padding: 10px 25px 10px 10px; }
+  .topic-steps { align-self: flex-end; gap: 5px; }
+  .step-button { min-width: 35px; }
+  .reader-actions { width: 100%; justify-content: space-between; }
+  .reader-context { margin-bottom: 16px; }
+  .reader-context p { font-size: 11px; }
+  #selection-status { display: none; }
+  .reader-results { padding-top: 17px; padding-bottom: 30px; }
+  .mobile-choices { display: block; margin-bottom: 16px; border-bottom: 1px solid var(--rule); }
+  .mobile-choices summary { padding-block: 4px 16px; cursor: pointer; color: var(--accent); font-size: 14px; }
+  #mobile-count { color: var(--muted); font-size: 12px; margin-left: 5px; }
+  .confession-choices { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 18px; }
+  .confession-choice { padding: 9px 11px; min-height: 44px; border: 1px solid var(--rule); border-radius: 0; background: transparent; color: var(--ink); font-size: 13px; cursor: pointer; }
+  .confession-choice[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+  .mobile-pager { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .pager-button { min-height: 40px; min-width: 44px; padding: 8px 14px; border: 1px solid var(--rule); border-radius: 0; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
+  .pager-button[aria-current="true"] { color: var(--paper); background: var(--accent); border-color: var(--accent); }
+  .swipe-note { display: block; margin: 0 0 18px; color: var(--muted); font-size: 11px; font-style: italic; }
+  .reader-grid { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; align-items: flex-start; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; overscroll-behavior-x: contain; }
+  .confession-column { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
+  .confession-column:not(.filled) { display: none; }
+  .confession-heading { padding-block: 17px; }
+  .confession-label, .confession-select { display: none; }
+  .confession-name { display: block; margin: 0; color: var(--accent); font-size: 22px; font-weight: 400; line-height: 1.35; }
+  .confession-text { padding-top: 22px; font-size: 17px; line-height: 1.7; }
+  .mobile-empty { display: block; padding: 30px 15px; color: var(--muted); text-align: center; font-size: 15px; font-style: italic; }
+  .reader-source { padding-bottom: 35px; }
+}
+@media print {
+  .reader-toolbar, .mobile-choices, .mobile-pager, .swipe-note, .reader-context, .reader-actions, .skip-link, .site-header nav { display: none !important; }
+  .reader-wide, .wrap { width: 100%; }
+  .reader-introduction { padding-block: 25px; }
+  .reader-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; overflow: visible; }
+  .confession-column:not(.filled), .confession-label, .confession-select { display: none; }
+  .confession-name { display: block; font-size: 18px; font-weight: 400; }
+  .confession-text { font-size: 11px; }
+}

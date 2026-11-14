@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5ef">
+    <title>Compare the Reformed Confessions | Kidderminster Press</title>
+    <meta name="description" content="Read the confessions and catechisms of the Reformation side by side, arranged by topic, using the corrected Kidderminster Press Topical Reader.">
+    <link rel="canonical" href="https://kidderminsterpress.com/confessions/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kidderminster Press">
+    <meta property="og:url" content="https://kidderminsterpress.com/confessions/">
+    <meta property="og:title" content="The Reformed Confessions in Parallel">
+    <meta property="og:description" content="Compare eleven confessions and catechisms by topic. Text from the corrected Kidderminster Press Topical Reader.">
+    <meta property="og:image" content="https://kidderminsterpress.com/assets/kp-link-preview.png">
+    <meta property="og:image:alt" content="Kidderminster Press logo on a cream background">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Reformed Confessions in Parallel">
+    <meta name="twitter:description" content="Compare the confessions and catechisms of the Reformation, side by side.">
+    <meta name="twitter:image" content="https://kidderminsterpress.com/assets/kp-link-preview.png">
+    <link rel="icon" href="../favicon.ico?v=2" type="image/x-icon" sizes="16x16 32x32 48x48 64x64">
+    <link rel="icon" href="../favicon-32x32.png?v=2" type="image/png" sizes="32x32">
+    <link rel="icon" href="../favicon-16x16.png?v=2" type="image/png" sizes="16x16">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/confessions.css">
+    <script type="module" src="../assets/confessions.js"></script>
+  </head>
+  <body class="comparison-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="../" aria-label="Kidderminster Press home">
+        <img src="../assets/monogram.svg" alt="" width="32" height="32">
+        <span>Kidderminster <span class="brand-second-line">Press</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="../#books">Print books</a>
+        <a class="nav-link" href="../#ebooks">Ebooks</a>
+        <a class="nav-link" href="./" aria-current="page">Compare confessions</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="reader-introduction wrap" aria-labelledby="reader-title">
+        <p class="reader-eyebrow">A comparative reader</p>
+        <h1 id="reader-title">The Reformed Confessions <em>in parallel</em></h1>
+        <p class="reader-lede">Choose a topic and compare up to four confessions, side by side.</p>
+        <p class="reader-edition">From <a href="../downloads/reformed-confessions-reader.pdf"><cite>A Topical Reader of the Reformed Confessions</cite></a>, edited by Jackson Harper.</p>
+      </section>
+
+      <div class="reader-toolbar">
+        <div class="reader-wide topic-controls">
+          <div class="topic-field">
+            <label for="topic">Topic</label>
+            <select id="topic" disabled><option>Loading topics…</option></select>
+          </div>
+          <div class="topic-steps" role="group" aria-label="Browse topics">
+            <button id="previous-topic" class="step-button" type="button" aria-label="Previous topic" title="Previous topic" disabled>←</button>
+            <button id="next-topic" class="step-button" type="button" aria-label="Next topic" title="Next topic" disabled>→</button>
+          </div>
+          <div class="reader-actions">
+            <button id="clear-confessions" class="text-button" type="button" disabled>Clear selections</button>
+            <button id="copy-comparison" class="text-button" type="button" disabled>Copy link</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="reader-wide reader-results" aria-label="Confession comparison">
+        <div class="reader-context">
+          <p id="topic-parent"></p>
+          <p id="selection-status" role="status">Loading the corrected Reader…</p>
+        </div>
+        <p id="action-status" class="action-status" role="status"></p>
+        <div id="share-fallback" class="share-fallback" hidden>
+          <label for="share-url">Copy this comparison link</label>
+          <input id="share-url" type="url" readonly>
+        </div>
+        <div id="load-error" class="reader-error" hidden>
+          <p>The comparison could not be loaded. Please try again.</p>
+          <button id="retry-reader" class="retry" type="button">Try again</button>
+        </div>
+        <details id="mobile-choices" class="mobile-choices" hidden>
+          <summary>Choose confessions <span id="mobile-count"></span></summary>
+          <div id="confession-choices" class="confession-choices" role="group" aria-label="Choose up to four confessions"></div>
+        </details>
+        <div id="mobile-pager" class="mobile-pager" role="group" aria-label="Jump to a selected confession"></div>
+        <p class="swipe-note" id="swipe-note" hidden>Swipe between confessions</p>
+        <div class="reader-grid" id="comparison-columns"></div>
+        <p class="mobile-empty" id="mobile-empty" hidden>Choose a confession above to begin reading.</p>
+        <noscript><p class="reader-error">Enable JavaScript to compare confessions, or <a href="../downloads/reformed-confessions-reader.pdf">read the complete Topical Reader as a PDF</a>.</p></noscript>
+      </section>
+
+      <aside class="reader-source wrap" aria-label="About the text">
+        <div class="section-heading"><h2>About the text</h2><span class="section-rule" aria-hidden="true"></span></div>
+        <p>These passages follow the corrected Kidderminster Press edition of <cite>A Topical Reader of the Reformed Confessions</cite>, including the Westminster Shorter Catechism in its appendix. Eleven confessions and catechisms are arranged across eighty-two topics.</p>
+        <p><a href="../downloads/reformed-confessions-reader.pdf">Read the complete Reader</a><span aria-hidden="true"> · </span><a href="../#ebook-confessions-title">Print and ebook editions</a></p>
+      </aside>
+    </main>
+
+    <footer class="site-footer wrap"><p>© <span id="year">2026</span> Kidderminster Press</p></footer>
+  </body>
+</html>
