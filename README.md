@@ -42,20 +42,20 @@ The Ebooks section offers screen PDFs and reflowable EPUBs from `downloads/` and
 
 ## Confession comparison
 
-`confessions/` compares up to four confessions and catechisms across 82 topics. It shares the site's typography, colors, navigation, and logo. On phones, readers select confessions and swipe between them. The current topic and selections are encoded in shareable URL fragments; there are no accounts or remote services.
+`confessions/` compares up to four of eleven documents across 99 reviewed topics. Its red accent, `#6b1f2a`, matches the Reader. Columns expand to fit the selection, with light dividers and sticky headings. Search covers topic names, references, and complete passage text. Reading options provide text sizing, stacked view, and printing; individual columns support copying and reordering. Shared links encode the topic, documents, and search; browser Back and Forward restore comparisons. Reading preferences and the last comparison are saved locally.
 
-The 390 excerpts in `data/confessions.json` come from the corrected Reader EPUB in `downloads/`, checked against the matching screen PDF. Source SHA-256 hashes are retained in the data and verified by `npm run check`. The original topic framework comes from [Reformed-Confessions-Comparison](https://github.com/jh124/Reformed-Confessions-Comparison), commit `615673f1b07e8e01a473d3fd0f8ae5a2e06f64f0`.
+The text comes from the corrected Reader EPUB in `downloads/`. `scripts/reader_source.py` extracts 1,146 unique source passages by article, question, Westminster paragraph, or Helvetic subheading. `data/confession-topics.json` explicitly assigns these references. No prose classifier or approximate text matching determines the current mapping. The printed two-column biblical-books table is reconstructed only after its text passes a token comparison with the source.
 
-The corrected Heidelberg Q22 is included in the creeds topic. Second Helvetic chapter 11 passages omitted by the old tool are restored to the appropriate topics on Christ; Westminster 21.3–4 is included under Prayer. The script preserves the printed reading order of the biblical-books table after checking its text against the source.
+`data/confessions-v2.json` is the current browser data. Its source hashes are checked against both downloads, and every passage has a PDF page anchor verified against the PDF's text. The original `data/confessions.json` remains available for cached first-version clients. The 82 first-version topic URLs redirect within the tool to current topics, including merged topics.
 
-To rebuild after updating the Reader, use Python 3 and a checkout of the original framework:
+To rebuild, use Python 3 with PyMuPDF (`fitz`) installed:
 
 ```sh
-python3 scripts/build-confessions.py --framework ../Reformed-Confessions-Comparison/data.json
+python3 scripts/build-confessions.py
 npm run check
 ```
 
-The framework supplies placement, while the corrected EPUB supplies the prose and inline styling. Uncertain matches stop the build. Review the generated text diff before publishing a changed edition. Validation checks all 129 Heidelberg, 196 Larger Catechism, and 107 Shorter Catechism questions, representative corrected readings, and both source hashes.
+Review mapping changes in [the audit](docs/confession-mapping-audit.md) and edit the explicit selectors in `data/confession-topics.json`. Builds reject missing, unknown, or duplicate assignments; checks verify all articles and catechism questions, all 172 Westminster Confession paragraphs, all Dort articles and rejections, the current source edition, and representative mapping corrections. The audit documents source limitations and intentional cross-listing.
 
 ## GitHub Pages
 
@@ -68,7 +68,7 @@ The root directory is ready for GitHub Pages. In the repository's **Settings →
 - `assets/app.js`: catalogue rendering and official Lulu widget loading.
 - `assets/catalogue.js`: catalogue validation.
 - `data/books.json`: book listings.
-- `confessions/`, `assets/confessions.*`, `data/confessions.json`: the topical comparison page.
+- `confessions/`, `assets/confessions.*`, `data/confessions-v2.json`: the topical comparison page.
 - `scripts/build-confessions.py`, `scripts/check-confessions.mjs`: corrected Reader import and verification.
 - `assets/crest.svg`, `assets/monogram.svg`: existing Kidderminster Press logo assets.
 

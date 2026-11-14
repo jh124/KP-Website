@@ -24,8 +24,8 @@
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" sizes="any">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="../assets/confessions.css">
-    <script type="module" src="../assets/confessions.js"></script>
+    <link rel="stylesheet" href="../assets/confessions.css?v=2">
+    <script type="module" src="../assets/confessions.js?v=2"></script>
   </head>
   <body class="comparison-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -49,53 +49,79 @@
         <p class="reader-edition">From <a href="../downloads/reformed-confessions-reader.pdf"><cite>A Topical Reader of the Reformed Confessions</cite></a>, edited by Jackson Harper.</p>
       </section>
 
-      <div class="reader-toolbar">
-        <div class="reader-wide topic-controls">
-          <div class="topic-field">
-            <label for="topic">Topic</label>
-            <select id="topic" disabled><option>Loading topics…</option></select>
+      <div class="reader-toolbar" id="reader-toolbar">
+        <div class="reader-wide">
+          <div class="topic-controls">
+            <div class="search-field">
+              <label for="reader-search">Find a topic or passage</label>
+              <input id="reader-search" type="search" placeholder="Search topics, text, or references…" autocomplete="off" disabled aria-describedby="search-status">
+            </div>
+            <div class="topic-field">
+              <label for="topic">Topic</label>
+              <select id="topic" disabled><option>Loading topics…</option></select>
+            </div>
+            <div class="topic-steps" role="group" aria-label="Browse topics">
+              <button id="previous-topic" class="step-button" type="button" aria-label="Previous topic" title="Previous topic" disabled>←</button>
+              <button id="next-topic" class="step-button" type="button" aria-label="Next topic" title="Next topic" disabled>→</button>
+            </div>
           </div>
-          <div class="topic-steps" role="group" aria-label="Browse topics">
-            <button id="previous-topic" class="step-button" type="button" aria-label="Previous topic" title="Previous topic" disabled>←</button>
-            <button id="next-topic" class="step-button" type="button" aria-label="Next topic" title="Next topic" disabled>→</button>
-          </div>
-          <div class="reader-actions">
-            <button id="clear-confessions" class="text-button" type="button" disabled>Clear selections</button>
-            <button id="copy-comparison" class="text-button" type="button" disabled>Copy link</button>
+          <div class="reader-options">
+            <details id="confession-picker" class="toolbar-disclosure">
+              <summary>Choose confessions <span id="selection-count"></span></summary>
+              <div class="disclosure-panel confession-panel">
+                <p>Select up to four. Your choices stay selected as you browse topics.</p>
+                <div id="confession-choices" class="confession-choices" role="group" aria-label="Choose up to four confessions"></div>
+              </div>
+            </details>
+            <button id="compare-available" class="text-button" type="button" disabled>Compare available</button>
+            <span id="search-status" class="search-status" role="status"></span>
+            <button id="next-match" class="text-button" type="button" hidden>Next match</button>
+            <div class="reader-actions">
+              <button id="copy-comparison" class="text-button" type="button" disabled>Copy link</button>
+              <details id="reading-options" class="toolbar-disclosure reading-disclosure">
+                <summary>Reading options</summary>
+                <div class="disclosure-panel reading-panel">
+                  <div class="font-controls" role="group" aria-label="Text size">
+                    <span>Text size</span>
+                    <button id="smaller-text" type="button" aria-label="Smaller text">A−</button>
+                    <output id="font-size" aria-live="polite">17px</output>
+                    <button id="larger-text" type="button" aria-label="Larger text">A+</button>
+                  </div>
+                  <div class="layout-controls" role="group" aria-label="Reading layout">
+                    <button id="columns-view" type="button" aria-pressed="true">Columns</button>
+                    <button id="stacked-view" type="button" aria-pressed="false">Stacked</button>
+                  </div>
+                  <button id="print-comparison" class="text-button" type="button">Print comparison</button>
+                  <button id="clear-confessions" class="text-button" type="button" disabled>Clear selections</button>
+                </div>
+              </details>
+            </div>
           </div>
         </div>
       </div>
 
       <section class="reader-wide reader-results" aria-label="Confession comparison">
         <div class="reader-context">
-          <p id="topic-parent"></p>
+          <div><p id="topic-group"></p><h2 id="topic-title"></h2></div>
           <p id="selection-status" role="status">Loading the corrected Reader…</p>
         </div>
+        <p id="reader-loading" class="reader-loading" role="status">Loading the comparison…</p>
         <p id="action-status" class="action-status" role="status"></p>
         <div id="share-fallback" class="share-fallback" hidden>
-          <label for="share-url">Copy this comparison link</label>
-          <input id="share-url" type="url" readonly>
+          <label for="share-url">Copy this comparison link</label><input id="share-url" type="url" readonly>
         </div>
         <div id="load-error" class="reader-error" hidden>
           <p>The comparison could not be loaded. Please try again.</p>
           <button id="retry-reader" class="retry" type="button">Try again</button>
         </div>
-        <details id="mobile-choices" class="mobile-choices" hidden>
-          <summary>Choose confessions <span id="mobile-count"></span></summary>
-          <div id="confession-choices" class="confession-choices" role="group" aria-label="Choose up to four confessions"></div>
-        </details>
+        <div id="no-results" class="reader-empty" hidden><p>No topics or passages match your search.</p><button id="clear-search" class="text-button" type="button">Clear search</button></div>
         <div id="mobile-pager" class="mobile-pager" role="group" aria-label="Jump to a selected confession"></div>
-        <p class="swipe-note" id="swipe-note" hidden>Swipe between confessions</p>
+        <p class="swipe-note" id="swipe-note" hidden>Swipe between confessions, or choose Stacked in Reading options.</p>
         <div class="reader-grid" id="comparison-columns"></div>
-        <p class="mobile-empty" id="mobile-empty" hidden>Choose a confession above to begin reading.</p>
+        <div id="empty-comparison" class="reader-empty" hidden><p>Choose confessions above, or compare those available for this topic.</p><button id="fill-empty" class="text-button" type="button">Compare available confessions</button></div>
         <noscript><p class="reader-error">Enable JavaScript to compare confessions, or <a href="../downloads/reformed-confessions-reader.pdf">read the complete Topical Reader as a PDF</a>.</p></noscript>
       </section>
 
-      <aside class="reader-source wrap" aria-label="About the text">
-        <div class="section-heading"><h2>About the text</h2><span class="section-rule" aria-hidden="true"></span></div>
-        <p>These passages follow the corrected Kidderminster Press edition of <cite>A Topical Reader of the Reformed Confessions</cite>, including the Westminster Shorter Catechism in its appendix. Eleven confessions and catechisms are arranged across eighty-two topics.</p>
-        <p><a href="../downloads/reformed-confessions-reader.pdf">Read the complete Reader</a><span aria-hidden="true"> · </span><a href="../#ebook-confessions-title">Print and ebook editions</a></p>
-      </aside>
     </main>
 
     <footer class="site-footer wrap"><p>© <span id="year">2026</span> Kidderminster Press</p></footer>

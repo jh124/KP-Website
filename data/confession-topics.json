@@ -1,0 +1,1813 @@
+[
+  {
+    "id": "chief-end-and-comfort",
+    "title": "Man's chief end and only comfort",
+    "group": "Foundations",
+    "selectors": [
+      "hc.1-2",
+      "wlc.1",
+      "wsc.1"
+    ],
+    "aliases": [
+      "purpose",
+      "comfort"
+    ]
+  },
+  {
+    "id": "revelation",
+    "title": "Revelation and the knowledge of God",
+    "group": "Holy Scripture",
+    "selectors": [
+      "fc.2",
+      "bc.2-3",
+      "wcf.1.1",
+      "wlc.2"
+    ],
+    "aliases": [
+      "general revelation",
+      "special revelation"
+    ]
+  },
+  {
+    "id": "canon",
+    "title": "The canon of Scripture",
+    "group": "Holy Scripture",
+    "selectors": [
+      "fc.3",
+      "bc.4",
+      "bc.6",
+      "shc.1.1",
+      "shc.1.6-7",
+      "39a.6",
+      "wcf.1.2-3",
+      "wlc.3"
+    ],
+    "aliases": [
+      "apocrypha",
+      "biblical books"
+    ]
+  },
+  {
+    "id": "scripture-authority",
+    "title": "The authority of Scripture",
+    "group": "Holy Scripture",
+    "selectors": [
+      "fc.4-5",
+      "sc.19",
+      "bc.5",
+      "shc.1.1",
+      "shc.1.3-5",
+      "wcf.1.4-5",
+      "wcf.1.10",
+      "wlc.4",
+      "wsc.2"
+    ],
+    "aliases": [
+      "inspiration",
+      "illumination"
+    ]
+  },
+  {
+    "id": "scripture-sufficiency",
+    "title": "The sufficiency and necessity of Scripture",
+    "group": "Holy Scripture",
+    "selectors": [
+      "fc.5",
+      "sc.19",
+      "bc.7",
+      "shc.1.2",
+      "39a.6",
+      "wcf.1.1",
+      "wcf.1.6-8",
+      "wlc.5",
+      "wsc.2-3"
+    ],
+    "aliases": [
+      "perspicuity",
+      "clarity",
+      "translation"
+    ]
+  },
+  {
+    "id": "scripture-interpretation",
+    "title": "The interpretation of Scripture",
+    "group": "Holy Scripture",
+    "selectors": [
+      "shc.2.1-4",
+      "39a.20",
+      "wcf.1.7-10"
+    ],
+    "aliases": [
+      "hermeneutics"
+    ]
+  },
+  {
+    "id": "creeds",
+    "title": "The ecumenical creeds",
+    "group": "Foundations",
+    "selectors": [
+      "fc.5",
+      "bc.9",
+      "hc.22-23",
+      "shc.11.17-18",
+      "39a.8"
+    ],
+    "aliases": [
+      "Apostles",
+      "Nicene",
+      "Athanasian",
+      "Chalcedon"
+    ]
+  },
+  {
+    "id": "god-being-and-attributes",
+    "title": "God's being and attributes",
+    "group": "God and his works",
+    "selectors": [
+      "ac.1",
+      "fc.1",
+      "sc.1",
+      "bc.1",
+      "shc.3.1",
+      "wcf.2.1-2",
+      "wlc.6-8",
+      "wsc.4-5"
+    ],
+    "aliases": [
+      "unity",
+      "simplicity",
+      "impassibility",
+      "attributes of God"
+    ]
+  },
+  {
+    "id": "trinity",
+    "title": "The Holy Trinity",
+    "group": "God and his works",
+    "selectors": [
+      "ac.1",
+      "fc.6",
+      "sc.1",
+      "bc.8-11",
+      "hc.24-25",
+      "shc.3.1-3",
+      "39a.1",
+      "39a.5",
+      "wcf.2.3",
+      "wlc.9-11",
+      "wsc.6"
+    ],
+    "aliases": [
+      "Father",
+      "Son",
+      "procession",
+      "three persons"
+    ]
+  },
+  {
+    "id": "holy-spirit",
+    "title": "The Holy Spirit",
+    "group": "God and his works",
+    "selectors": [
+      "fc.6",
+      "fc.21",
+      "sc.12",
+      "bc.11",
+      "hc.53",
+      "39a.5",
+      "wlc.11"
+    ],
+    "aliases": [
+      "Holy Ghost"
+    ]
+  },
+  {
+    "id": "decree",
+    "title": "God's eternal decree",
+    "group": "God and his works",
+    "selectors": [
+      "wcf.3.1-4",
+      "wcf.3.8",
+      "wlc.12-14",
+      "wsc.7-8"
+    ],
+    "aliases": [
+      "predestination",
+      "decrees"
+    ]
+  },
+  {
+    "id": "election",
+    "title": "Election in Christ",
+    "group": "God and his works",
+    "selectors": [
+      "fc.12",
+      "sc.8",
+      "bc.16",
+      "shc.10.*",
+      "39a.17",
+      "dort.1.a6-a14",
+      "dort.1.a16-a18",
+      "dort.1.r1-r7",
+      "dort.1.r9",
+      "wcf.3.3-6",
+      "wcf.3.8",
+      "wlc.13",
+      "wsc.20"
+    ],
+    "aliases": [
+      "predestination",
+      "unconditional election"
+    ]
+  },
+  {
+    "id": "reprobation",
+    "title": "Reprobation",
+    "group": "God and his works",
+    "selectors": [
+      "fc.12",
+      "bc.16",
+      "dort.1.a6",
+      "dort.1.a15",
+      "dort.1.r8",
+      "wcf.3.3-4",
+      "wcf.3.7-8",
+      "wlc.13"
+    ],
+    "aliases": [
+      "passing by"
+    ]
+  },
+  {
+    "id": "creation-world",
+    "title": "The creation of the world",
+    "group": "God and his works",
+    "selectors": [
+      "fc.7",
+      "bc.12",
+      "hc.26",
+      "shc.7.1-2",
+      "wcf.4.1",
+      "wlc.14-15",
+      "wsc.8-9"
+    ],
+    "aliases": []
+  },
+  {
+    "id": "creation-angels",
+    "title": "Angels and demons",
+    "group": "God and his works",
+    "selectors": [
+      "fc.7",
+      "bc.12",
+      "shc.7.3",
+      "wlc.16",
+      "wlc.19"
+    ],
+    "aliases": [
+      "angelic fall",
+      "devil"
+    ]
+  },
+  {
+    "id": "creation-man",
+    "title": "Man created in the image of God",
+    "group": "God and his works",
+    "selectors": [
+      "sc.2",
+      "bc.14",
+      "shc.7.4-5",
+      "wcf.4.2",
+      "wlc.17",
+      "wsc.10"
+    ],
+    "aliases": [
+      "human nature",
+      "body and soul"
+    ]
+  },
+  {
+    "id": "providence",
+    "title": "Divine providence",
+    "group": "God and his works",
+    "selectors": [
+      "fc.8",
+      "bc.13",
+      "hc.27-28",
+      "shc.6.*",
+      "wcf.5.*",
+      "wlc.18-20",
+      "wsc.11-12"
+    ],
+    "aliases": [
+      "preservation",
+      "government",
+      "secondary causes"
+    ]
+  },
+  {
+    "id": "fall",
+    "title": "The fall of man",
+    "group": "Man, sin, and the covenants",
+    "selectors": [
+      "fc.9-10",
+      "sc.3",
+      "bc.14",
+      "hc.6-7",
+      "shc.8.1",
+      "dort.3.a1",
+      "wcf.6.1-3",
+      "wlc.21-23",
+      "wsc.13",
+      "wsc.15-17"
+    ],
+    "aliases": [
+      "Adam",
+      "first transgression"
+    ]
+  },
+  {
+    "id": "original-sin",
+    "title": "Original sin and human corruption",
+    "group": "Man, sin, and the covenants",
+    "selectors": [
+      "ac.2",
+      "fc.9-11",
+      "sc.3",
+      "bc.14-15",
+      "39a.9",
+      "hc.7-9",
+      "shc.8.2",
+      "shc.8.4",
+      "shc.8.6",
+      "dort.3.a2-a3",
+      "dort.3.r1-r2",
+      "wcf.6.2-5",
+      "wlc.25-26",
+      "wsc.18"
+    ],
+    "aliases": [
+      "total depravity",
+      "hereditary sin"
+    ]
+  },
+  {
+    "id": "actual-sin",
+    "title": "Actual sin, guilt, and punishment",
+    "group": "Man, sin, and the covenants",
+    "selectors": [
+      "ac.19",
+      "fc.11",
+      "hc.3-5",
+      "hc.9-11",
+      "shc.8.3",
+      "shc.8.5",
+      "shc.8.7-8",
+      "dort.1.a1",
+      "dort.2.a1",
+      "wcf.6.4-6",
+      "wlc.24",
+      "wlc.27-29",
+      "wlc.149-152",
+      "wsc.14",
+      "wsc.19",
+      "wsc.82-84"
+    ],
+    "aliases": [
+      "cause of sin",
+      "degrees of sin",
+      "wrath"
+    ]
+  },
+  {
+    "id": "free-will",
+    "title": "Free will and human inability",
+    "group": "Man, sin, and the covenants",
+    "selectors": [
+      "ac.18",
+      "fc.9",
+      "bc.14",
+      "hc.8",
+      "shc.9.*",
+      "39a.10",
+      "dort.3.a3-a5",
+      "dort.3.a16",
+      "dort.3.r3-r5",
+      "dort.3.r8",
+      "wcf.9.*"
+    ],
+    "aliases": [
+      "bondage of the will",
+      "inability"
+    ]
+  },
+  {
+    "id": "covenant-works",
+    "title": "The covenant of works",
+    "group": "Man, sin, and the covenants",
+    "selectors": [
+      "wcf.7.1-2",
+      "wlc.20",
+      "wlc.92",
+      "wsc.12"
+    ],
+    "aliases": [
+      "covenant of life"
+    ]
+  },
+  {
+    "id": "covenant-grace",
+    "title": "The covenant of grace and the promise of redemption",
+    "group": "Man, sin, and the covenants",
+    "selectors": [
+      "sc.4",
+      "bc.17",
+      "shc.13.1-3",
+      "shc.13.7",
+      "39a.7",
+      "wcf.7.3-6",
+      "wlc.30-35",
+      "wsc.20"
+    ],
+    "aliases": [
+      "Old Testament",
+      "New Testament",
+      "history of redemption"
+    ]
+  },
+  {
+    "id": "christ-person",
+    "title": "Christ's person and incarnation",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "ac.3",
+      "fc.14",
+      "sc.6-7",
+      "bc.10",
+      "bc.18",
+      "hc.29",
+      "hc.33-36",
+      "shc.11.1-4",
+      "39a.2",
+      "39a.15",
+      "wcf.8.2-3",
+      "wlc.36-37",
+      "wlc.41",
+      "wsc.21-22"
+    ],
+    "aliases": [
+      "virgin birth",
+      "deity of Christ",
+      "humanity of Christ"
+    ]
+  },
+  {
+    "id": "christ-two-natures",
+    "title": "The two natures of Christ",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "fc.14-15",
+      "sc.7",
+      "bc.19",
+      "hc.16-18",
+      "hc.47-48",
+      "shc.11.5-9",
+      "shc.11.11",
+      "wcf.8.2",
+      "wcf.8.7",
+      "wlc.38-40"
+    ],
+    "aliases": [
+      "hypostatic union",
+      "communication of properties"
+    ]
+  },
+  {
+    "id": "christ-mediator",
+    "title": "Christ the only mediator and saviour",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "fc.13",
+      "sc.7",
+      "bc.26",
+      "hc.12-18",
+      "hc.29-30",
+      "hc.34",
+      "shc.11.16",
+      "39a.18",
+      "wcf.8.1",
+      "wcf.8.5-6",
+      "wcf.8.8",
+      "wlc.36",
+      "wlc.38-41",
+      "wlc.57",
+      "wlc.59-60",
+      "wsc.21"
+    ],
+    "aliases": [
+      "exclusive salvation",
+      "sole mediator"
+    ]
+  },
+  {
+    "id": "christ-offices",
+    "title": "Christ's offices: prophet, priest, and king",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "bc.21",
+      "hc.31-32",
+      "shc.11.16",
+      "wcf.8.1",
+      "wcf.8.3",
+      "wlc.42-45",
+      "wsc.23-26"
+    ],
+    "aliases": [
+      "threefold office"
+    ]
+  },
+  {
+    "id": "christ-atonement",
+    "title": "Christ's humiliation, death, and atonement",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "ac.3",
+      "fc.16-17",
+      "sc.9",
+      "bc.20-21",
+      "hc.36-44",
+      "shc.11.10",
+      "shc.11.15",
+      "39a.2-3",
+      "39a.31",
+      "dort.2.*",
+      "wcf.8.4-6",
+      "wlc.46-50",
+      "wsc.27"
+    ],
+    "aliases": [
+      "satisfaction",
+      "sacrifice",
+      "redemption",
+      "extent of atonement"
+    ]
+  },
+  {
+    "id": "christ-exaltation",
+    "title": "Christ's resurrection and ascension",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "ac.3",
+      "fc.16",
+      "sc.10-11",
+      "hc.45-51",
+      "shc.11.12-15",
+      "39a.4",
+      "wcf.8.4",
+      "wlc.51-54",
+      "wsc.28"
+    ],
+    "aliases": [
+      "exaltation",
+      "right hand"
+    ]
+  },
+  {
+    "id": "christ-intercession",
+    "title": "Christ's intercession",
+    "group": "The person and work of Christ",
+    "selectors": [
+      "sc.11",
+      "bc.26",
+      "hc.49-51",
+      "shc.5.2",
+      "wcf.8.4",
+      "wcf.8.8",
+      "wlc.54-55",
+      "wsc.25",
+      "dort.5.r9"
+    ],
+    "aliases": []
+  },
+  {
+    "id": "gospel-offer",
+    "title": "The gospel and the free offer of grace",
+    "group": "The means of grace",
+    "selectors": [
+      "ac.5",
+      "hc.19",
+      "shc.13.*",
+      "dort.1.a2-a5",
+      "dort.2.a5",
+      "dort.3.a5-a9",
+      "wcf.7.3",
+      "wlc.153",
+      "wsc.85"
+    ],
+    "aliases": [
+      "gospel promise",
+      "universal call",
+      "well-meant offer"
+    ]
+  },
+  {
+    "id": "word-read-and-preached",
+    "title": "The Word read and preached",
+    "group": "The means of grace",
+    "selectors": [
+      "ac.5",
+      "fc.25",
+      "shc.1.4-5",
+      "shc.18.3",
+      "shc.18.29",
+      "39a.35",
+      "wcf.21.5",
+      "wlc.155-160",
+      "wsc.89-90"
+    ],
+    "aliases": [
+      "sermon",
+      "homilies",
+      "preaching"
+    ]
+  },
+  {
+    "id": "means-of-grace",
+    "title": "The outward means of grace",
+    "group": "The means of grace",
+    "selectors": [
+      "hc.65",
+      "shc.1.4-5",
+      "dort.3.a17",
+      "dort.5.a14",
+      "wcf.14.1",
+      "wlc.154",
+      "wsc.88"
+    ],
+    "aliases": [
+      "ordinary means",
+      "Word sacraments prayer"
+    ]
+  },
+  {
+    "id": "union-with-christ",
+    "title": "Union and communion with Christ",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "fc.13",
+      "fc.36",
+      "hc.32",
+      "shc.16.4",
+      "wcf.26.1",
+      "wlc.58",
+      "wlc.65-66",
+      "wlc.69",
+      "wsc.29-30",
+      "wsc.32"
+    ],
+    "aliases": [
+      "application of redemption",
+      "union"
+    ]
+  },
+  {
+    "id": "effectual-calling",
+    "title": "Effectual calling, regeneration, and conversion",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "ac.5",
+      "fc.21-22",
+      "sc.12",
+      "shc.9.5-7",
+      "shc.14.0-3",
+      "dort.3.a6-a17",
+      "dort.3.r6-r9",
+      "wcf.10.*",
+      "wlc.57-59",
+      "wlc.67-68",
+      "wsc.29-31"
+    ],
+    "aliases": [
+      "new birth",
+      "irresistible grace"
+    ]
+  },
+  {
+    "id": "saving-faith",
+    "title": "Saving faith",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "fc.20-21",
+      "hc.20-22",
+      "hc.59-61",
+      "shc.16.1-4",
+      "39a.16",
+      "dort.3.a14",
+      "dort.5.r7",
+      "wcf.14.*",
+      "wlc.72-73",
+      "wsc.86"
+    ],
+    "aliases": [
+      "justifying faith"
+    ]
+  },
+  {
+    "id": "justification",
+    "title": "Justification and the forgiveness of sins",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "ac.4",
+      "fc.17-18",
+      "fc.20",
+      "sc.15",
+      "bc.22-23",
+      "hc.56",
+      "hc.59-64",
+      "shc.15.*",
+      "39a.11",
+      "wcf.11.*",
+      "wlc.70-73",
+      "wlc.77",
+      "wsc.33"
+    ],
+    "aliases": [
+      "imputed righteousness",
+      "forgiveness"
+    ]
+  },
+  {
+    "id": "adoption",
+    "title": "Adoption",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "fc.17",
+      "fc.19",
+      "hc.33",
+      "wcf.12.1",
+      "wlc.74",
+      "wsc.34"
+    ],
+    "aliases": [
+      "children of God"
+    ]
+  },
+  {
+    "id": "repentance",
+    "title": "Repentance, confession, and absolution",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "ac.11-12",
+      "ac.25",
+      "hc.87-90",
+      "shc.14.*",
+      "39a.16",
+      "wcf.15.*",
+      "wlc.76",
+      "wsc.87"
+    ],
+    "aliases": [
+      "repentance unto life",
+      "confession of sin"
+    ]
+  },
+  {
+    "id": "sanctification",
+    "title": "Sanctification and the renewal of life",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "ac.6",
+      "fc.22",
+      "sc.13",
+      "bc.24",
+      "hc.86-91",
+      "hc.114",
+      "shc.9.5-7",
+      "shc.14.12",
+      "wcf.13.*",
+      "wlc.75",
+      "wlc.77-78",
+      "wsc.35"
+    ],
+    "aliases": [
+      "mortification",
+      "vivification"
+    ]
+  },
+  {
+    "id": "good-works",
+    "title": "Good works, reward, and merit",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "ac.6",
+      "ac.20",
+      "fc.22",
+      "sc.13-14",
+      "bc.24",
+      "hc.62-64",
+      "hc.86-91",
+      "shc.16.4-13",
+      "39a.12-14",
+      "wcf.16.*"
+    ],
+    "aliases": [
+      "supererogation",
+      "rewards"
+    ]
+  },
+  {
+    "id": "perseverance",
+    "title": "The perseverance of the saints",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "fc.21",
+      "39a.16",
+      "dort.1.r6",
+      "dort.5.a1-a8",
+      "dort.5.a14-a15",
+      "dort.5.r1-r4",
+      "dort.5.r7-r9",
+      "wcf.17.*",
+      "wlc.79",
+      "wsc.36"
+    ],
+    "aliases": [
+      "eternal security",
+      "preservation"
+    ]
+  },
+  {
+    "id": "assurance",
+    "title": "Assurance of grace and salvation",
+    "group": "Salvation in Christ",
+    "selectors": [
+      "hc.1",
+      "hc.21",
+      "shc.10.8-9",
+      "39a.17",
+      "dort.1.a12-a13",
+      "dort.1.a16",
+      "dort.1.r7",
+      "dort.5.a9-a13",
+      "dort.5.r5-r6",
+      "wcf.18.*",
+      "wlc.80-81",
+      "wsc.36"
+    ],
+    "aliases": [
+      "certainty",
+      "assurance of election"
+    ]
+  },
+  {
+    "id": "law-nature",
+    "title": "The moral, ceremonial, and judicial law",
+    "group": "The law of God",
+    "selectors": [
+      "fc.23",
+      "bc.25",
+      "shc.12.1-3",
+      "39a.7",
+      "wcf.19.1-5",
+      "wlc.91-93",
+      "wsc.39-40"
+    ],
+    "aliases": [
+      "Old Testament law",
+      "civil law"
+    ]
+  },
+  {
+    "id": "law-use",
+    "title": "The use of the law and its fulfilment in Christ",
+    "group": "The law of God",
+    "selectors": [
+      "fc.23",
+      "sc.15",
+      "hc.3-5",
+      "hc.114-115",
+      "shc.12.4-7",
+      "wcf.19.5-7",
+      "wlc.94-97",
+      "wlc.149",
+      "wsc.82"
+    ],
+    "aliases": [
+      "law and gospel",
+      "three uses of the law"
+    ]
+  },
+  {
+    "id": "ten-commandments",
+    "title": "The Ten Commandments: summary and interpretation",
+    "group": "The law of God",
+    "selectors": [
+      "hc.92-93",
+      "shc.12.2",
+      "wcf.19.2",
+      "wlc.98-102",
+      "wsc.41-44"
+    ],
+    "aliases": [
+      "Decalogue",
+      "preface to the law"
+    ]
+  },
+  {
+    "id": "first-commandment",
+    "title": "The first commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.94-95",
+      "wlc.103-106",
+      "wsc.45-48"
+    ],
+    "aliases": [
+      "idolatry",
+      "no other gods"
+    ]
+  },
+  {
+    "id": "second-commandment",
+    "title": "The second commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.96-98",
+      "wlc.107-110",
+      "wsc.49-52"
+    ],
+    "aliases": [
+      "images",
+      "graven image"
+    ]
+  },
+  {
+    "id": "third-commandment",
+    "title": "The third commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.99-102",
+      "wlc.111-114",
+      "wsc.53-56"
+    ],
+    "aliases": [
+      "blasphemy",
+      "name of God"
+    ]
+  },
+  {
+    "id": "sabbath",
+    "title": "The fourth commandment and the Lord's Day",
+    "group": "The law of God",
+    "selectors": [
+      "hc.103",
+      "shc.24.1-3",
+      "wcf.21.7-8",
+      "wlc.115-121",
+      "wsc.57-62"
+    ],
+    "aliases": [
+      "Sabbath",
+      "Sunday",
+      "holy rest"
+    ]
+  },
+  {
+    "id": "fifth-commandment",
+    "title": "The fifth commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.104",
+      "wlc.122-133",
+      "wsc.63-66"
+    ],
+    "aliases": [
+      "parents",
+      "superiors",
+      "inferiors"
+    ]
+  },
+  {
+    "id": "sixth-commandment",
+    "title": "The sixth commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.105-107",
+      "wlc.134-136",
+      "wsc.67-69"
+    ],
+    "aliases": [
+      "murder",
+      "life"
+    ]
+  },
+  {
+    "id": "seventh-commandment",
+    "title": "The seventh commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.108-109",
+      "wlc.137-139",
+      "wsc.70-72"
+    ],
+    "aliases": [
+      "adultery",
+      "chastity"
+    ]
+  },
+  {
+    "id": "eighth-commandment",
+    "title": "The eighth commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.110-111",
+      "wlc.140-142",
+      "wsc.73-75"
+    ],
+    "aliases": [
+      "theft",
+      "stealing"
+    ]
+  },
+  {
+    "id": "ninth-commandment",
+    "title": "The ninth commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.112",
+      "wlc.143-145",
+      "wsc.76-78"
+    ],
+    "aliases": [
+      "truth",
+      "lying",
+      "false witness"
+    ]
+  },
+  {
+    "id": "tenth-commandment",
+    "title": "The tenth commandment",
+    "group": "The law of God",
+    "selectors": [
+      "hc.113",
+      "wlc.146-148",
+      "wsc.79-81"
+    ],
+    "aliases": [
+      "coveting",
+      "contentment"
+    ]
+  },
+  {
+    "id": "church-nature",
+    "title": "The church and its membership",
+    "group": "The church",
+    "selectors": [
+      "ac.7-8",
+      "fc.26-28",
+      "sc.5",
+      "sc.16",
+      "bc.27-28",
+      "hc.54",
+      "shc.17.1-15",
+      "shc.17.22-26",
+      "39a.19",
+      "wcf.25.1-5",
+      "wlc.61-65"
+    ],
+    "aliases": [
+      "visible church",
+      "invisible church",
+      "catholic church"
+    ]
+  },
+  {
+    "id": "church-marks",
+    "title": "The marks of the true church",
+    "group": "The church",
+    "selectors": [
+      "ac.7-8",
+      "fc.27-28",
+      "sc.18",
+      "bc.29",
+      "shc.17.21-26",
+      "wcf.25.3-5"
+    ],
+    "aliases": [
+      "true and false church"
+    ]
+  },
+  {
+    "id": "church-authority",
+    "title": "Christ's headship and the church's authority",
+    "group": "The church",
+    "selectors": [
+      "ac.28",
+      "fc.30",
+      "bc.32",
+      "shc.17.16-20",
+      "shc.18.22-28",
+      "39a.20",
+      "wcf.25.6",
+      "wcf.30.1-2"
+    ],
+    "aliases": [
+      "head of the church",
+      "church power"
+    ]
+  },
+  {
+    "id": "ministry",
+    "title": "Ministry and church officers",
+    "group": "The church",
+    "selectors": [
+      "ac.14",
+      "fc.25",
+      "fc.29-31",
+      "sc.22",
+      "bc.30-31",
+      "shc.18.*",
+      "39a.23",
+      "39a.26",
+      "39a.36",
+      "wcf.30.1"
+    ],
+    "aliases": [
+      "ordination",
+      "elders",
+      "deacons",
+      "pastors",
+      "bishops"
+    ]
+  },
+  {
+    "id": "discipline",
+    "title": "Church discipline and the keys of the kingdom",
+    "group": "The church",
+    "selectors": [
+      "fc.33",
+      "bc.32",
+      "hc.82-85",
+      "shc.14.7-11",
+      "shc.18.25",
+      "shc.18.30",
+      "39a.33",
+      "wcf.30.*",
+      "wlc.173"
+    ],
+    "aliases": [
+      "excommunication",
+      "censures",
+      "absolution"
+    ]
+  },
+  {
+    "id": "communion-saints",
+    "title": "The communion of saints",
+    "group": "The church",
+    "selectors": [
+      "hc.55",
+      "shc.17.3",
+      "shc.17.7",
+      "shc.17.10",
+      "wcf.26.*",
+      "wlc.69",
+      "wlc.82-83"
+    ],
+    "aliases": [
+      "mutual edification",
+      "fellowship"
+    ]
+  },
+  {
+    "id": "councils",
+    "title": "Councils and synods",
+    "group": "The church",
+    "selectors": [
+      "sc.20",
+      "shc.2.2-3",
+      "shc.18.32",
+      "39a.21",
+      "wcf.31.*"
+    ],
+    "aliases": [
+      "church councils"
+    ]
+  },
+  {
+    "id": "church-customs",
+    "title": "Church customs and things indifferent",
+    "group": "The church",
+    "selectors": [
+      "ac.15",
+      "ac.26",
+      "fc.32-33",
+      "bc.32",
+      "shc.2.4",
+      "shc.17.27",
+      "shc.27.*",
+      "39a.34",
+      "wcf.20.2"
+    ],
+    "aliases": [
+      "adiaphora",
+      "rites",
+      "traditions",
+      "ceremonies"
+    ]
+  },
+  {
+    "id": "church-possessions",
+    "title": "Church possessions and care for the poor",
+    "group": "The church",
+    "selectors": [
+      "fc.29",
+      "bc.30",
+      "shc.18.33",
+      "shc.28.*",
+      "wcf.26.2-3"
+    ],
+    "aliases": [
+      "stewardship",
+      "church property",
+      "support of ministers",
+      "charity"
+    ]
+  },
+  {
+    "id": "sacraments",
+    "title": "The sacraments in general",
+    "group": "The means of grace",
+    "selectors": [
+      "ac.13",
+      "fc.34",
+      "fc.37-38",
+      "sc.21-22",
+      "bc.33",
+      "hc.65-68",
+      "shc.19.*",
+      "39a.25-26",
+      "wcf.27.*",
+      "wlc.161-164",
+      "wlc.176-177",
+      "wsc.91-93"
+    ],
+    "aliases": [
+      "signs and seals",
+      "sacramental union"
+    ]
+  },
+  {
+    "id": "baptism",
+    "title": "Baptism",
+    "group": "The means of grace",
+    "selectors": [
+      "ac.9",
+      "fc.35",
+      "fc.38",
+      "sc.23",
+      "bc.34",
+      "hc.69-74",
+      "shc.20.*",
+      "39a.27",
+      "wcf.28.*",
+      "wlc.165-167",
+      "wsc.94-95"
+    ],
+    "aliases": [
+      "mode of baptism",
+      "baptismal regeneration"
+    ]
+  },
+  {
+    "id": "infant-baptism",
+    "title": "Infant baptism and the children of believers",
+    "group": "The means of grace",
+    "selectors": [
+      "ac.9",
+      "fc.35",
+      "sc.23",
+      "bc.34",
+      "hc.74",
+      "shc.20.8",
+      "39a.27",
+      "wcf.28.4",
+      "wlc.166",
+      "wsc.95"
+    ],
+    "aliases": [
+      "paedobaptism",
+      "covenant children"
+    ]
+  },
+  {
+    "id": "lords-supper",
+    "title": "The Lord's Supper",
+    "group": "The means of grace",
+    "selectors": [
+      "ac.10",
+      "ac.22",
+      "ac.24",
+      "fc.36-38",
+      "bc.35",
+      "hc.75-80",
+      "shc.21.1-13",
+      "shc.21.15",
+      "39a.28-31",
+      "wcf.29.*",
+      "wlc.168-170",
+      "wlc.176-177",
+      "wsc.96"
+    ],
+    "aliases": [
+      "communion",
+      "Eucharist",
+      "real presence",
+      "transubstantiation",
+      "mass"
+    ]
+  },
+  {
+    "id": "supper-participation",
+    "title": "Preparation and admission to the Lord's Supper",
+    "group": "The means of grace",
+    "selectors": [
+      "fc.37",
+      "hc.81-82",
+      "shc.21.10-11",
+      "shc.21.14",
+      "wcf.29.7-8",
+      "wlc.171-175",
+      "wsc.97"
+    ],
+    "aliases": [
+      "worthy receiving",
+      "fencing the table",
+      "self examination"
+    ]
+  },
+  {
+    "id": "worship",
+    "title": "The worship of God and public assemblies",
+    "group": "Worship",
+    "selectors": [
+      "sc.14",
+      "fc.26",
+      "shc.5.1",
+      "shc.22.1-6",
+      "wcf.21.1-2",
+      "wcf.21.5-6",
+      "wlc.108-109"
+    ],
+    "aliases": [
+      "regulative principle",
+      "religious worship"
+    ]
+  },
+  {
+    "id": "images",
+    "title": "Images in worship",
+    "group": "Worship",
+    "selectors": [
+      "hc.96-98",
+      "shc.4.*",
+      "wcf.21.1",
+      "wlc.109"
+    ],
+    "aliases": [
+      "images of Christ",
+      "icons",
+      "pictures"
+    ]
+  },
+  {
+    "id": "saints-invocation",
+    "title": "The invocation and veneration of saints",
+    "group": "Worship",
+    "selectors": [
+      "ac.21",
+      "fc.24",
+      "bc.26",
+      "hc.30",
+      "hc.102",
+      "shc.5.2-5",
+      "39a.22",
+      "wcf.21.2",
+      "wlc.179-181"
+    ],
+    "aliases": [
+      "relics",
+      "prayers to saints"
+    ]
+  },
+  {
+    "id": "holy-days-fasting",
+    "title": "Holy days, fasting, and food",
+    "group": "Worship",
+    "selectors": [
+      "ac.26",
+      "shc.24.4-10",
+      "wcf.21.5"
+    ],
+    "aliases": [
+      "festivals",
+      "fasts",
+      "choice of meats"
+    ]
+  },
+  {
+    "id": "singing-language",
+    "title": "Singing and worship in a known language",
+    "group": "Worship",
+    "selectors": [
+      "shc.22.7",
+      "shc.23.1",
+      "shc.23.5",
+      "39a.24",
+      "wcf.21.5"
+    ],
+    "aliases": [
+      "psalms",
+      "hymns",
+      "common tongue"
+    ]
+  },
+  {
+    "id": "prayer",
+    "title": "Prayer",
+    "group": "Prayer",
+    "selectors": [
+      "fc.19",
+      "fc.24",
+      "bc.26",
+      "hc.116-118",
+      "shc.5.2",
+      "shc.23.2-4",
+      "shc.23.6",
+      "wcf.21.3-4",
+      "wlc.178-185",
+      "wsc.98"
+    ],
+    "aliases": [
+      "public prayer",
+      "private prayer",
+      "intercession"
+    ]
+  },
+  {
+    "id": "lords-prayer-preface",
+    "title": "The Lord's Prayer: pattern and preface",
+    "group": "Prayer",
+    "selectors": [
+      "hc.119-121",
+      "wlc.186-189",
+      "wsc.99-100"
+    ],
+    "aliases": [
+      "Our Father",
+      "prayer of the Lord"
+    ]
+  },
+  {
+    "id": "lords-prayer-first",
+    "title": "The first petition: Hallowed be thy name",
+    "group": "Prayer",
+    "selectors": [
+      "hc.122",
+      "wlc.190",
+      "wsc.101"
+    ],
+    "aliases": [
+      "first request"
+    ]
+  },
+  {
+    "id": "lords-prayer-second",
+    "title": "The second petition: Thy kingdom come",
+    "group": "Prayer",
+    "selectors": [
+      "hc.123",
+      "wlc.191",
+      "wsc.102"
+    ],
+    "aliases": [
+      "second request"
+    ]
+  },
+  {
+    "id": "lords-prayer-third",
+    "title": "The third petition: Thy will be done",
+    "group": "Prayer",
+    "selectors": [
+      "hc.124",
+      "wlc.192",
+      "wsc.103"
+    ],
+    "aliases": [
+      "third request"
+    ]
+  },
+  {
+    "id": "lords-prayer-fourth",
+    "title": "The fourth petition: Give us this day our daily bread",
+    "group": "Prayer",
+    "selectors": [
+      "hc.125",
+      "wlc.193",
+      "wsc.104"
+    ],
+    "aliases": [
+      "fourth request"
+    ]
+  },
+  {
+    "id": "lords-prayer-fifth",
+    "title": "The fifth petition: Forgive us our debts",
+    "group": "Prayer",
+    "selectors": [
+      "hc.126",
+      "wlc.194",
+      "wsc.105"
+    ],
+    "aliases": [
+      "fifth request"
+    ]
+  },
+  {
+    "id": "lords-prayer-sixth",
+    "title": "The sixth petition: Lead us not into temptation",
+    "group": "Prayer",
+    "selectors": [
+      "hc.127",
+      "wlc.195",
+      "wsc.106"
+    ],
+    "aliases": [
+      "sixth request",
+      "deliver us from evil"
+    ]
+  },
+  {
+    "id": "lords-prayer-conclusion",
+    "title": "The conclusion of the Lord's Prayer",
+    "group": "Prayer",
+    "selectors": [
+      "hc.128-129",
+      "wlc.196",
+      "wsc.107"
+    ],
+    "aliases": [
+      "doxology",
+      "Amen",
+      "thine is the kingdom"
+    ]
+  },
+  {
+    "id": "christian-liberty",
+    "title": "Christian liberty and liberty of conscience",
+    "group": "Christian life and society",
+    "selectors": [
+      "ac.26",
+      "fc.33",
+      "shc.24.8-9",
+      "shc.27.3",
+      "wcf.20.*"
+    ],
+    "aliases": [
+      "freedom of conscience"
+    ]
+  },
+  {
+    "id": "oaths-vows",
+    "title": "Lawful oaths and vows",
+    "group": "Christian life and society",
+    "selectors": [
+      "hc.101-102",
+      "shc.5.6",
+      "39a.39",
+      "wcf.22.*",
+      "wlc.112-114"
+    ],
+    "aliases": [
+      "swearing"
+    ]
+  },
+  {
+    "id": "celibacy-monasticism",
+    "title": "Celibacy and monastic vows",
+    "group": "Christian life and society",
+    "selectors": [
+      "ac.23",
+      "ac.27",
+      "shc.18.15",
+      "shc.29.1",
+      "39a.14",
+      "39a.32",
+      "wcf.22.7",
+      "wcf.24.2"
+    ],
+    "aliases": [
+      "monks",
+      "marriage of ministers",
+      "virginity"
+    ]
+  },
+  {
+    "id": "marriage-family",
+    "title": "Marriage, divorce, and family life",
+    "group": "Christian life and society",
+    "selectors": [
+      "ac.23",
+      "shc.29.*",
+      "39a.32",
+      "wcf.24.*",
+      "wlc.138-139"
+    ],
+    "aliases": [
+      "children",
+      "parenting",
+      "domestic affairs"
+    ]
+  },
+  {
+    "id": "civil-magistrate",
+    "title": "The civil magistrate and the duty of subjects",
+    "group": "Christian life and society",
+    "selectors": [
+      "ac.16",
+      "ac.28",
+      "fc.39-40",
+      "sc.24",
+      "bc.36",
+      "shc.30.*",
+      "39a.37",
+      "wcf.23.*"
+    ],
+    "aliases": [
+      "government",
+      "civil authority",
+      "taxation"
+    ]
+  },
+  {
+    "id": "property",
+    "title": "Property and Christian charity",
+    "group": "Christian life and society",
+    "selectors": [
+      "fc.40",
+      "hc.110-111",
+      "39a.38",
+      "wcf.26.2-3",
+      "wlc.141-142"
+    ],
+    "aliases": [
+      "goods",
+      "private property",
+      "community of goods"
+    ]
+  },
+  {
+    "id": "catechesis",
+    "title": "Catechesis and the instruction of children",
+    "group": "The church",
+    "selectors": [
+      "shc.25.1",
+      "shc.29.6",
+      "wlc.156-157"
+    ],
+    "aliases": [
+      "education",
+      "catechizing",
+      "teaching children"
+    ]
+  },
+  {
+    "id": "pastoral-care",
+    "title": "Pastoral care and visiting the sick",
+    "group": "The church",
+    "selectors": [
+      "shc.25.2"
+    ],
+    "aliases": [
+      "illness",
+      "comforting the sick",
+      "extreme unction"
+    ]
+  },
+  {
+    "id": "death",
+    "title": "Death and the intermediate state",
+    "group": "The last things",
+    "selectors": [
+      "sc.17",
+      "hc.42",
+      "shc.7.5",
+      "shc.26.3",
+      "wcf.32.1",
+      "wlc.84-86",
+      "wsc.37"
+    ],
+    "aliases": [
+      "immortality of the soul",
+      "soul sleep"
+    ]
+  },
+  {
+    "id": "resurrection",
+    "title": "The resurrection of the dead",
+    "group": "The last things",
+    "selectors": [
+      "ac.17",
+      "bc.37",
+      "hc.57",
+      "shc.11.13-14",
+      "wcf.32.2-3",
+      "wlc.87",
+      "wsc.38"
+    ],
+    "aliases": [
+      "resurrection of the body"
+    ]
+  },
+  {
+    "id": "last-judgment",
+    "title": "The last judgment and the return of Christ",
+    "group": "The last things",
+    "selectors": [
+      "ac.17",
+      "sc.11",
+      "bc.37",
+      "hc.52",
+      "shc.11.13-14",
+      "wcf.33.*",
+      "wlc.56",
+      "wlc.88-90"
+    ],
+    "aliases": [
+      "second coming",
+      "judgment day"
+    ]
+  },
+  {
+    "id": "eternal-life",
+    "title": "Eternal life and eternal punishment",
+    "group": "The last things",
+    "selectors": [
+      "ac.17",
+      "sc.17",
+      "bc.37",
+      "hc.58",
+      "shc.11.13-14",
+      "wcf.33.2",
+      "wlc.29",
+      "wlc.82-83",
+      "wlc.89-90",
+      "wsc.38"
+    ],
+    "aliases": [
+      "heaven",
+      "hell",
+      "everlasting life"
+    ]
+  },
+  {
+    "id": "burial-purgatory",
+    "title": "Burial, purgatory, and prayers for the dead",
+    "group": "The last things",
+    "selectors": [
+      "fc.24",
+      "shc.26.1-2",
+      "shc.26.4-5",
+      "39a.22",
+      "wcf.21.4",
+      "wcf.32.1"
+    ],
+    "aliases": [
+      "apparitions",
+      "spirits",
+      "care for the dead"
+    ]
+  },
+  {
+    "id": "prefaces",
+    "title": "Prefaces and introductions",
+    "group": "Historical texts",
+    "selectors": [
+      "ac.preface",
+      "fc.preface"
+    ],
+    "aliases": []
+  },
+  {
+    "id": "conclusions",
+    "title": "Conclusions and closing prayers",
+    "group": "Historical texts",
+    "selectors": [
+      "ac.transition",
+      "ac.conclusion",
+      "sc.25",
+      "dort.conclusion"
+    ],
+    "aliases": []
+  }
+]
