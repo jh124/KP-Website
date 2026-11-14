@@ -130,6 +130,7 @@ result = {
     'source': {
         'title': 'A Topical Reader of the Reformed Confessions',
         'pdfSha256': sha256(pdf_path.read_bytes()).hexdigest(),
+        'pdfPageCount': len(pdf),
         'epubSha256': sha256(epub.read_bytes()).hexdigest(),
         'passageCount': len(passages),
     },

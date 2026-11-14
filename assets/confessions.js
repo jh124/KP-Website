@@ -428,7 +428,7 @@ function renderColumns(topic) {
         const meta = document.createElement('div'); meta.className = 'passage-meta';
         const reference = document.createElement('span'); reference.textContent = passage.ref;
         const source = document.createElement('a');
-        source.href = new URL(`../downloads/reformed-confessions-reader.pdf#page=${passage.page}`, import.meta.url).href;
+        source.href = new URL(`../downloads/reformed-confessions-reader.pdf?v=${data.source.pdfSha256.slice(0,12)}#page=${passage.page}`, import.meta.url).href;
         source.textContent = `Reader p. ${passage.page}`; source.target = '_blank'; source.rel = 'noopener';
         source.setAttribute('aria-label', `${doc.shortName}, ${passage.ref}, in the Reader on page ${passage.page}`);
         const body = document.createElement('div'); body.className = 'passage-body';

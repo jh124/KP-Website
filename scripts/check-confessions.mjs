@@ -8,6 +8,7 @@ export async function checkConfessions() {
   const data = JSON.parse(await readFile(new URL('data/confessions-v2.json', root), 'utf8'));
   assert.equal(data.version, 2);
   assert.equal(data.documents.length, 11);
+  assert.ok(Number.isInteger(data.source.pdfPageCount) && data.source.pdfPageCount >= 4);
   assert.equal(new Set(data.documents.map(d => d.id)).size, 11);
   assert.equal(data.topics.length, 99);
   assert.equal(Object.keys(data.passages).length, 1146);
@@ -32,7 +33,7 @@ export async function checkConfessions() {
   }
   for (const [key, passage] of Object.entries(data.passages)) {
     assert.ok(plain(passage.html).trim(), `Empty passage: ${key}`);
-    assert.ok(Number.isInteger(passage.page) && passage.page >= 4 && passage.page <= 308, `Invalid page: ${key}`);
+    assert.ok(Number.isInteger(passage.page) && passage.page >= 4 && passage.page <= data.source.pdfPageCount, `Invalid page: ${key}`);
     assert.doesNotMatch(passage.html, /[\u0000\ufffd]|on\w+\s*=|(?:href|src|style)\s*=/i);
     for (const tag of passage.html.matchAll(/<\/?([a-z][a-z0-9]*)\b/gi)) assert.ok(['p','strong','b','em','i','table','tr','td','div'].includes(tag[1]));
     assert.doesNotMatch(plain(passage.html), /\b(?:kindne–ss|cosubstantial|Phillippi|Teatament|Godman|ofmurder|excercise|Fatehr|aqcuit|JUSFIFIED|vivfying|perservering|ordainances|caetchize|selfassurance|maidservent)\b|\[(?:801a|882a)\]/);
@@ -67,6 +68,12 @@ export async function checkConfessions() {
   assert.match(plain(data.passages['ac.23'].html), /great and evil vices and much iniquity\.\]/);
   assert.doesNotMatch(plain(data.passages['ac.21'].html), /This is about the Sum/);
   assert.ok(has('conclusions','ac.transition'));
+  assert.match(plain(data.passages['sc.14'].html), /We confess and acknowledge that God has given to man his holy law/);
+  assert.match(plain(data.passages['sc.14'].html), /good works of the second table/);
+  assert.match(plain(data.passages['sc.25'].html), /Albeit that the word of God truly preached/);
+  assert.match(plain(data.passages['sc.25'].html), /remission of sins.*resurrection of the flesh/s);
+  assert.ok(has('good-works','sc.14') && has('ten-commandments','sc.14'));
+  assert.ok(has('church-marks','sc.25') && has('resurrection','sc.25'));
   assert.ok(has('creeds','hc.22') && has('creeds','hc.23'));
   assert.match(data.passages['wcf.1.2'].html, /<table/);
   const page = await readFile(new URL('confessions/index.html', root), 'utf8');

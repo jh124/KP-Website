@@ -358,6 +358,7 @@
     "selectors": [
       "ac.19",
       "fc.11",
+      "sc.14",
       "hc.3-5",
       "hc.9-11",
       "shc.8.3",
@@ -698,6 +699,7 @@
     "group": "Salvation in Christ",
     "selectors": [
       "fc.20-21",
+      "sc.25",
       "hc.20-22",
       "hc.59-61",
       "shc.16.1-4",
@@ -721,6 +723,7 @@
       "fc.17-18",
       "fc.20",
       "sc.15",
+      "sc.25",
       "bc.22-23",
       "hc.56",
       "hc.59-64",
@@ -821,6 +824,7 @@
     "group": "Salvation in Christ",
     "selectors": [
       "fc.21",
+      "sc.25",
       "39a.16",
       "dort.1.r6",
       "dort.5.a1-a8",
@@ -841,6 +845,7 @@
     "title": "Assurance of grace and salvation",
     "group": "Salvation in Christ",
     "selectors": [
+      "sc.25",
       "hc.1",
       "hc.21",
       "shc.10.8-9",
@@ -865,6 +870,7 @@
     "group": "The law of God",
     "selectors": [
       "fc.23",
+      "sc.14",
       "bc.25",
       "shc.12.1-3",
       "39a.7",
@@ -883,6 +889,7 @@
     "group": "The law of God",
     "selectors": [
       "fc.23",
+      "sc.14",
       "sc.15",
       "hc.3-5",
       "hc.114-115",
@@ -902,6 +909,7 @@
     "title": "The Ten Commandments: summary and interpretation",
     "group": "The law of God",
     "selectors": [
+      "sc.14",
       "hc.92-93",
       "shc.12.2",
       "wcf.19.2",
@@ -1067,6 +1075,7 @@
       "fc.26-28",
       "sc.5",
       "sc.16",
+      "sc.25",
       "bc.27-28",
       "hc.54",
       "shc.17.1-15",
@@ -1089,6 +1098,7 @@
       "ac.7-8",
       "fc.27-28",
       "sc.18",
+      "sc.25",
       "bc.29",
       "shc.17.21-26",
       "wcf.25.3-5"
@@ -1243,6 +1253,7 @@
       "fc.34",
       "fc.37-38",
       "sc.21-22",
+      "sc.25",
       "bc.33",
       "hc.65-68",
       "shc.19.*",
@@ -1718,6 +1729,7 @@
     "group": "The last things",
     "selectors": [
       "ac.17",
+      "sc.25",
       "bc.37",
       "hc.57",
       "shc.11.13-14",
@@ -1736,6 +1748,7 @@
     "selectors": [
       "ac.17",
       "sc.11",
+      "sc.25",
       "bc.37",
       "hc.52",
       "shc.11.13-14",
@@ -1755,6 +1768,7 @@
     "selectors": [
       "ac.17",
       "sc.17",
+      "sc.25",
       "bc.37",
       "hc.58",
       "shc.11.13-14",
