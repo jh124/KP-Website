@@ -169,3 +169,43 @@
   .source-passage { break-inside: auto; }
   .q, .lbl, .passage-chapter, .passage-meta { break-after: avoid; }
 }
+
+/* Use a document scroll area instead of a platform popup for the complete topic list. */
+.topic-field { position: relative; }
+.topic-trigger { display: block; position: relative; width: 100%; min-height: 43px; padding: 9px 34px 9px 12px; border: 1px solid var(--rule); border-radius: 0; background: #fffdfa; color: var(--ink); font: 15px/1.5 var(--serif); cursor: pointer; text-align: left; }
+.topic-trigger > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topic-trigger::after { content: '⌄'; position: absolute; right: 12px; top: 10px; color: var(--accent); }
+.topic-trigger[aria-expanded="true"] { border-color: var(--accent); }
+.topic-browser { position: absolute; z-index: 30; top: calc(100% + 7px); left: 0; right: 0; min-width: 280px; border: 1px solid var(--rule); background: var(--paper); box-shadow: 0 8px 20px #292d261a; }
+.topic-browser-heading { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid var(--rule); color: var(--accent); font-size: 13px; }
+.topic-list { position: relative; max-height: 430px; overflow-y: auto; overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; scrollbar-gutter: stable; padding: 8px; }
+.topic-list h3 { margin: 15px 10px 6px; color: var(--muted); font: 500 10px/1.5 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.topic-list ul, .search-results-list ul { list-style: none; margin: 0; padding: 0; }
+.topic-option { display: block; width: 100%; padding: 11px 12px; min-height: 44px; border: 0; border-left: 2px solid transparent; background: transparent; color: var(--ink); text-align: left; font: 14px/1.5 var(--serif); cursor: pointer; }
+.topic-option:hover, .topic-option:focus-visible { background: #6b1f2a08; }
+.topic-option[aria-current="true"] { border-left-color: var(--accent); color: var(--accent); background: #6b1f2a08; }
+.search-results { margin-bottom: 32px; border: 1px solid var(--rule); scroll-margin-top: calc(var(--toolbar-height) + 18px); }
+.search-results-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 20px 0; }
+.search-results-heading h2 { margin: 0; color: var(--accent); font-size: 21px; line-height: 1.4; font-weight: 400; }
+.search-results-help { margin: 3px 20px 14px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.search-results-list { position: relative; max-height: min(480px, 52svh); overflow-y: auto; overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y; scrollbar-gutter: stable; }
+.search-results-list li { border-top: 1px solid var(--rule); }
+.search-result { display: block; width: 100%; padding: 15px 20px 17px; border: 0; background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+.search-result:hover, .search-result:focus-visible { background: #6b1f2a06; }
+.search-result > span { display: block; }
+.search-result-group { margin-bottom: 5px; color: var(--muted); font: 500 9px/1.5 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.search-result-title { margin-bottom: 6px; color: var(--accent); font: 19px/1.4 var(--serif); }
+.search-result-source { margin-bottom: 7px; color: var(--muted); font: 10px/1.5 var(--sans); }
+.search-result-preview { max-width: 1050px; font: 14px/1.6 var(--serif); }
+@media (max-width: 680px) {
+  .topic-trigger { font-size: 16px; min-height: 41px; }
+  .topic-browser { min-width: 0; width: calc(100vw - 36px); }
+  .topic-option { font-size: 15px; padding-block: 12px; }
+  .search-results-heading { padding-inline: 14px; }
+  .search-results-heading h2 { font-size: 18px; }
+  .search-results-help { margin-inline: 14px; }
+  .search-result { padding-inline: 14px; }
+  .search-result-title { font-size: 18px; }
+  .search-result-preview { font-size: 14px; }
+}
+@media print { .search-results, .topic-browser { display: none !important; } }

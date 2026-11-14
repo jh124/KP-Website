@@ -1,6 +1,8 @@
 const $ = selector => document.querySelector(selector);
 const grid = $('#comparison-columns');
-const topicSelect = $('#topic');
+const topicTrigger = $('#topic');
+const topicBrowser = $('#topic-browser');
+const topicList = $('#topic-list');
 const search = $('#reader-search');
 const picker = $('#confession-picker');
 const pager = $('#mobile-pager');
@@ -11,6 +13,8 @@ const LAST = 'kp-confessions:last';
 let data, state, docs, topics, matches = [], cards = [], choices = [], marks = [];
 let fontSize = 17, view = 'columns', activeMobile = 0, activeMatch = -1;
 let searchTimer, scrollFrame, lastHash;
+let resultsOpen = false;
+let topicButtons = [];
 const normalize = text => text.toLocaleLowerCase().normalize('NFKD').replace(/\p{Diacritic}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 
 $('#year').textContent = new Date().getFullYear();
@@ -26,7 +30,17 @@ function queryTerms(value) {
 }
 function findTopics() {
   const terms = queryTerms(state.query);
-  return data.topics.filter(topic => terms.every(term => topic.search.includes(term)));
+  const found = data.topics.filter(topic => terms.every(term => topic.search.includes(term)));
+  if (!terms.length) return found;
+  const phrase = normalize(state.query.replaceAll('"', ''));
+  const rank = topic => {
+    const title = normalize(topic.title);
+    if (title === phrase) return 3;
+    if (terms.every(term => title.includes(term))) return 2;
+    const labels = normalize(`${topic.title} ${topic.aliases.join(' ')}`);
+    return terms.every(term => labels.includes(term)) ? 1 : 0;
+  };
+  return found.sort((a, b) => rank(b) - rank(a));
 }
 function readState() {
   const params = new URLSearchParams(location.hash.slice(1));
@@ -68,22 +82,144 @@ function openPicker(event) {
   $('#reading-options').open = false;
   choices.find(({ button }) => !button.disabled)?.button.focus();
 }
-function renderTopicSelect() {
-  topicSelect.replaceChildren();
-  for (const groupName of data.groups) {
-    const list = matches.filter(topic => topic.group === groupName);
-    if (!list.length) continue;
-    const group = document.createElement('optgroup');
-    group.label = groupName;
-    for (const topic of list) group.append(new Option(topic.title, topic.id));
-    topicSelect.append(group);
+function closeTopicBrowser(returnFocus = false) {
+  topicBrowser.hidden = true;
+  topicTrigger.setAttribute('aria-expanded', 'false');
+  if (returnFocus) topicTrigger.focus({ preventScroll: true });
+}
+function sizeTopicBrowser() {
+  if (topicBrowser.hidden) return;
+  const room = window.innerHeight - topicBrowser.getBoundingClientRect().top - 20;
+  topicList.style.maxHeight = `${Math.max(120, Math.min(430, room - 50))}px`;
+}
+function openTopicBrowser() {
+  if (!data) return;
+  picker.open = false; $('#reading-options').open = false;
+  topicBrowser.hidden = false;
+  topicTrigger.setAttribute('aria-expanded', 'true');
+  if (window.innerHeight - topicBrowser.getBoundingClientRect().top < 220) {
+    $('#reader-toolbar').scrollIntoView({ block: 'start', behavior: 'instant' });
   }
-  if (!matches.length) topicSelect.append(new Option('No matching topics', ''));
-  topicSelect.disabled = !matches.length;
-  topicSelect.value = matches.length ? state.topic : '';
+  sizeTopicBrowser();
+  const current = topicButtons.find(item => item.id === state.topic)?.button;
+  if (current) {
+    topicList.scrollTop = current.offsetTop - 12;
+    current.focus({ preventScroll: true });
+  }
+}
+function buildTopicBrowser() {
+  topicList.replaceChildren(); topicButtons = [];
+  for (const groupName of data.groups) {
+    const section = document.createElement('section');
+    const heading = document.createElement('h3'); heading.textContent = groupName;
+    const list = document.createElement('ul');
+    for (const topic of data.topics.filter(item => item.group === groupName)) {
+      const row = document.createElement('li');
+      const item = button(topic.title, 'topic-option', () => setTopic(topic.id));
+      item.dataset.topic = topic.id;
+      row.append(item); list.append(row); topicButtons.push({ id: topic.id, button: item });
+    }
+    section.append(heading, list); topicList.append(section);
+  }
+}
+function updateTopicBrowser() {
+  $('#topic-name').textContent = topics.get(state.topic).title;
+  topicTrigger.disabled = false;
+  for (const item of topicButtons) item.button.setAttribute('aria-current', String(item.id === state.topic));
+}
+function resultHit(topic) {
+  const terms = queryTerms(state.query);
+  const refs = Object.values(topic.cells).flat();
+  const exact = refs.filter(key => terms.every(term => data.passages[key].search.includes(term)));
+  return exact.find(key => state.cols.includes(data.passages[key].document)) || exact[0] ||
+    refs.find(key => terms.some(term => normalize(data.passages[key].plain).includes(term))) || null;
+}
+function excerptPreview(passage) {
+  const text = passage.plain.replace(/\s+/g, ' ');
+  const terms = state.query.replaceAll('"', '').split(/\s+/).filter(term => term.length > 1);
+  const positions = terms.map(term => text.toLowerCase().indexOf(term.toLowerCase())).filter(index => index >= 0);
+  let start = positions.length ? Math.max(0, Math.min(...positions) - 65) : 0;
+  if (start) { const space = text.indexOf(' ', start); if (space >= 0) start = space + 1; }
+  const end = Math.min(text.length, start + 220);
+  return (start ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+}
+function scrollToResults() {
+  const height = Math.ceil($('#reader-toolbar').getBoundingClientRect().height);
+  document.body.style.setProperty('--toolbar-height', height + 'px');
+  $('#search-results').scrollIntoView({ block: 'start', behavior: 'instant' });
+}
+function openSearchResult(topic, ref) {
+  closeTopicBrowser();
+  state.topic = topic.id;
+  const doc = ref ? data.passages[ref].document : null;
+  if (doc && !state.cols.includes(doc)) {
+    if (state.cols.length < 4) state.cols.push(doc);
+    else state.cols[state.cols.length-1] = doc;
+  }
+  resultsOpen = false; saveState(); render();
+  requestAnimationFrame(() => {
+    const target = ref ? [...grid.querySelectorAll('.source-passage')].find(node => node.dataset.reference === ref) : null;
+    if (target) {
+      const index = cards.findIndex(card => card.section.contains(target));
+      if (index >= 0 && view === 'columns' && matchMedia('(max-width:680px)').matches) {
+        grid.scrollLeft = cards[index].section.offsetLeft - grid.offsetLeft; syncMobile();
+      }
+      target.tabIndex = -1; target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: 'start', behavior: 'instant' });
+    } else RESULTS.scrollIntoView({ block: 'start', behavior: 'instant' });
+  });
+}
+function renderSearchResults() {
+  const active = !!state.query.trim();
+  $('#search-results').hidden = !active || !resultsOpen;
+  $('#show-search-results').hidden = !active;
+  $('#show-search-results').textContent = `${resultsOpen ? 'Hide' : 'Show'} ${matches.length} results`;
+  $('#show-search-results').setAttribute('aria-expanded', String(active && resultsOpen));
+  $('#search-results-heading').textContent = `Search results · ${matches.length} ${matches.length === 1 ? 'topic' : 'topics'}`;
+  const container = $('#search-results-list'); container.replaceChildren();
+  $('#no-results').hidden = matches.length > 0;
+  container.hidden = !matches.length;
+  if (!active) return;
+  const list = document.createElement('ul');
+  for (const topic of matches) {
+    const ref = resultHit(topic);
+    const passage = ref ? data.passages[ref] : null;
+    const row = document.createElement('li');
+    const item = button('', 'search-result', () => openSearchResult(topic, ref));
+    const group = document.createElement('span'); group.className = 'search-result-group'; group.textContent = topic.group;
+    const title = document.createElement('span'); title.className = 'search-result-title'; title.textContent = topic.title;
+    item.append(group, title);
+    if (passage) {
+      const source = document.createElement('span'); source.className = 'search-result-source';
+      source.textContent = `${docs.get(passage.document).shortName} · ${passage.ref} · Reader p. ${passage.page}`;
+      const snippet = document.createElement('span'); snippet.className = 'search-result-preview'; snippet.textContent = excerptPreview(passage);
+      item.append(source, snippet);
+    } else {
+      const detail = document.createElement('span'); detail.className = 'search-result-source';
+      detail.textContent = `Topic match · ${Object.keys(topic.cells).length} confessions available`; item.append(detail);
+    }
+    item.dataset.topic = topic.id; if (ref) item.dataset.reference = ref;
+    row.append(item); list.append(row);
+  }
+  container.append(list);
+}
+function listKeys(event, container) {
+  const buttons = [...container.querySelectorAll('button')];
+  let index = buttons.indexOf(document.activeElement);
+  if (event.key === 'Home') index = 0;
+  else if (event.key === 'End') index = buttons.length-1;
+  else if (event.key === 'ArrowDown') index = Math.min(buttons.length-1, index+1);
+  else if (event.key === 'ArrowUp') index = Math.max(0, index-1);
+  else return;
+  if (!buttons[index]) return;
+  event.preventDefault(); buttons[index].focus({ preventScroll: true });
+  const item = buttons[index];
+  if (item.offsetTop < container.scrollTop) container.scrollTop = item.offsetTop;
+  else if (item.offsetTop + item.offsetHeight > container.scrollTop + container.clientHeight) container.scrollTop = item.offsetTop + item.offsetHeight - container.clientHeight;
 }
 function setTopic(id) {
   if (!topics.has(id)) return;
+  closeTopicBrowser(!topicBrowser.hidden); resultsOpen = false;
   state.topic = id;
   saveState();
   activeMobile = 0;
@@ -278,8 +414,8 @@ function renderPager() {
     });
     item.setAttribute('aria-label', `Read ${doc.name}`); pager.append(item);
   });
-  pager.hidden = state.cols.length < 2 || !matches.length;
-  $('#swipe-note').hidden = state.cols.length < 2 || view === 'stacked' || !matches.length;
+  pager.hidden = state.cols.length < 2;
+  $('#swipe-note').hidden = state.cols.length < 2 || view === 'stacked';
 }
 function syncMobile() {
   if (!cards.length) { grid.style.height = ''; return; }
@@ -297,42 +433,62 @@ function syncMobile() {
 }
 function render() {
   matches = findTopics();
-  if (matches.length && !matches.some(topic => topic.id === state.topic)) state.topic = matches[0].id;
   const topic = topics.get(state.topic);
-  renderTopicSelect(); search.value = state.query;
-  const index = matches.findIndex(item => item.id === state.topic);
+  updateTopicBrowser(); search.value = state.query;
+  const index = data.topics.findIndex(item => item.id === state.topic);
   $('#previous-topic').disabled = index <= 0;
-  $('#next-topic').disabled = index < 0 || index >= matches.length - 1;
+  $('#next-topic').disabled = index < 0 || index >= data.topics.length - 1;
   $('#topic-group').textContent = topic.group;
   $('#topic-title').textContent = topic.title;
   const available = Object.keys(topic.cells).length;
   $('#selection-status').textContent = `${state.cols.length} selected · ${available} available`;
   $('#selection-count').textContent = `(${state.cols.length}/4)`;
-  $('#search-status').textContent = state.query ? `${matches.length} ${matches.length === 1 ? 'topic found' : 'topics found'}` : `${data.topics.length} topics`;
-  $('#no-results').hidden = matches.length > 0;
-  grid.hidden = !matches.length || !state.cols.length;
-  $('#empty-comparison').hidden = !matches.length || !!state.cols.length;
+  $('#search-status').textContent = state.query.trim() ? `${matches.length} ${matches.length === 1 ? 'topic found' : 'topics found'}` : `${data.topics.length} topics`;
+  renderSearchResults();
+  grid.hidden = !state.cols.length;
+  $('#empty-comparison').hidden = !!state.cols.length;
   $('#clear-confessions').disabled = !state.cols.length;
-  $('#copy-comparison').disabled = !matches.length;
-  $('#compare-available').disabled = !matches.length;
+  $('#copy-comparison').disabled = false;
+  $('#compare-available').disabled = false;
   updateChoices(topic);
   renderColumns(topic); highlight(); renderPager();
   requestAnimationFrame(syncMobile);
 }
 function locationChanged() {
   if (!data || location.hash === lastHash) return;
-  lastHash = location.hash; state = readState(); activeMobile = 0; render();
+  lastHash = location.hash; state = readState(); resultsOpen = !!state.query.trim(); activeMobile = 0; closeTopicBrowser(); render();
 }
 function applySearch() {
   state.query = search.value;
-  activeMobile = 0; render(); saveState(false);
+  resultsOpen = !!state.query.trim();
+  closeTopicBrowser(); render(); saveState(false);
+  if (resultsOpen) scrollToResults();
 }
 search.addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(applySearch, 130); });
 search.addEventListener('search', () => { clearTimeout(searchTimer); applySearch(); });
 $('#clear-search').addEventListener('click', () => { search.value = ''; applySearch(); search.focus(); });
-topicSelect.addEventListener('change', () => setTopic(topicSelect.value));
-$('#previous-topic').addEventListener('click', () => setTopic(matches[matches.findIndex(t => t.id === state.topic)-1]?.id));
-$('#next-topic').addEventListener('click', () => setTopic(matches[matches.findIndex(t => t.id === state.topic)+1]?.id));
+topicTrigger.addEventListener('click', () => topicBrowser.hidden ? openTopicBrowser() : closeTopicBrowser(true));
+$('#close-topic-browser').addEventListener('click', () => closeTopicBrowser(true));
+topicTrigger.addEventListener('keydown', event => {
+  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); openTopicBrowser(); }
+});
+topicList.addEventListener('keydown', event => listKeys(event, topicList));
+$('#search-results-list').addEventListener('keydown', event => listKeys(event, $('#search-results-list')));
+$('#show-search-results').addEventListener('click', () => {
+  resultsOpen = !resultsOpen; renderSearchResults(); if (resultsOpen) scrollToResults();
+});
+$('#hide-search-results').addEventListener('click', () => { resultsOpen = false; renderSearchResults(); search.focus({ preventScroll: true }); });
+search.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault(); clearTimeout(searchTimer); applySearch();
+    $('#search-results-list button')?.focus({ preventScroll: true });
+  } else if (event.key === 'ArrowDown' && search.value.trim()) {
+    event.preventDefault(); clearTimeout(searchTimer); applySearch();
+    $('#search-results-list button')?.focus({ preventScroll: true });
+  }
+});
+$('#previous-topic').addEventListener('click', () => setTopic(data.topics[data.topics.findIndex(t => t.id === state.topic)-1]?.id));
+$('#next-topic').addEventListener('click', () => setTopic(data.topics[data.topics.findIndex(t => t.id === state.topic)+1]?.id));
 $('#compare-available').addEventListener('click', compareAvailable);
 $('#fill-empty').addEventListener('click', compareAvailable);
 $('#clear-confessions').addEventListener('click', () => { state.cols = []; saveState(); render(); });
@@ -356,18 +512,20 @@ $('#next-match').addEventListener('click', () => {
 grid.addEventListener('scroll', () => {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(() => { scrollFrame = null; syncMobile(); });
 }, { passive: true });
-window.addEventListener('resize', syncMobile);
+window.addEventListener('resize', () => { syncMobile(); sizeTopicBrowser(); });
 window.addEventListener('popstate', locationChanged);
 window.addEventListener('hashchange', locationChanged);
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
     picker.open = false; $('#reading-options').open = false;
+    if (!topicBrowser.hidden) { closeTopicBrowser(true); event.preventDefault(); return; }
     if (document.activeElement === search && search.value) { search.value = ''; applySearch(); }
   }
   if (event.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) { event.preventDefault(); search.focus(); }
 });
 document.addEventListener('click', event => {
   for (const details of [picker, $('#reading-options')]) if (!details.contains(event.target)) details.open = false;
+  if (!topicBrowser.contains(event.target) && !topicTrigger.contains(event.target)) closeTopicBrowser();
 });
 new ResizeObserver(entries => {
   const height = Math.ceil(entries[0].target.getBoundingClientRect().height);
@@ -390,10 +548,10 @@ async function loadReader() {
     }
     for (const topic of data.topics) topic.search = normalize(`${topic.title} ${topic.group} ${topic.aliases.join(' ')} ${Object.values(topic.cells).flat().map(key => data.passages[key].search).join(' ')}`);
     topics = new Map(data.topics.map(topic => [topic.id, topic]));
-    state = readState(); lastHash = location.hash;
+    state = readState(); lastHash = location.hash; resultsOpen = !!state.query.trim();
     const reading = stored(PREFS);
     if (reading) { fontSize = Math.max(15, Math.min(23, Number(reading.fontSize) || 17)); view = reading.view === 'stacked' ? 'stacked' : 'columns'; }
-    buildChoices(); preferences();
+    buildChoices(); buildTopicBrowser(); preferences();
     $('#reader-loading').hidden = true;
     search.disabled = false; render();
   } catch (error) {

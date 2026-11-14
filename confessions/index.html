@@ -24,8 +24,8 @@
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" sizes="any">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="../assets/confessions.css?v=2">
-    <script type="module" src="../assets/confessions.js?v=2"></script>
+    <link rel="stylesheet" href="../assets/confessions.css?v=3">
+    <script type="module" src="../assets/confessions.js?v=3"></script>
   </head>
   <body class="comparison-page">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -57,8 +57,12 @@
               <input id="reader-search" type="search" placeholder="Search topics, text, or references…" autocomplete="off" disabled aria-describedby="search-status">
             </div>
             <div class="topic-field">
-              <label for="topic">Topic</label>
-              <select id="topic" disabled><option>Loading topics…</option></select>
+              <label id="topic-label" for="topic">Topic</label>
+              <button id="topic" class="topic-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="topic-browser" aria-labelledby="topic-label topic-name" disabled><span id="topic-name">Loading topics…</span></button>
+              <div id="topic-browser" class="topic-browser" role="dialog" aria-label="Browse topics" hidden>
+                <div class="topic-browser-heading"><span>All topics</span><button id="close-topic-browser" type="button" class="text-button" aria-label="Close topic browser">Close</button></div>
+                <div id="topic-list" class="topic-list" role="region" aria-label="All topics" tabindex="0"></div>
+              </div>
             </div>
             <div class="topic-steps" role="group" aria-label="Browse topics">
               <button id="previous-topic" class="step-button" type="button" aria-label="Previous topic" title="Previous topic" disabled>←</button>
@@ -75,6 +79,7 @@
             </details>
             <button id="compare-available" class="text-button" type="button" disabled>Compare available</button>
             <span id="search-status" class="search-status" role="status"></span>
+            <button id="show-search-results" class="text-button" type="button" aria-controls="search-results" aria-expanded="false" hidden>Show results</button>
             <button id="next-match" class="text-button" type="button" hidden>Next match</button>
             <div class="reader-actions">
               <button id="copy-comparison" class="text-button" type="button" disabled>Copy link</button>
@@ -101,6 +106,12 @@
       </div>
 
       <section class="reader-wide reader-results" aria-label="Confession comparison">
+        <section id="search-results" class="search-results" aria-labelledby="search-results-heading" hidden>
+          <div class="search-results-heading"><h2 id="search-results-heading">Search results</h2><button id="hide-search-results" type="button" class="text-button">Hide results</button></div>
+          <p class="search-results-help">Choose a result to read the matching passage.</p>
+          <div id="search-results-list" class="search-results-list" role="region" aria-label="Search results" tabindex="0"></div>
+          <div id="no-results" class="reader-empty" hidden><p>No topics or passages match your search.</p><button id="clear-search" class="text-button" type="button">Clear search</button></div>
+        </section>
         <div class="reader-context">
           <div><p id="topic-group"></p><h2 id="topic-title"></h2></div>
           <p id="selection-status" role="status">Loading the corrected Reader…</p>
@@ -114,7 +125,6 @@
           <p>The comparison could not be loaded. Please try again.</p>
           <button id="retry-reader" class="retry" type="button">Try again</button>
         </div>
-        <div id="no-results" class="reader-empty" hidden><p>No topics or passages match your search.</p><button id="clear-search" class="text-button" type="button">Clear search</button></div>
         <div id="mobile-pager" class="mobile-pager" role="group" aria-label="Jump to a selected confession"></div>
         <p class="swipe-note" id="swipe-note" hidden>Swipe between confessions, or choose Stacked in Reading options.</p>
         <div class="reader-grid" id="comparison-columns"></div>
