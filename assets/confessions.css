@@ -1,4 +1,4 @@
-.comparison-page { --accent: #6b1f2a; --reader-size: 17px; --toolbar-height: 142px; --divider: #ded6d2; }
+.comparison-page { --accent: #6b1f2a; --reader-size: 17px; --confession-header-height: 142px; --divider: #ded6d2; }
 .reader-wide { width: min(1480px, calc(100% - 88px)); margin-inline: auto; }
 .nav-link[aria-current="page"] { text-decoration: underline; }
 .reader-introduction { padding-block: 34px 30px; text-align: center; }
@@ -8,7 +8,7 @@
 .reader-lede { margin: 17px 0 7px; font-size: 16px; line-height: 1.5; }
 .reader-edition { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .reader-edition cite { font-style: normal; }
-.reader-toolbar { position: sticky; top: 0; z-index: 10; background: var(--paper); border-block: 1px solid var(--rule); }
+.reader-toolbar { position: relative; z-index: 10; background: var(--paper); border-block: 1px solid var(--rule); }
 .topic-controls { display: grid; grid-template-columns: minmax(230px, .75fr) minmax(280px, 1.25fr) auto; align-items: end; gap: 16px; padding-block: 14px 10px; }
 .topic-field, .search-field { min-width: 0; }
 .topic-field label, .search-field label { display: block; margin-bottom: 7px; font: 500 9px/1.3 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
@@ -32,7 +32,7 @@
 .layout-controls button { flex: 1; padding-inline: 12px; }
 .layout-controls button[aria-pressed="true"] { background: #6b1f2a08; border-color: var(--accent); color: var(--accent); }
 .comparison-page button:disabled, .comparison-page input:disabled { opacity: .43; cursor: default; }
-.reader-results { padding-top: 25px; padding-bottom: 60px; scroll-margin-top: calc(var(--toolbar-height) + 18px); }
+.reader-results { padding-top: 25px; padding-bottom: 60px; scroll-margin-top: 18px; }
 .reader-context { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 #topic-group { margin: 0 0 8px; color: var(--muted); font: 500 9px/1.5 var(--sans); text-transform: uppercase; letter-spacing: .14em; }
 #topic-title { margin: 0; max-width: 900px; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.4; font-weight: 400; letter-spacing: -.02em; }
@@ -46,11 +46,10 @@
 .reader-error, .reader-empty { padding: 40px 16px; color: var(--muted); text-align: center; line-height: 1.6; }
 .reader-grid { display: grid; grid-template-columns: repeat(var(--column-count, 4), minmax(0, 1fr)); align-items: stretch; }
 .reader-grid[data-count="1"] { max-width: 800px; margin-inline: auto; }
-.confession-column { min-width: 0; border-top: 2px solid var(--accent); }
+.confession-column { min-width: 0; }
 .confession-column + .confession-column { border-left: 1px solid var(--divider); }
-.confession-heading { position: sticky; top: var(--toolbar-height); z-index: 3; padding: 15px 21px 13px; border-bottom: 1px solid var(--rule); background: var(--paper); }
-.column-position { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
-.confession-label { color: var(--muted); font: 500 9px/1.5 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.confession-heading { position: sticky; top: 0; z-index: 3; padding: 15px 21px 13px; border-top: 2px solid var(--accent); border-bottom: 1px solid var(--rule); background: var(--paper); }
+.column-position { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: 10px; }
 .move-controls { display: flex; gap: 4px; }
 .move-controls button { min-height: 26px; min-width: 26px; border: 0; padding: 0; background: transparent; color: var(--accent); cursor: pointer; font-size: 13px; }
 .confession-name { display: none; }
@@ -62,7 +61,7 @@
 .confession-text .lbl, .confession-text .q { margin: 0 0 .45em; font-weight: 600; line-height: 1.5; }
 .confession-text .a { margin-bottom: 0; }
 .confession-text strong, .confession-text b { font-weight: 600; }
-.source-passage { margin-bottom: 24px; scroll-margin-top: calc(var(--toolbar-height) + 160px); }
+.source-passage { margin-bottom: 24px; scroll-margin-top: calc(var(--confession-header-height) + 18px); }
 .passage-meta { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; margin-bottom: 8px; color: var(--muted); font: 9px/1.5 var(--sans); }
 .passage-meta a { text-decoration-color: var(--rule); white-space: nowrap; }
 .passage-chapter { margin: 30px 0 20px; color: var(--accent); font-size: 1em; font-weight: 400; line-height: 1.5; }
@@ -117,7 +116,7 @@
   .reader-context { margin-bottom: 18px; }
   #topic-title { font-size: 21px; }
   #selection-status { display: none; }
-  .mobile-pager { position: sticky; top: var(--toolbar-height); z-index: 5; display: flex; flex-wrap: wrap; gap: 6px; padding-block: 9px; margin: 0; background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .mobile-pager { position: static; display: flex; flex-wrap: wrap; gap: 6px; padding-block: 9px; margin: 0; background: var(--paper); border-bottom: 1px solid var(--rule); }
   .pager-button { min-height: 38px; min-width: 44px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 0; background: transparent; color: var(--muted); font-size: 11px; cursor: pointer; }
   .pager-button[aria-current="true"] { color: var(--paper); background: var(--accent); border-color: var(--accent); }
   .swipe-note { display: block; margin: 10px 0 16px; color: var(--muted); font-size: 10px; font-style: italic; }
@@ -125,12 +124,14 @@
   .confession-column { flex: 0 0 100%; width: 100%; scroll-snap-align: start; border-left: 0 !important; }
   .confession-heading { position: static; padding: 14px 0 10px; }
   .column-position, .confession-dropdown { display: none; }
+  .confession-column.has-pinned-heading::before { content: ''; display: block; height: var(--confession-header-height); }
+  .confession-column.has-pinned-heading > .confession-heading { position: fixed; top: var(--mobile-heading-top, 0px); left: var(--mobile-heading-left); width: var(--mobile-heading-width); z-index: 6; }
   .confession-name { display: block; margin: 0; color: var(--accent); font-size: 21px; font-weight: 400; line-height: 1.35; }
   .column-tools { margin-top: 10px; }
   .confession-text { padding: 20px 1px 0; font-size: max(17px, var(--reader-size)); line-height: 1.7; }
   .passage-meta { font-size: 9px; }
   .is-stacked .reader-grid { height: auto !important; overflow: visible; }
-  .is-stacked .confession-heading { position: sticky; top: var(--toolbar-height); }
+  .is-stacked .confession-heading { position: sticky; top: 0; }
   .is-stacked .mobile-pager { position: static; margin-bottom: 18px; }
 }
 @media print {
@@ -141,7 +142,8 @@
   .reader-grid, .is-stacked .reader-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); height: auto !important; overflow: visible; gap: 20px; }
   .reader-grid[data-count="1"] { grid-template-columns: minmax(0, 1fr); }
   .confession-column { border-left: 0 !important; margin: 0 !important; }
-  .confession-heading { position: static !important; padding: 12px 0; }
+  .confession-heading { position: static !important; width: auto !important; padding: 12px 0; }
+  .confession-column.has-pinned-heading::before { display: none; }
   .confession-name { display: block; font-size: 15px; font-weight: 400; }
   .confession-text { font-size: 10pt !important; padding: 15px 0; }
   .passage-meta { font-size: 7pt; }
@@ -166,7 +168,7 @@
 .dropdown-option { display: block; width: 100%; padding: 11px 12px; min-height: 44px; border: 0; border-left: 2px solid transparent; background: transparent; color: var(--ink); text-align: left; font: 14px/1.5 var(--serif); cursor: pointer; }
 .dropdown-option:hover:not(:disabled), .dropdown-option:focus-visible { background: #6b1f2a08; }
 .dropdown-option[aria-current="true"], .dropdown-option[aria-pressed="true"] { border-left-color: var(--accent); color: var(--accent); background: #6b1f2a08; }
-.search-results { margin-bottom: 32px; border: 1px solid var(--rule); scroll-margin-top: calc(var(--toolbar-height) + 18px); }
+.search-results { margin-bottom: 32px; border: 1px solid var(--rule); scroll-margin-top: 18px; }
 .search-results-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 20px 0; }
 .search-results-heading h2 { margin: 0; color: var(--accent); font-size: 21px; line-height: 1.4; font-weight: 400; }
 .search-results-help { margin: 3px 20px 14px; color: var(--muted); font-size: 12px; line-height: 1.5; }

@@ -7,12 +7,11 @@ const search = $('#reader-search');
 const picker = $('#confession-picker');
 const pager = $('#mobile-pager');
 const RESULTS = $('.reader-results');
-const POSITIONS = ['First confession', 'Second confession', 'Third confession', 'Fourth confession'];
 const PREFS = 'kp-confessions:reading';
 const LAST = 'kp-confessions:last';
 let data, state, docs, topics, matches = [], cards = [], choices = [], marks = [];
 let fontSize = 17, view = 'columns', activeMobile = 0, activeMatch = -1;
-let searchTimer, scrollFrame, lastHash;
+let searchTimer, scrollFrame, stickyFrame, lastHash;
 let resultsOpen = false;
 let topicButtons = [];
 const normalize = text => text.toLocaleLowerCase().normalize('NFKD').replace(/\p{Diacritic}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
@@ -183,8 +182,6 @@ function excerptPreview(passage) {
   return (start ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
 }
 function scrollToResults() {
-  const height = Math.ceil($('#reader-toolbar').getBoundingClientRect().height);
-  document.body.style.setProperty('--toolbar-height', height + 'px');
   $('#search-results').scrollIntoView({ block: 'start', behavior: 'instant' });
 }
 function openSearchResult(topic, ref) {
@@ -339,18 +336,18 @@ function copyExcerpt(doc, topic) {
   const name = doc.name.replace(/\s*\(\d{4}\)$/, '');
   copyText(`${text}\n\n— ${name}, ${citationReferences(passages)}`, `${doc.shortName} passages copied.`);
 }
-function confessionDropdown(doc, topic, slot, label) {
+function confessionDropdown(doc, topic, slot) {
   const menu = document.createElement('details'); menu.className = 'reader-dropdown confession-dropdown';
   const trigger = document.createElement('summary'); trigger.id = `confession-${slot}`; trigger.className = 'dropdown-trigger';
-  trigger.setAttribute('aria-labelledby', `${label.id} ${trigger.id}-name`);
+  trigger.setAttribute('aria-label', `Change ${doc.shortName}`);
   const selected = document.createElement('span'); selected.id = `${trigger.id}-name`; selected.textContent = doc.name;
   trigger.append(selected);
   const panel = document.createElement('div'); panel.className = 'dropdown-panel confession-menu';
   const heading = document.createElement('div'); heading.className = 'dropdown-heading';
   const title = document.createElement('span'); title.textContent = 'Choose a confession';
-  const close = document.createElement('button'); close.type = 'button'; close.className = 'text-button close-dropdown'; close.textContent = 'Close'; close.setAttribute('aria-label', `Close ${POSITIONS[slot].toLowerCase()} menu`);
+  const close = document.createElement('button'); close.type = 'button'; close.className = 'text-button close-dropdown'; close.textContent = 'Close'; close.setAttribute('aria-label', `Close ${doc.shortName} menu`);
   heading.append(title, close);
-  const list = document.createElement('div'); list.className = 'dropdown-list'; list.setAttribute('role', 'group'); list.setAttribute('aria-label', `Choose ${POSITIONS[slot].toLowerCase()}`);
+  const list = document.createElement('div'); list.className = 'dropdown-list'; list.setAttribute('role', 'group'); list.setAttribute('aria-label', `Replace ${doc.shortName}`);
   const choose = id => {
     if (id) state.cols[slot] = id;
     else state.cols.splice(slot, 1);
@@ -375,9 +372,13 @@ function confessionDropdown(doc, topic, slot, label) {
   return menu;
 }
 const bodyObserver = new ResizeObserver(() => syncMobile());
+const headerObserver = new ResizeObserver(entries => {
+  for (const { target } of entries) target.parentElement.style.setProperty('--confession-header-height', `${Math.ceil(target.getBoundingClientRect().height)}px`);
+  syncMobile();
+});
 function renderColumns(topic) {
   const activeDocument = cards[activeMobile]?.doc.id;
-  bodyObserver.disconnect();
+  bodyObserver.disconnect(); headerObserver.disconnect();
   grid.replaceChildren(); cards = [];
   grid.style.setProperty('--column-count', Math.max(1, state.cols.length));
   grid.dataset.count = state.cols.length;
@@ -387,8 +388,6 @@ function renderColumns(topic) {
     section.className = 'confession-column'; section.setAttribute('aria-label', doc.name);
     const header = document.createElement('div'); header.className = 'confession-heading';
     const position = document.createElement('div'); position.className = 'column-position';
-    const label = document.createElement('span'); label.className = 'confession-label';
-    label.id = `confession-label-${slot}`; label.textContent = POSITIONS[slot];
     const moves = document.createElement('div'); moves.className = 'move-controls';
     for (const [delta, arrow, direction] of [[-1, '←', 'left'], [1, '→', 'right']]) {
       const move = button(arrow, '', () => {
@@ -401,8 +400,8 @@ function renderColumns(topic) {
       move.disabled = slot + delta < 0 || slot + delta >= state.cols.length;
       moves.append(move);
     }
-    position.append(label, moves);
-    const select = confessionDropdown(doc, topic, slot, label);
+    position.append(moves);
+    const select = confessionDropdown(doc, topic, slot);
     const name = document.createElement('h3'); name.className = 'confession-name'; name.textContent = doc.name;
     const tools = document.createElement('div'); tools.className = 'column-tools';
     const count = document.createElement('span');
@@ -438,7 +437,7 @@ function renderColumns(topic) {
         meta.append(reference, source); block.append(meta, body); text.append(block);
       }
     }
-    section.append(header, text); grid.append(section); cards.push({ section, text, doc }); bodyObserver.observe(text);
+    section.append(header, text); grid.append(section); cards.push({ section, text, header, doc }); bodyObserver.observe(text); headerObserver.observe(header);
   });
   activeMobile = Math.max(0, cards.findIndex(card => card.doc.id === activeDocument));
   if (view === 'columns' && matchMedia('(max-width:680px)').matches) {
@@ -488,6 +487,19 @@ function renderPager() {
   pager.hidden = state.cols.length < 2;
   $('#swipe-note').hidden = state.cols.length < 2 || view === 'stacked';
 }
+// Horizontal overflow contains CSS sticky positioning on phones, so pin the active header in the viewport.
+function syncPinnedHeader() {
+  const mobile = view === 'columns' && matchMedia('(max-width: 680px)').matches;
+  const rect = grid.getBoundingClientRect();
+  const current = cards[activeMobile];
+  const pinned = mobile && current && rect.top < 0 && rect.bottom > 0;
+  for (const card of cards) card.section.classList.toggle('has-pinned-heading', !!pinned && card === current);
+  if (pinned) {
+    grid.style.setProperty('--mobile-heading-left', rect.left + 'px');
+    grid.style.setProperty('--mobile-heading-width', grid.clientWidth + 'px');
+    grid.style.setProperty('--mobile-heading-top', Math.min(0, rect.bottom - current.header.offsetHeight) + 'px');
+  }
+}
 function syncMobile() {
   if (!cards.length) { grid.style.height = ''; return; }
   const mobile = matchMedia('(max-width: 680px)').matches;
@@ -501,6 +513,7 @@ function syncMobile() {
     grid.style.height = `${cards[nearest].section.scrollHeight + 8}px`;
   } else grid.style.height = '';
   [...pager.children].forEach((item, index) => item.setAttribute('aria-current', String(index === activeMobile)));
+  syncPinnedHeader();
 }
 function render() {
   matches = findTopics();
@@ -533,7 +546,6 @@ function applySearch() {
   state.query = search.value;
   resultsOpen = !!state.query.trim();
   closeTopicBrowser(); render(); saveState(false);
-  if (resultsOpen) scrollToResults();
 }
 search.addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(applySearch, 130); });
 search.addEventListener('search', () => { clearTimeout(searchTimer); applySearch(); });
@@ -552,9 +564,11 @@ $('#hide-search-results').addEventListener('click', () => { resultsOpen = false;
 search.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     event.preventDefault(); clearTimeout(searchTimer); applySearch();
+    if (resultsOpen) scrollToResults();
     $('#search-results-list button')?.focus({ preventScroll: true });
   } else if (event.key === 'ArrowDown' && search.value.trim()) {
     event.preventDefault(); clearTimeout(searchTimer); applySearch();
+    if (resultsOpen) scrollToResults();
     $('#search-results-list button')?.focus({ preventScroll: true });
   }
 });
@@ -583,6 +597,9 @@ $('#next-match').addEventListener('click', () => {
 grid.addEventListener('scroll', () => {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(() => { scrollFrame = null; syncMobile(); });
 }, { passive: true });
+window.addEventListener('scroll', () => {
+  if (!stickyFrame) stickyFrame = requestAnimationFrame(() => { stickyFrame = null; syncPinnedHeader(); });
+}, { passive: true });
 window.addEventListener('resize', () => {
   syncMobile(); sizeTopicBrowser();
   for (const menu of document.querySelectorAll('.reader-dropdown[open]')) sizeDisclosure(menu);
@@ -602,10 +619,6 @@ document.addEventListener('click', event => {
   for (const menu of document.querySelectorAll('.reader-dropdown[open]')) if (!menu.contains(event.target)) closeDisclosure(menu);
   if (!topicBrowser.contains(event.target) && !topicTrigger.contains(event.target)) closeTopicBrowser();
 });
-new ResizeObserver(entries => {
-  const height = Math.ceil(entries[0].target.getBoundingClientRect().height);
-  document.body.style.setProperty('--toolbar-height', height + 'px');
-}).observe($('#reader-toolbar'));
 
 async function loadReader() {
   $('#load-error').hidden = true;
