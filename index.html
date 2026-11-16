@@ -1088,47 +1088,42 @@
             
             
             <script>
+              // This callback is invoked by MailerLite only when its
+              // signup handler reports a successful subscription request.
               function ml_webform_success_48635421() {
                 const widget = document.getElementById('mlb2-48635421');
                 if (!widget) return;
                 widget.querySelector('.row-success').style.display = 'block';
                 widget.querySelector('.row-form').style.display = 'none';
+                const status = document.getElementById('kp-mailerlite-status');
+                if (status) status.hidden = true;
               }
 
-              // The original HTML form submits successfully with a regular POST.
-              // Submit into a hidden frame so MailerLite's JSON response cannot
-              // open another tab, without an Ajax handler intercepting the POST.
               (() => {
                 const widget = document.getElementById('mlb2-48635421');
                 const form = widget.querySelector('form.ml-block-form');
                 const frame = document.getElementById('kp-mailerlite-response');
                 const status = document.getElementById('kp-mailerlite-status');
-                let submitted = false;
+                let awaitingFrameResponse = false;
 
-                form.addEventListener('submit', (event) => {
-                  if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
-                    event.preventDefault();
-                    status.hidden = false;
-                    status.textContent = 'Please complete the verification checkbox before subscribing.';
-                    return;
-                  }
-                  submitted = true;
+                form.addEventListener('submit', () => {
+                  awaitingFrameResponse = true;
                   status.hidden = false;
-                  status.textContent = 'Submitting your subscription…';
+                  status.textContent = 'Submitting…';
                 });
 
+                // If MailerLite's AJAX handler is blocked, the original
+                // HTML POST goes to this hidden iframe, not a new tab.
+                // An iframe load does NOT prove MailerLite accepted the signup.
                 frame.addEventListener('load', () => {
-                  // Ignore the iframe's initial blank-page load.
-                  if (!submitted) return;
-                  submitted = false;
-                  widget.querySelector('.ml-form-successContent p').textContent =
-                    'Your subscription request was sent. Check your email for any confirmation link.';
-                  ml_webform_success_48635421();
-                  status.hidden = true;
+                  if (!awaitingFrameResponse) return;
+                  awaitingFrameResponse = false;
+                  if (widget.querySelector('.row-form').style.display === 'none') return;
+                  status.textContent = 'MailerLite responded to your request. Check your inbox for a confirmation email. If none arrives, check the form’s settings in MailerLite.';
                 });
               })();
             </script>
-            
+            <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
                   <script>
                       fetch("https://assets.mailerlite.com/jsonp/2801074/forms/204323523140781409/takel")
                   </script>
