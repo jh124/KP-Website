@@ -1,4 +1,4 @@
-// Keep the native mobile disclosure menu usable without JavaScript.
+// Keep the native mobile disclosure menu functional without JavaScript.
 document.querySelectorAll(".mobile-menu").forEach((menu) => {
   menu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => { menu.open = false; });
@@ -14,74 +14,93 @@ document.querySelectorAll(".mobile-menu").forEach((menu) => {
   });
 });
 
-// Lulu's product widgets load after the initial page render. They can expand
-// the Print books section and push #ebooks away from the position that the
-// browser originally scrolled to.
-const ebooks = document.getElementById("ebooks");
+// Anchor navigation should not animate across a page whose Lulu widgets
+// are still expanding. An animated jump can end at a stale position in Safari.
+document.documentElement.style.scrollBehavior = "auto";
+
+const anchors = new Map(
+  ["books", "ebooks"]
+    .map((id) => ["#" + id, document.getElementById(id)])
+    .filter((entry) => entry[1])
+);
 const printBooks = document.getElementById("books");
 
-if (ebooks && printBooks) {
+if (anchors.size) {
   let resizeObserver;
   let expiryTimer;
-  let pendingFrame = 0;
+  let animationFrame = 0;
 
-  function alignEbooks() {
-    pendingFrame = 0;
-    if (window.location.hash !== "#ebooks") return;
-    // "instant" avoids an extended smooth-scroll animation fighting reflows.
-    ebooks.scrollIntoView({ block: "start", behavior: "instant" });
+  const selectedAnchor = () => anchors.get(window.location.hash);
+
+  function alignSelectedAnchor() {
+    animationFrame = 0;
+    const target = selectedAnchor();
+    if (target) target.scrollIntoView({ block: "start", behavior: "auto" });
   }
 
   function scheduleAlignment() {
-    if (!pendingFrame) pendingFrame = requestAnimationFrame(alignEbooks);
+    if (!animationFrame) animationFrame = requestAnimationFrame(alignSelectedAnchor);
   }
 
   function stopAlignment() {
     resizeObserver?.disconnect();
     resizeObserver = undefined;
     clearTimeout(expiryTimer);
-    if (pendingFrame) cancelAnimationFrame(pendingFrame);
-    pendingFrame = 0;
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+    animationFrame = 0;
     window.removeEventListener("pointerdown", stopAlignment);
     window.removeEventListener("wheel", stopAlignment);
+    window.removeEventListener("touchstart", stopAlignment);
     window.removeEventListener("keydown", stopAlignment);
   }
 
   function startAlignment() {
     stopAlignment();
-    if (window.location.hash !== "#ebooks") return;
+    if (!selectedAnchor()) return;
 
     scheduleAlignment();
-    // Correct the position whenever asynchronous catalogue/widget rendering
-    // changes the height of the section immediately preceding Ebooks.
-    if ("ResizeObserver" in window) {
+
+    // Lulu replaces and expands the entire print catalogue after page load,
+    // shifting the Ebooks section. Follow those actual layout changes.
+    if (window.location.hash === "#ebooks" && printBooks && "ResizeObserver" in window) {
       resizeObserver = new ResizeObserver(scheduleAlignment);
       resizeObserver.observe(printBooks);
     }
 
-    // Never fight intentional scrolling, and don't keep correcting forever.
+    // Respect scrolling and other direct interaction as soon as it begins.
     window.addEventListener("pointerdown", stopAlignment, { passive: true });
     window.addEventListener("wheel", stopAlignment, { passive: true });
+    window.addEventListener("touchstart", stopAlignment, { passive: true });
     window.addEventListener("keydown", stopAlignment);
     expiryTimer = setTimeout(stopAlignment, 20000);
   }
 
   document.addEventListener("click", (event) => {
-    const link = event.target.closest("a[href]");
+    if (event.defaultPrevented || event.button !== 0 ||
+        event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest?.("a[href]");
     if (!link) return;
+
     const destination = new URL(link.href);
-    if (destination.hash === "#ebooks" &&
-        destination.origin === window.location.origin &&
-        destination.pathname === window.location.pathname) {
-      // Even repeated taps on an unchanged #ebooks hash should realign.
-      setTimeout(startAlignment, 0);
+    if (destination.origin !== window.location.origin ||
+        destination.pathname !== window.location.pathname ||
+        !anchors.has(destination.hash)) return;
+
+    // Handle same-page links ourselves so repeated clicks work and Safari
+    // never runs a competing native smooth-scroll animation.
+    event.preventDefault();
+    if (window.location.hash !== destination.hash) {
+      history.pushState(null, "", destination.hash);
     }
+    startAlignment();
   });
-  window.addEventListener("hashchange", () => {
-    if (window.location.hash === "#ebooks") startAlignment();
-    else stopAlignment();
-  });
-  window.addEventListener("pageshow", () => {
-    if (window.location.hash === "#ebooks") startAlignment();
-  });
+
+  window.addEventListener("hashchange", startAlignment);
+  window.addEventListener("popstate", startAlignment);
+  window.addEventListener("pageshow", startAlignment);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startAlignment, { once: true });
+  } else {
+    startAlignment();
+  }
 }
