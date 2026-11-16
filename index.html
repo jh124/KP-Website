@@ -988,7 +988,7 @@
                                   <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
                                     
                                     <!-- input -->
-                                <input type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                                <input type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email" required>
                                 <!-- /input -->
                                   </div>
 
@@ -1066,7 +1066,8 @@
                       </form>
                     </div>
 
-                    <iframe name="kp-mailerlite-response" id="kp-mailerlite-response" title="Mailing list response" hidden tabindex="-1" aria-hidden="true"></iframe>
+                    <p id="kp-mailerlite-status" role="status" aria-live="polite" hidden style="margin: 0 0 20px; font-size: 14px;"></p>
+                    <iframe name="kp-mailerlite-response" id="kp-mailerlite-response" title="Mailing list response" tabindex="-1" aria-hidden="true" style="position: absolute; width: 1px; height: 1px; border: 0; clip-path: inset(50%);"></iframe>
 
                     <div class="ml-form-successBody row-success" style="display: none">
 
@@ -1094,27 +1095,40 @@
                 widget.querySelector('.row-form').style.display = 'none';
               }
 
-              // Keep the form on this page when MailerLite's Ajax script is blocked.
+              // The original HTML form submits successfully with a regular POST.
+              // Submit into a hidden frame so MailerLite's JSON response cannot
+              // open another tab, without an Ajax handler intercepting the POST.
               (() => {
                 const widget = document.getElementById('mlb2-48635421');
                 const form = widget.querySelector('form.ml-block-form');
                 const frame = document.getElementById('kp-mailerlite-response');
+                const status = document.getElementById('kp-mailerlite-status');
                 let submitted = false;
 
-                form.addEventListener('submit', () => { submitted = true; });
+                form.addEventListener('submit', (event) => {
+                  if (typeof grecaptcha === 'undefined' || !grecaptcha.getResponse()) {
+                    event.preventDefault();
+                    status.hidden = false;
+                    status.textContent = 'Please complete the verification checkbox before subscribing.';
+                    return;
+                  }
+                  submitted = true;
+                  status.hidden = false;
+                  status.textContent = 'Submitting your subscription…';
+                });
+
                 frame.addEventListener('load', () => {
-                  // The initial blank iframe load is not a form submission.
+                  // Ignore the iframe's initial blank-page load.
                   if (!submitted) return;
                   submitted = false;
-                  const message = widget.querySelector('.ml-form-successContent p');
-                  message.textContent = 'Your subscription request has been sent. If confirmation is required, please check your email.';
+                  widget.querySelector('.ml-form-successContent p').textContent =
+                    'Your subscription request was sent. Check your email for any confirmation link.';
                   ml_webform_success_48635421();
+                  status.hidden = true;
                 });
               })();
             </script>
             
-            
-                <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
                   <script>
                       fetch("https://assets.mailerlite.com/jsonp/2801074/forms/204323523140781409/takel")
                   </script>
