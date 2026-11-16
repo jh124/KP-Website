@@ -191,6 +191,7 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
     background: var(--paper);
     box-shadow: 0 12px 28px #292d2618;
   }
+  .site-header .mobile-menu:not([open]) > nav { display: none; }
   .site-header .mobile-menu .nav-link {
     display: flex;
     width: 100%;
