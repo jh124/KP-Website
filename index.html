@@ -1088,42 +1088,46 @@
             
             
             <script>
-              // This callback is invoked by MailerLite only when its
-              // signup handler reports a successful subscription request.
-              function ml_webform_success_48635421() {
-                const widget = document.getElementById('mlb2-48635421');
-                if (!widget) return;
-                widget.querySelector('.row-success').style.display = 'block';
-                widget.querySelector('.row-form').style.display = 'none';
-                const status = document.getElementById('kp-mailerlite-status');
-                if (status) status.hidden = true;
-              }
-
+              // Use the provider's ordinary HTML form POST, without an
+              // additional AJAX handler that might cancel or stall it.
               (() => {
-                const widget = document.getElementById('mlb2-48635421');
-                const form = widget.querySelector('form.ml-block-form');
+                const form = document.querySelector('#mlb2-48635421 form.ml-block-form');
                 const frame = document.getElementById('kp-mailerlite-response');
                 const status = document.getElementById('kp-mailerlite-status');
-                let awaitingFrameResponse = false;
+                const diagnostic = new URLSearchParams(window.location.search).has('mailerlite-debug');
+                let pending = false;
+                let resetStatus = null;
+
+                if (diagnostic) {
+                  frame.removeAttribute('aria-hidden');
+                  frame.style.cssText = 'display:block;position:static;width:100%;max-width:500px;height:180px;border:1px solid #d8d6ca;clip-path:none;margin:16px 0;';
+                  frame.title = 'Response from MailerLite signup server';
+                }
 
                 form.addEventListener('submit', () => {
-                  awaitingFrameResponse = true;
+                  pending = true;
                   status.hidden = false;
-                  status.textContent = 'Submitting…';
+                  status.textContent = 'Submitting to MailerLite…';
+                  if (resetStatus !== null) clearTimeout(resetStatus);
+                  resetStatus = setTimeout(() => {
+                    if (!pending) return;
+                    pending = false;
+                    status.textContent = 'No response was received. Please try again or use the diagnostic view.';
+                  }, 12000);
                 });
 
-                // If MailerLite's AJAX handler is blocked, the original
-                // HTML POST goes to this hidden iframe, not a new tab.
-                // An iframe load does NOT prove MailerLite accepted the signup.
                 frame.addEventListener('load', () => {
-                  if (!awaitingFrameResponse) return;
-                  awaitingFrameResponse = false;
-                  if (widget.querySelector('.row-form').style.display === 'none') return;
-                  status.textContent = 'MailerLite responded to your request. Check your inbox for a confirmation email. If none arrives, check the form’s settings in MailerLite.';
+                  // Do not treat the iframe's initial blank load as a response.
+                  if (!pending) return;
+                  pending = false;
+                  if (resetStatus !== null) clearTimeout(resetStatus);
+                  status.hidden = false;
+                  status.textContent = diagnostic
+                    ? 'MailerLite responded. See its raw response below to check whether the signup was accepted.'
+                    : 'MailerLite responded to the request. Verify the address in your Subscribers list; this page cannot read the cross-site response.';
                 });
               })();
             </script>
-            <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
                   <script>
                       fetch("https://assets.mailerlite.com/jsonp/2801074/forms/204323523140781409/takel")
                   </script>
