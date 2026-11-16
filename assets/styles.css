@@ -141,6 +141,7 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
 .about-copy { width: min(100%, 660px); margin-inline: auto; font-size: 18px; line-height: 1.78; }
 .about-copy p { margin: 0 0 1.4em; }
 .about-copy p:last-child { margin-bottom: 0; }
+.about-mailing-list { margin-top: 76px; }
 .about-footer { justify-content: center; flex-wrap: wrap; gap: 6px 28px; font: 12px/1.5 var(--sans); }
 .about-footer a { text-decoration: none; }
 .about-footer a:hover { text-decoration: underline; }
@@ -153,6 +154,7 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
   .about-introduction { padding-bottom: 36px; }
   .about-divider { margin-bottom: 30px; }
   .about-copy { font-size: 16px; line-height: 1.72; }
+  .about-mailing-list { margin-top: 56px; }
 }
 
 /* Mobile navigation menu */
