@@ -970,7 +970,7 @@
                         
                       </div>
 
-                      <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2801074/forms/204323523140781409/subscribe" data-code="" method="post" target="_blank">
+                      <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2801074/forms/204323523140781409/subscribe" data-code="" method="post" target="kp-mailerlite-response">
                         
 
                         <div class="ml-form-formContent horozintalForm">
@@ -1066,6 +1066,8 @@
                       </form>
                     </div>
 
+                    <iframe name="kp-mailerlite-response" id="kp-mailerlite-response" title="Mailing list response" hidden tabindex="-1" aria-hidden="true"></iframe>
+
                     <div class="ml-form-successBody row-success" style="display: none">
 
                       <div class="ml-form-successContent">
@@ -1086,11 +1088,30 @@
             
             <script>
               function ml_webform_success_48635421() {
-                var $ = ml_jQuery || jQuery;
-                $('.ml-subscribe-form-48635421 .row-success').show();
-                $('.ml-subscribe-form-48635421 .row-form').hide();
+                const widget = document.getElementById('mlb2-48635421');
+                if (!widget) return;
+                widget.querySelector('.row-success').style.display = 'block';
+                widget.querySelector('.row-form').style.display = 'none';
               }
-                </script>
+
+              // Keep the form on this page when MailerLite's Ajax script is blocked.
+              (() => {
+                const widget = document.getElementById('mlb2-48635421');
+                const form = widget.querySelector('form.ml-block-form');
+                const frame = document.getElementById('kp-mailerlite-response');
+                let submitted = false;
+
+                form.addEventListener('submit', () => { submitted = true; });
+                frame.addEventListener('load', () => {
+                  // The initial blank iframe load is not a form submission.
+                  if (!submitted) return;
+                  submitted = false;
+                  const message = widget.querySelector('.ml-form-successContent p');
+                  message.textContent = 'Your subscription request has been sent. If confirmation is required, please check your email.';
+                  ml_webform_success_48635421();
+                });
+              })();
+            </script>
             
             
                 <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
