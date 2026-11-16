@@ -137,7 +137,7 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
   letter-spacing: 0.06em;
 }
 .about-introduction { padding-bottom: 48px; }
-.about-divider { width: 180px; max-width: 80%; height: 1px; margin: 0 auto 36px; background: var(--rule); }
+.about-divider { display: block; width: 180px; max-width: 80%; height: 0; margin: 0 auto 36px; border-top: 2px solid #8c8e80; }
 .about-copy { width: min(100%, 660px); margin-inline: auto; font-size: 18px; line-height: 1.78; }
 .about-copy p { margin: 0 0 1.4em; }
 .about-copy p:last-child { margin-bottom: 0; }
