@@ -128,28 +128,25 @@ lulu-buy-button { display: block; min-width: 0; max-width: 100%; }
 }
 
 /* About page */
-.about-main { padding-block: 68px 80px; }
-.about-introduction { text-align: center; margin-bottom: 52px; }
-.about-introduction .crest { width: 132px; margin-bottom: 24px; }
-.about-introduction h1 { font-size: clamp(36px, 5vw, 54px); letter-spacing: -0.035em; }
+.about-main { padding-bottom: 80px; }
 .about-established {
-  margin: 15px 0 0;
+  margin: 20px 0 0;
+  text-align: center;
   color: var(--muted);
-  font: 12px/1.5 var(--sans);
-  letter-spacing: 0.12em;
+  font: 22px/1.4 var(--serif);
+  letter-spacing: 0.06em;
 }
 .about-copy { width: min(100%, 660px); margin-inline: auto; font-size: 18px; line-height: 1.78; }
 .about-copy p { margin: 0 0 1.4em; }
 .about-copy p:last-child { margin-bottom: 0; }
-.about-footer { justify-content: center; gap: 14px; font: 12px/1.5 var(--sans); }
+.about-footer { justify-content: center; flex-wrap: wrap; gap: 6px 28px; font: 12px/1.5 var(--sans); }
 .about-footer a { text-decoration: none; }
 .about-footer a:hover { text-decoration: underline; }
 
 @media (max-width: 600px) {
   .site-header nav { flex-wrap: wrap; column-gap: 10px; row-gap: 0; }
   .nav-link { font-size: 13px; }
-  .about-main { padding-block: 48px 60px; }
-  .about-introduction { margin-bottom: 38px; }
-  .about-introduction .crest { width: 108px; margin-bottom: 21px; }
+  .about-main { padding-bottom: 60px; }
+  .about-established { font-size: 20px; }
   .about-copy { font-size: 16px; line-height: 1.72; }
 }
