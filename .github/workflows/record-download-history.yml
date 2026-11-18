@@ -1,0 +1,34 @@
+name: Record ebook download history
+
+on:
+  schedule:
+    - cron: "2-59/5 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "assets/ebook-history.js"
+      - "assets/ebook-counts.js"
+      - "scripts/record-download-history.mjs"
+      - ".github/workflows/record-download-history.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ebook-download-history
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Record observed download increments
+        run: node scripts/record-download-history.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
