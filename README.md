@@ -38,7 +38,15 @@ Lulu references: [Buy Button setup guide](https://blog.lulu.com/buy-button-guide
 
 ## Ebooks
 
-The Ebooks section offers screen PDFs and reflowable EPUBs from `downloads/` and uses the finished front covers in `assets/covers/`. Covers are not interactive; downloads start only from the Download PDF and Download EPUB links. These listings work without JavaScript; Lulu's print catalogue is separate.
+The Ebooks section offers screen PDFs and reflowable EPUBs and uses the finished front covers in `assets/covers/`. Covers are not interactive; downloads start only from the Download PDF and Download EPUB links. These listings work without JavaScript; Lulu's print catalogue is separate.
+
+The published download buttons use GitHub's stable `releases/latest/download/<filename>` links. The editable source PDFs and EPUBs remain in `downloads/`. The **Publish ebook downloads** workflow publishes a complete snapshot whenever those files or the ebook listings change. It checks every uploaded file before switching the latest release. Unchanged snapshots reuse their assets. Earlier releases must be retained: their per-file counters are included in all-time totals, so revising an ebook never resets its history. Avoid publishing unrelated releases as "latest" in this repository; the latest release must contain the complete ebook catalogue.
+
+For a new ebook, first add its local file and listing, wait for **Publish ebook downloads** to succeed, then use its stable release download link. Existing ebooks need only their source files replaced. The workflow can also be run manually from Actions. It uses GitHub's automatic repository token and needs no stored personal token, analytics account, browser tracking script, or new hosting service.
+
+The owner's download report requires the complete secret link. Its JavaScript module is AES-256-GCM encrypted; the decryption key is carried only in the URL fragment and is not committed or sent in requests. The locked page contains no report and does not query GitHub. No navigation or sitemap links to the report, and its shell is marked `noindex, nofollow, noarchive, nosnippet` with `no-referrer`. The underlying release download counts are public GitHub metadata; the secret link protects access to the report, not that metadata.
+
+To change the sealed report, use the key from the owner's saved link to decrypt the module into a temporary file outside this repository, edit it, then run `node scripts/seal-report.mjs /absolute/path/to/module.mjs`, passing the existing key via stdin. Omitting the key generates a new one and revokes the old link after deployment. Never commit the key or the decrypted module. A lost key cannot be recovered from the repository; create a replacement report and key instead. Run `node scripts/check-ebook-tracking.mjs` and `node scripts/check-ebook-publisher.mjs` when changing this feature.
 
 ## Confession comparison
 
@@ -72,4 +80,4 @@ The root directory is ready for GitHub Pages. In the repository's **Settings →
 - `scripts/build-confessions.py`, `scripts/check-confessions.mjs`: corrected Reader import and verification.
 - `assets/crest.svg`, `assets/monogram.svg`: existing Kidderminster Press logo assets.
 
-No analytics, accounts, newsletter forms, or custom checkout are included.
+No third-party analytics or custom checkout are added by the download counters.

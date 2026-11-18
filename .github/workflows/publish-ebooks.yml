@@ -1,0 +1,35 @@
+name: Publish ebook downloads
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "downloads/**"
+      - "index.html"
+      - "scripts/ebook-files.mjs"
+      - "scripts/publish-ebooks.mjs"
+      - ".github/workflows/publish-ebooks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ebook-releases
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate ebook files
+        run: node scripts/publish-ebooks.mjs --check
+      - name: Publish complete snapshot and retain earlier counters
+        run: node scripts/publish-ebooks.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

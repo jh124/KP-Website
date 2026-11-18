@@ -1,0 +1,25 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { ebookFiles } from "./ebook-files.mjs";
+import { countDownloads } from "../assets/ebook-counts.js";
+
+const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const files = ebookFiles(html);
+assert.equal(files.length, new Set(files).size);
+for (const name of files) await readFile(new URL(`../downloads/${name}`, import.meta.url));
+assert.deepEqual(ebookFiles('<a class="ebook-download" href="./downloads/example.pdf?v=123">PDF</a><a class="ebook-download" href="https://github.com/owner/repo/releases/latest/download/example.epub">EPUB</a>'), ["example.epub", "example.pdf"]);
+const books = [{ title: "Example", pdf: "example.pdf", epub: "example.epub" }, { title: "New", pdf: "new.pdf", epub: "new.epub" }];
+const asset = (id, name, download_count) => ({ id, name, download_count, state: "uploaded" });
+const assets = [asset(1, "example.pdf", 7), asset(2, "example.pdf", 11), asset(3, "example.epub", 5), asset(1, "example.pdf", 7), asset(4, "other.pdf", 999)];
+assert.deepEqual(countDownloads(books, assets).map(({ pdfCount, epubCount, total }) => [pdfCount, epubCount, total]), [[18, 5, 23], [0, 0, 0]]);
+assert.throws(() => countDownloads(books, [asset(5, "example.pdf", -1)]));
+const gate = await readFile(new URL("../records/index.html", import.meta.url), "utf8");
+assert.match(gate, /noindex, nofollow/);
+assert.match(gate, /no-referrer/);
+assert.doesNotMatch(html, /(?:records\/|unlock\.js|report\.enc\.json)/);
+const sealed = JSON.parse(await readFile(new URL("../records/report.enc.json", import.meta.url), "utf8"));
+assert.equal(sealed.version, 1);
+assert.equal(Buffer.from(sealed.iv, "base64url").length, 12);
+assert.ok(Buffer.from(sealed.data, "base64url").length > 16);
+assert.equal(Object.hasOwn(sealed, "key"), false);
+console.log(`Checked ${files.length} ebook links, retained-edition totals, duplicate assets, and the sealed dashboard.`);

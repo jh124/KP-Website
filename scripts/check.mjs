@@ -21,3 +21,4 @@ for (const book of books) {
 }
 console.log(`Checked local page assets and ${books.length} book listing(s).`);
 await checkConfessions();
+await import("./check-ebook-tracking.mjs");
