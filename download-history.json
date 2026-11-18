@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "timeZone": "America/New_York",
+  "weekStartsOn": 0,
+  "trackingStartedAt": "2026-11-18T19:11:37Z",
+  "recordedAt": "2026-11-18T23:55:07.217Z",
+  "checkedDates": [
+    "2026-11-18"
+  ],
+  "assets": {
+    "764644733": {
+      "name": "baptismal-regeneration-of-elect-infants.epub",
+      "count": 2,
+      "days": {
+        "2026-11-18": 2
+      }
+    },
+    "764644766": {
+      "name": "baptismal-regeneration-of-elect-infants.pdf",
+      "count": 5,
+      "days": {
+        "2026-11-18": 5
+      }
+    },
+    "764644782": {
+      "name": "baxter-a-key-for-catholics.epub",
+      "count": 2,
+      "days": {
+        "2026-11-18": 2
+      }
+    },
+    "764644814": {
+      "name": "baxter-a-key-for-catholics.pdf",
+      "count": 3,
+      "days": {
+        "2026-11-18": 3
+      }
+    },
+    "764644890": {
+      "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.epub",
+      "count": 2,
+      "days": {
+        "2026-11-18": 2
+      }
+    },
+    "764644916": {
+      "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.pdf",
+      "count": 5,
+      "days": {
+        "2026-11-18": 5
+      }
+    },
+    "764644954": {
+      "name": "baxter-three-anti-papist-works.epub",
+      "count": 2,
+      "days": {
+        "2026-11-18": 2
+      }
+    },
+    "764644992": {
+      "name": "baxter-three-anti-papist-works.pdf",
+      "count": 3,
+      "days": {
+        "2026-11-18": 3
+      }
+    },
+    "764645017": {
+      "name": "james-hadow-two-works.epub",
+      "count": 2,
+      "days": {
+        "2026-11-18": 2
+      }
+    },
+    "764645071": {
+      "name": "james-hadow-two-works.pdf",
+      "count": 3,
+      "days": {
+        "2026-11-18": 3
+      }
+    },
+    "764645135": {
+      "name": "reformed-confessions-reader.epub",
+      "count": 2,
+      "days": {
+        "2026-11-18": 2
+      }
+    },
+    "764645168": {
+      "name": "reformed-confessions-reader.pdf",
+      "count": 3,
+      "days": {
+        "2026-11-18": 3
+      }
+    }
+  }
+}
