@@ -46,6 +46,8 @@ For a new ebook, first add its local file and listing, wait for **Publish ebook 
 
 The owner's download report requires the complete secret link. Its JavaScript module is AES-256-GCM encrypted; the decryption key is carried only in the URL fragment and is not committed or sent in requests. The locked page contains no report and does not query GitHub. No navigation or sitemap links to the report, and its shell is marked `noindex, nofollow, noarchive, nosnippet` with `no-referrer`. The underlying release download counts are public GitHub metadata; the secret link protects access to the report, not that metadata.
 
+These counts follow GitHub's reporting rules and update schedule. They are not guaranteed to count every repeat request or change immediately after a download. Refresh uses a unique request URL and `cache: "no-store"` to avoid reusing an earlier API response, but it cannot force GitHub to record or publish a new count. The time on the report indicates when GitHub's totals were fetched, not when GitHub processed the downloads.
+
 To change the sealed report, use the key from the owner's saved link to decrypt the module into a temporary file outside this repository, edit it, then run `node scripts/seal-report.mjs /absolute/path/to/module.mjs`, passing the existing key via stdin. Omitting the key generates a new one and revokes the old link after deployment. Never commit the key or the decrypted module. A lost key cannot be recovered from the repository; create a replacement report and key instead. Run `node scripts/check-ebook-tracking.mjs` and `node scripts/check-ebook-publisher.mjs` when changing this feature.
 
 ## Confession comparison
