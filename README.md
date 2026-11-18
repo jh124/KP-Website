@@ -48,6 +48,8 @@ The owner's download report requires the complete secret link. Its JavaScript mo
 
 These counts follow GitHub's reporting rules and update schedule. They are not guaranteed to count every repeat request or change immediately after a download. Refresh uses a unique request URL and `cache: "no-store"` to avoid reusing an earlier API response, but it cannot force GitHub to record or publish a new count. The time on the report indicates when GitHub's totals were fetched, not when GitHub processed the downloads.
 
+The 26 setup/verification requests made on 18 November 2026 are excluded by the fixed, per-asset ledger in `assets/ebook-counts.js`. Subtraction happens once for each original asset ID before edition totals are combined. It is not a recurring reset: later downloads and replacement editions keep their full counts. GitHub's raw counters and earlier releases are retained. Use release metadata and SHA-256 digests to verify uploads; avoid requesting public download URLs for routine checks, since those requests can affect the counters.
+
 To change the sealed report, use the key from the owner's saved link to decrypt the module into a temporary file outside this repository, edit it, then run `node scripts/seal-report.mjs /absolute/path/to/module.mjs`, passing the existing key via stdin. Omitting the key generates a new one and revokes the old link after deployment. Never commit the key or the decrypted module. A lost key cannot be recovered from the repository; create a replacement report and key instead. Run `node scripts/check-ebook-tracking.mjs` and `node scripts/check-ebook-publisher.mjs` when changing this feature.
 
 ## Confession comparison
