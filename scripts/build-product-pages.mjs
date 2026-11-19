@@ -16,11 +16,11 @@ const bookUrl = book => `/books/${book.slug}/`;
 
 function cartButton(book) {
   const widget = book.luluCartWidget;
-  if (!widget) return '<button class="add-to-cart" type="button" disabled aria-describedby="purchase-note">Add to cart</button>';
+  if (!widget) return '<button class="add-to-cart" data-purchase-controls type="button" disabled>Add to cart</button>';
   if (widget.variant !== "button-only" || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(widget.buyButtonId)) {
     throw new Error(`Invalid button-only Lulu widget for ${book.title}.`);
   }
-  return `<lulu-buy-button buy-button-id="${escape(widget.buyButtonId)}" variant="button-only"></lulu-buy-button>`;
+  return `<lulu-buy-button data-purchase-controls buy-button-id="${escape(widget.buyButtonId)}" variant="button-only"></lulu-buy-button>`;
 }
 
 function head({ title, description, prefix, pathname = "/", book, schema }) {
@@ -50,7 +50,7 @@ function head({ title, description, prefix, pathname = "/", book, schema }) {
     <link rel="apple-touch-icon" href="${prefix}apple-touch-icon.png">
     <link rel="mask-icon" href="${prefix}safari-pinned-tab.svg" color="#292929">
     <link rel="stylesheet" href="${prefix}assets/styles.css?v=shared-footer-1">
-    <link rel="stylesheet" href="${prefix}assets/storefront.css?v=matching-logo-1">
+    <link rel="stylesheet" href="${prefix}assets/storefront.css?v=simple-cards-1">
     <script defer src="${prefix}assets/mobile-menu.js?v=footer-back-1"></script>
     <script type="module" src="${prefix}assets/products.js"></script>
     <script type="application/ld+json">${json(schema)}</script>
@@ -89,8 +89,6 @@ function card(book, prefix, index = 1) {
       <div class="catalogue-card-copy">
         <h3><a href="${prefix}books/${book.slug}/">${escape(book.title)}</a></h3>
         <p class="catalogue-author">${escape(byline(book))}</p>
-        <p class="catalogue-price">${escape(book.printFormat)} <span class="price-separator" aria-hidden="true">·</span> <span class="price-amount">${price(book)} <span class="currency">USD</span></span></p>
-        <a class="book-detail-link" href="${prefix}books/${book.slug}/">View book<span class="sr-only">: ${escape(book.title)}</span></a>
       </div>
     </article>`;
 }
@@ -160,8 +158,7 @@ for (const book of books) {
           <p class="product-editor">${escape(credits(book))}</p>
           <section class="purchase-panel" data-print-purchase aria-labelledby="print-heading">
             <div class="purchase-heading"><div><h2 id="print-heading">${escape(book.printFormat)}</h2><p>${escape(book.edition)}</p></div><p class="print-price">${price(book)}<span>USD</span></p></div>
-            <div data-purchase-controls><div class="purchase-widget-slot" data-lulu-slot="${book.slug}">${cartButton(book)}</div></div>
-            <p class="lords-day-message" data-lords-day-message role="status" hidden>Books are not available for purchase on the Lord’s Day. Please check back tomorrow.</p>
+            <div class="purchase-widget-slot" data-lulu-slot="${book.slug}">${cartButton(book)}<p class="lords-day-message" data-lords-day-message role="status" hidden>Books are not available for purchase on the Lord’s Day. Please check back tomorrow.</p></div>
           </section>
           <section id="ebooks" class="product-ebooks" aria-labelledby="ebooks-heading"><h2 id="ebooks-heading">Free ebook</h2><p>Download the complete book. No sign-up required.</p>${downloads(book)}</section>
         </div>

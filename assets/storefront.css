@@ -12,20 +12,16 @@
 .catalogue-heading h2 { margin: 0; font-size: 29px; font-weight: 400; letter-spacing: -.025em; }
 .catalogue-heading p, .catalogue-heading > a { color: var(--muted); margin: 0; font: 14px/1.6 var(--sans); }
 .storefront-catalogue { scroll-margin-top: 30px; padding-bottom: 78px; }
-.storefront-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 54px 40px; }
+.storefront-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 54px 40px; }
 .catalogue-card { min-width: 0; display: flex; flex-direction: column; }
 .catalogue-cover-link { display: flex; justify-content: center; align-items: center; min-height: 345px; padding: 24px; background: #ededed; border: 1px solid #e5e5e5; text-decoration: none; }
 .catalogue-cover-link img { width: auto; height: 296px; max-width: 100%; object-fit: contain; filter: drop-shadow(4px 7px 6px #29292922); }
-.catalogue-card-copy { display: flex; flex: 1; flex-direction: column; padding-top: 23px; container-type: inline-size; }
+.catalogue-card-copy { display: flex; flex-direction: column; padding-top: 23px; }
 .catalogue-category, .eyebrow { margin: 0 0 11px; color: var(--accent); font: 14px/1.5 var(--sans); }
 .catalogue-card h3 { margin: 0 0 4px; font-size: 23px; font-weight: 400; line-height: 1.3; letter-spacing: -.022em; text-wrap: pretty; }
 .catalogue-card h3 a { text-decoration: none; }
 .catalogue-card h3 a:hover { text-decoration: underline; }
-.catalogue-author { margin: 0 0 12px; color: var(--muted); font-size: 16px; line-height: 1.55; }
-.catalogue-price { margin: auto 0 0; font: 15px/1.5 var(--sans); }
-.catalogue-price .price-amount { white-space: nowrap; }
-.catalogue-price .currency { font-size: 12px; color: var(--muted); }
-.book-detail-link { display: inline-flex; align-items: flex-start; align-self: flex-start; min-height: 44px; padding-top: 3px; font-size: 16px; line-height: 1.5; }
+.catalogue-author { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.55; }
 .free-library { border-block: 1px solid var(--rule); padding: 42px 0; margin-bottom: 56px; scroll-margin-top: 30px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr); gap: 60px; }
 .library-intro h2 { font-size: 33px; line-height: 1.2; font-weight: 400; letter-spacing: -.025em; margin: 0 0 20px; }
 .library-intro > p:last-child { color: var(--muted); font-size: 17px; line-height: 1.65; margin: 0; }
@@ -68,7 +64,7 @@
 .purchase-widget-slot { display: flex; justify-content: center; align-items: center; min-height: 48px; }
 .purchase-widget-slot > lulu-buy-button[variant="button-only"] { flex: none; max-width: none; margin-block: -12px; filter: grayscale(1); }
 .purchase-note { font: 13px/1.5 var(--sans); color: #616161; margin: 8px 0 0; text-align: center; }
-.lords-day-message { margin: 12px 0 0; font-size: 16px; line-height: 1.6; }
+.lords-day-message { margin: 0; font-size: 16px; line-height: 1.6; text-align: center; }
 .product-ebooks { max-width: 520px; padding-top: 25px; scroll-margin-top: 30px; }
 .product-ebooks h2 { margin: 0; font-size: 22px; font-weight: 400; }
 .product-ebooks > p { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 9px 0 14px; }
@@ -99,18 +95,12 @@
 .comparison-link a { font-size: 17px; }
 .comparison-link span { display: block; color: var(--muted); font-size: 15px; margin-top: 5px; }
 .related-books { margin-bottom: 70px; }
-.related-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 45px; }
+.related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 45px; }
 .related-grid .catalogue-card { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 25px; }
 .related-grid .catalogue-cover-link { min-height: 210px; align-self: start; padding: 15px; }
 .related-grid .catalogue-cover-link img { height: auto; max-height: 175px; }
 .related-grid .catalogue-card-copy { padding: 0; }
 .related-grid h3 { font-size: 20px; }
-
-/* Stack the whole price line consistently when a card is too narrow for both parts. */
-@container (max-width: 10rem) {
-  .catalogue-price .price-separator { display: none; }
-  .catalogue-price .price-amount { display: block; }
-}
 
 @media (max-width: 1050px) {
   .storefront-grid { gap: 45px 28px; }
@@ -159,8 +149,6 @@
   .catalogue-category { display: none; }
   .catalogue-card h3 { font-size: 20px; line-height: 1.3; }
   .catalogue-author { font-size: 15px; }
-  .catalogue-price { font-size: 14px; }
-  .book-detail-link { font-size: 15px; }
   .storefront-catalogue { padding-bottom: 42px; }
   .free-library { grid-template-columns: 1fr; gap: 30px; padding-block: 30px; margin-bottom: 40px; }
   .library-intro h2 { font-size: 30px; margin-bottom: 13px; }
@@ -194,7 +182,6 @@
   .storefront-grid, .related-grid { gap: 28px 16px; }
   .catalogue-cover-link, .related-grid .catalogue-cover-link { min-height: 190px; padding: 13px; }
   .catalogue-card h3, .related-grid h3 { font-size: 18px; }
-  .catalogue-price { font-size: 13px; }
   .contents-list-long { columns: 1; }
 }
 @media (prefers-reduced-motion: no-preference) {

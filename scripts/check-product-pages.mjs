@@ -21,7 +21,7 @@ for (const [file, html] of htmlByFile) {
   assert.ok(!titles.has(title), `Duplicate page title: ${title}`);
   titles.add(title);
   assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `Expected one H1: ${file}`);
-  assert.doesNotMatch(html, /class="catalogue-category"|href="[^"]*#ebooks"[^>]*>Ebooks</);
+  assert.doesNotMatch(html, /class="catalogue-category"|class="catalogue-price"|class="book-detail-link"|href="[^"]*#ebooks"[^>]*>Ebooks</);
   assert.match(html, /<meta name="description" content="[^"]+">/);
   assert.doesNotMatch(html, /name="robots" content="noindex|kp-preview-mode|preview-banner|data-preview-form|Purchasing is disabled in this preview\./);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
@@ -57,6 +57,9 @@ for (const book of products) {
     assert.doesNotMatch(html, /<lulu-buy-button/);
   }
   assert.ok(html.includes(`data-lulu-slot="${book.slug}"`));
+  assert.match(html, /<lulu-buy-button data-purchase-controls /);
+  assert.match(html, /class="purchase-widget-slot"[^>]*><lulu-buy-button[^>]*>[\s\S]*?<\/lulu-buy-button><p class="lords-day-message"/);
+  assert.doesNotMatch(html, /<(?:main|article|section|div)\b[^>]*data-purchase-controls/);
   assert.doesNotMatch(html, /product-showcase/);
   assert.doesNotMatch(html, /class="product-lede"|class="contents-list|<details class="edition-disclosure"/);
   const editionDetails = html.match(/<dl class="edition-details">([\s\S]*?)<\/dl>/)?.[1];
