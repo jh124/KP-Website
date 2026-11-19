@@ -1,12 +1,18 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { ebookFiles } from "./ebook-files.mjs";
+import { ebookFiles, productEbookFiles } from "./ebook-files.mjs";
 import { countDownloads, EXCLUDED_TEST_DOWNLOADS } from "../assets/ebook-counts.js";
 
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
-const files = ebookFiles(html);
+const products = JSON.parse(await readFile(new URL("../data/products.json", import.meta.url), "utf8"));
+const files = productEbookFiles(products);
 assert.equal(files.length, new Set(files).size);
 for (const name of files) await readFile(new URL(`../downloads/${name}`, import.meta.url));
+const productPages = await Promise.all(products.map(book => readFile(new URL(`../books/${book.slug}/index.html`, import.meta.url), "utf8")));
+assert.deepEqual(ebookFiles(productPages.join("\n")), files);
+assert.doesNotMatch(html, /class="ebook-download"/);
+assert.throws(() => productEbookFiles([{ title: "Invalid", pdf: "../private.pdf", epub: "example.epub" }]), /Invalid PDF/);
+assert.throws(() => productEbookFiles([products[0], products[0]]), /Duplicate/);
 assert.deepEqual(ebookFiles('<a class="ebook-download" href="./downloads/example.pdf?v=123">PDF</a><a class="ebook-download" href="https://github.com/owner/repo/releases/latest/download/example.epub">EPUB</a>'), ["example.epub", "example.pdf"]);
 const books = [{ title: "Example", pdf: "example.pdf", epub: "example.epub" }, { title: "New", pdf: "new.pdf", epub: "new.epub" }];
 const asset = (id, name, download_count) => ({ id, name, download_count, state: "uploaded" });

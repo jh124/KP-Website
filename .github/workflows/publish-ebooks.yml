@@ -6,6 +6,8 @@ on:
     paths:
       - "downloads/**"
       - "index.html"
+      - "books/**"
+      - "data/products.json"
       - "scripts/ebook-files.mjs"
       - "scripts/publish-ebooks.mjs"
       - ".github/workflows/publish-ebooks.yml"

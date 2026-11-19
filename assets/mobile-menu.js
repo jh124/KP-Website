@@ -1,3 +1,29 @@
+const copyrightYear = document.querySelector(".site-footer [data-current-year]");
+if (copyrightYear) copyrightYear.textContent = String(new Date().getFullYear());
+
+function isPlainClick(event) {
+  return !event.defaultPrevented && event.button === 0 &&
+    !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+}
+
+const backLink = document.querySelector(".book-back-link");
+if (backLink && document.referrer) {
+  const previous = new URL(document.referrer);
+  const catalogue = new URL(backLink.href);
+  const fromBook = previous.pathname.startsWith(new URL("books/", catalogue).pathname);
+  const fromCatalogue = previous.pathname === catalogue.pathname;
+  if (previous.origin === catalogue.origin && previous.pathname !== location.pathname && (fromBook || fromCatalogue)) {
+    if (fromBook) backLink.href = previous.href;
+    backLink.addEventListener("click", (event) => {
+      // Restore the reader's scroll position on an ordinary return. The link
+      // itself also works in a new tab, after an in-page jump, or without JS.
+      if (!isPlainClick(event) || history.length < 2 || location.hash) return;
+      event.preventDefault();
+      history.back();
+    });
+  }
+}
+
 // Keep the native mobile disclosure menu functional without JavaScript.
 document.querySelectorAll(".mobile-menu").forEach((menu) => {
   menu.querySelectorAll("a").forEach((link) => {
@@ -76,8 +102,7 @@ if (anchors.size) {
   }
 
   document.addEventListener("click", (event) => {
-    if (event.defaultPrevented || event.button !== 0 ||
-        event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!isPlainClick(event)) return;
     const link = event.target.closest?.("a[href]");
     if (!link) return;
 

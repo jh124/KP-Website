@@ -1,5 +1,21 @@
 import path from "node:path";
 
+export function productEbookFiles(products) {
+  if (!Array.isArray(products) || !products.length) throw new Error("No products were found.");
+  const files = new Set();
+  for (const book of products) {
+    for (const format of ["pdf", "epub"]) {
+      const filename = book[format];
+      if (typeof filename !== "string" || !new RegExp(`^[a-z0-9][a-z0-9-]*\\.${format}$`).test(filename)) {
+        throw new Error(`Invalid ${format.toUpperCase()} filename for ${book.title}.`);
+      }
+      if (files.has(filename)) throw new Error(`Duplicate ebook link: ${filename}`);
+      files.add(filename);
+    }
+  }
+  return [...files].sort();
+}
+
 export function ebookFiles(html) {
   const files = new Set();
   for (const match of html.matchAll(/<a\b[^>]*>/g)) {

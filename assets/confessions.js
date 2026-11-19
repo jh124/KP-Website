@@ -16,7 +16,6 @@ let resultsOpen = false;
 let topicButtons = [];
 const normalize = text => text.toLocaleLowerCase().normalize('NFKD').replace(/\p{Diacritic}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 
-$('#year').textContent = new Date().getFullYear();
 function stored(key) { try { return JSON.parse(localStorage.getItem(key)); } catch { return null; } }
 function remember(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* Reading still works with storage disabled. */ } }
 function plain(html) {

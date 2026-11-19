@@ -1,0 +1,22 @@
+{
+  "verifiedOn": "2026-11-18",
+  "pricesAndPrintDetails": "Read from the six existing official Lulu product-showcase widgets rendered in the private preview. Prices are USD. Print format and page count follow Lulu, rather than assumptions based on PDF dimensions or file length.",
+  "coversAndCredits": "Existing Kidderminster Press homepage and local cover files, with credits checked against the ebook title pages.",
+  "descriptions": "All six descriptions and button-only widget IDs were supplied by the owner and included in the approved preview.",
+  "ebookPageCounts": "Verified from the six local PDF files. The Confessions print listing is 303 pages; its current screen PDF is 310 pages. These counts intentionally remain separate.",
+  "launch": "The owner approved applying the completed redesign to the live website on 2026-11-19.",
+  "trimSizes": {
+    "reformed-confessions-reader": "0600X0900.FC.STD.CW.060UW444.MXX",
+    "baptismal-regeneration-of-elect-infants": "0600X0900.BW.STD.CW.060UW444.MXX",
+    "james-hadow-two-works": "0600X0900.BW.STD.CW.060UW444.MXX",
+    "baxter-cure-of-melancholy": "0550X0850.BW.STD.PB.060UC444.MXX",
+    "baxter-a-key-for-catholics": "0600X0900.BW.STD.CW.060UW444.MXX",
+    "baxter-three-anti-papist-works": "0600X0900.BW.STD.CW.060UW444.MXX"
+  },
+  "trimSizeVerification": "Dimensions read from the official Lulu buy-button API podPackageId prefix (hundredths of an inch), checked on 2026-11-18.",
+  "publicationYears": "Current Kidderminster Press editions: 2026. Original years from local reproduced title pages; the newly compiled Topical Reader was first published in 2026. For multiple works, original years follow title order (repeated years omitted). Cure of Melancholy was first published in 1683, for the October 1682 exercises; God\u2019s Goodness Vindicated in 1671. Certainty in 1672; Naked Popery and Roman Tradition Examined in 1677.",
+  "publicationSources": [
+    "https://www.routledge.com/Depression-and-Melancholy-16601800-vol-1/Wetherall-Dickson-Ingram-Walker-OConnell-Faubert/p/book/9781138752467",
+    "https://commons.wikimedia.org/wiki/File:Duke_University_Libraries_(IA_romantraditionex00baxt).pdf"
+  ]
+}

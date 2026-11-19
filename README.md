@@ -2,43 +2,23 @@
 
 A small, responsive publisher website using the original Kidderminster Press artwork and Lulu Direct Buy Button widgets.
 
-## Preview
+## Local development
 
-With Node.js installed, run `npm run dev` and open `http://localhost:3000`. There are no dependencies to install and no build step. Run `npm run check` to validate the catalogue and local assets.
+With Node.js installed, run `npm run dev` and open `http://localhost:3000`. There are no dependencies to install. Run `npm run build` after catalogue edits to regenerate the homepage, book pages, shared navigation and footers, and sitemap. Run `npm run check` before publishing.
 
-## Add a book
+## Add or update a book
 
-Add an entry to `data/books.json`. Use the actual `buy-button-id` copied from the product's embed code in the Lulu Direct dashboard:
+Edit `data/products.json` with the cover filename, title, author and editors, description, print format, price, page count, trim size, original publication year, edition year, and PDF/EPUB filenames. The website supplies these details. Put the Lulu widget UUID in `luluCartWidget.buyButtonId` with `variant: "button-only"`.
 
-```json
-[
-  {
-    "title": "Your book title",
-    "buyButtonId": "PASTE-THE-UUID-FROM-LULU-HERE",
-    "variant": "product-preview"
-  }
-]
-```
+Each entry also lists related book slugs. Put covers in `assets/covers/`, ebooks in `downloads/`, then run `npm run build` and `npm run check`. Commit the generated pages together with the catalogue changes. The old `data/books.json` remains for compatibility with earlier clients.
 
-The example ID is a placeholder and will fail validation until replaced. Lulu supplies the cover, product information, price, buy button, cart, and checkout. No product secrets or payment credentials belong in this repository.
+The original artwork is retained. The site uses neutral grays except for covers and the red accents of the parallel confessions reader. The homepage and About page share responsive logo sizing. All pages use the same footer. The book page Back link returns to the preceding catalogue or book page, with the catalogue as a direct-entry fallback.
 
-Optional fields:
-
-| Field | Use |
-| --- | --- |
-| `checkoutUrl` | The Direct Checkout Link copied from Lulu. Shown as a fallback if the widget script cannot load. |
-| `pdfUrl` | A free PDF URL, or a relative path such as `./downloads/book-title.pdf`. |
-| `variant` | Defaults to `product-preview`; `product-showcase` is also supported. |
-
-The default `product-preview` includes the title inside the widget. To remove all listings, restore `[]` in `data/books.json`.
-
-Widget appearance is controlled in Lulu Direct under **Customize Appearance**. The site's background is `#f7f5ef`, text is `#292d26`, and accent is `#4f5a40`. The official script loads once, when there are products to display. The empty site does not display a cart or load Lulu's script.
-
-Lulu references: [Buy Button setup guide](https://blog.lulu.com/buy-button-guide/) · [Create and manage a Buy Button](https://help.luludirect.lulu.com/en/support/solutions/articles/64000311603-how-to-create-and-manage-a-lulu-direct-buy-button).
+`assets/products.js` loads the official Lulu script once on book pages. Purchasing controls are hidden on Sundays in the visitor's local timezone, replaced by the Lord's Day message, and refreshed on midnight and tab focus.
 
 ## Ebooks
 
-The Ebooks section offers screen PDFs and reflowable EPUBs and uses the finished front covers in `assets/covers/`. Covers are not interactive; downloads start only from the Download PDF and Download EPUB links. These listings work without JavaScript; Lulu's print catalogue is separate.
+PDF and EPUB download buttons appear on each dedicated book page. The homepage catalogue and related-book cards link to those pages. All catalogue and download links work without JavaScript.
 
 The published download buttons use GitHub's stable `releases/latest/download/<filename>` links. The editable source PDFs and EPUBs remain in `downloads/`. The **Publish ebook downloads** workflow publishes a complete snapshot whenever those files or the ebook listings change. It checks every uploaded file before switching the latest release. Unchanged snapshots reuse their assets. Earlier releases must be retained: their per-file counters are included in all-time totals, so revising an ebook never resets its history. Avoid publishing unrelated releases as "latest" in this repository; the latest release must contain the complete ebook catalogue.
 
@@ -81,11 +61,13 @@ The root directory is ready for GitHub Pages. In the repository's **Settings →
 
 ## Files
 
-- `index.html`: page structure and initial empty state.
+- `index.html`, `books/*/index.html`: generated catalogue and dedicated book pages.
 - `assets/styles.css`: typography, colors, and responsive layout.
-- `assets/app.js`: catalogue rendering and official Lulu widget loading.
+- `assets/products.js`: official Lulu loading and Sunday purchase policy.
+- `assets/storefront.css`: catalogue cards, product pages, and shared footer.
 - `assets/catalogue.js`: catalogue validation.
-- `data/books.json`: book listings.
+- `data/products.json`: current catalogue metadata and button-only widget IDs.
+- `scripts/build-product-pages.mjs`: catalogue and shared page generation.
 - `confessions/`, `assets/confessions.*`, `data/confessions-v2.json`: the topical comparison page.
 - `scripts/build-confessions.py`, `scripts/check-confessions.mjs`: corrected Reader import and verification.
 - `assets/crest.svg`, `assets/monogram.svg`: existing Kidderminster Press logo assets.

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /records/
+
+Sitemap: https://kidderminsterpress.com/sitemap.xml

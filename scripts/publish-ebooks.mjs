@@ -1,14 +1,14 @@
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
-import { ebookFiles } from "./ebook-files.mjs";
+import { productEbookFiles } from "./ebook-files.mjs";
 
 // Every snapshot keeps its own assets. Never delete or replace a published
 // asset: its download_count is part of the all-time total.
 const root = new URL("../", import.meta.url);
 const repository = process.env.GITHUB_REPOSITORY || "jh124/KP-Website";
 const token = process.env.GITHUB_TOKEN;
-const html = await readFile(new URL("index.html", root), "utf8");
-const filenames = ebookFiles(html);
+const products = JSON.parse(await readFile(new URL("data/products.json", root), "utf8"));
+const filenames = productEbookFiles(products);
 const snapshot = createHash("sha256");
 const files = [];
 for (const name of filenames) {
