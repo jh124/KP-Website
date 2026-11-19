@@ -3,7 +3,7 @@
   "timeZone": "America/New_York",
   "weekStartsOn": 0,
   "trackingStartedAt": "2026-11-18T19:11:37Z",
-  "recordedAt": "2026-11-19T07:10:47.194Z",
+  "recordedAt": "2026-11-19T23:13:30.816Z",
   "checkedDates": [
     "2026-11-18",
     "2026-11-19"
@@ -84,9 +84,10 @@
     },
     "764645135": {
       "name": "reformed-confessions-reader.epub",
-      "count": 2,
+      "count": 3,
       "days": {
-        "2026-11-18": 2
+        "2026-11-18": 2,
+        "2026-11-19": 1
       }
     },
     "764645168": {
