@@ -3,7 +3,7 @@
   "timeZone": "America/New_York",
   "weekStartsOn": 0,
   "trackingStartedAt": "2026-11-18T19:11:37Z",
-  "recordedAt": "2026-11-20T20:47:35.000Z",
+  "recordedAt": "2026-11-21T01:50:17.695Z",
   "checkedDates": [
     "2026-11-18",
     "2026-11-19",
@@ -73,20 +73,20 @@
     },
     "764645017": {
       "name": "james-hadow-two-works.epub",
-      "count": 4,
+      "count": 5,
       "days": {
         "2026-11-18": 2,
         "2026-11-19": 1,
-        "2026-11-20": 1
+        "2026-11-20": 2
       }
     },
     "764645071": {
       "name": "james-hadow-two-works.pdf",
-      "count": 5,
+      "count": 9,
       "days": {
         "2026-11-18": 3,
         "2026-11-19": 1,
-        "2026-11-20": 1
+        "2026-11-20": 5
       }
     },
     "764645135": {
