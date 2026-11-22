@@ -3,12 +3,13 @@
   "timeZone": "America/New_York",
   "weekStartsOn": 0,
   "trackingStartedAt": "2026-11-18T19:11:37Z",
-  "recordedAt": "2026-11-21T08:57:37.555Z",
+  "recordedAt": "2026-11-22T09:39:26.635Z",
   "checkedDates": [
     "2026-11-18",
     "2026-11-19",
     "2026-11-20",
-    "2026-11-21"
+    "2026-11-21",
+    "2026-11-22"
   ],
   "assets": {
     "764644733": {
@@ -44,9 +45,10 @@
     },
     "764644890": {
       "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.epub",
-      "count": 2,
+      "count": 4,
       "days": {
-        "2026-11-18": 2
+        "2026-11-18": 2,
+        "2026-11-22": 2
       }
     },
     "764644916": {
