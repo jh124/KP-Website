@@ -3,7 +3,7 @@
   "timeZone": "America/New_York",
   "weekStartsOn": 0,
   "trackingStartedAt": "2026-11-18T19:11:37Z",
-  "recordedAt": "2026-11-26T14:26:20.991Z",
+  "recordedAt": "2026-11-26T23:13:52.197Z",
   "checkedDates": [
     "2026-11-18",
     "2026-11-19",
@@ -58,21 +58,23 @@
     },
     "764644890": {
       "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.epub",
-      "count": 6,
+      "count": 7,
       "days": {
         "2026-11-18": 2,
         "2026-11-22": 2,
-        "2026-11-25": 2
+        "2026-11-25": 2,
+        "2026-11-26": 1
       }
     },
     "764644916": {
       "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.pdf",
-      "count": 10,
+      "count": 12,
       "days": {
         "2026-11-18": 5,
         "2026-11-20": 1,
         "2026-11-24": 1,
-        "2026-11-25": 3
+        "2026-11-25": 3,
+        "2026-11-26": 2
       }
     },
     "764644954": {
