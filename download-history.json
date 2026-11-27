@@ -3,7 +3,7 @@
   "timeZone": "America/New_York",
   "weekStartsOn": 0,
   "trackingStartedAt": "2026-11-18T19:11:37Z",
-  "recordedAt": "2026-11-27T05:08:20.345Z",
+  "recordedAt": "2026-11-27T15:04:18.618Z",
   "checkedDates": [
     "2026-11-18",
     "2026-11-19",
@@ -19,11 +19,11 @@
   "assets": {
     "764644733": {
       "name": "baptismal-regeneration-of-elect-infants.epub",
-      "count": 4,
+      "count": 5,
       "days": {
         "2026-11-18": 2,
         "2026-11-25": 1,
-        "2026-11-27": 1
+        "2026-11-27": 2
       }
     },
     "764644766": {
@@ -63,13 +63,13 @@
     },
     "764644890": {
       "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.epub",
-      "count": 9,
+      "count": 12,
       "days": {
         "2026-11-18": 2,
         "2026-11-22": 2,
         "2026-11-25": 2,
         "2026-11-26": 1,
-        "2026-11-27": 2
+        "2026-11-27": 5
       }
     },
     "764644916": {
@@ -147,6 +147,68 @@
         "2026-11-25": 2,
         "2026-11-27": 4
       }
+    },
+    "800677503": {
+      "name": "baptismal-regeneration-of-elect-infants.epub",
+      "count": 0,
+      "days": {}
+    },
+    "800677545": {
+      "name": "baptismal-regeneration-of-elect-infants.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "800677587": {
+      "name": "baxter-a-key-for-catholics.epub",
+      "count": 0,
+      "days": {}
+    },
+    "800677630": {
+      "name": "baxter-a-key-for-catholics.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "800677669": {
+      "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.epub",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
+    },
+    "800677705": {
+      "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "800677747": {
+      "name": "baxter-three-anti-papist-works.epub",
+      "count": 0,
+      "days": {}
+    },
+    "800677785": {
+      "name": "baxter-three-anti-papist-works.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "800677825": {
+      "name": "james-hadow-two-works.epub",
+      "count": 0,
+      "days": {}
+    },
+    "800677895": {
+      "name": "james-hadow-two-works.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "800677934": {
+      "name": "reformed-confessions-reader.epub",
+      "count": 0,
+      "days": {}
+    },
+    "800677968": {
+      "name": "reformed-confessions-reader.pdf",
+      "count": 0,
+      "days": {}
     }
   }
 }
