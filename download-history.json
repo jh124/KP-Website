@@ -3,7 +3,7 @@
   "timeZone": "America/New_York",
   "weekStartsOn": 0,
   "trackingStartedAt": "2026-11-18T19:11:37Z",
-  "recordedAt": "2026-11-27T15:04:18.618Z",
+  "recordedAt": "2026-11-27T23:24:10.527Z",
   "checkedDates": [
     "2026-11-18",
     "2026-11-19",
@@ -187,8 +187,10 @@
     },
     "800677785": {
       "name": "baxter-three-anti-papist-works.pdf",
-      "count": 0,
-      "days": {}
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
     },
     "800677825": {
       "name": "james-hadow-two-works.epub",
@@ -209,6 +211,80 @@
       "name": "reformed-confessions-reader.pdf",
       "count": 0,
       "days": {}
+    },
+    "801206946": {
+      "name": "baptismal-regeneration-of-elect-infants.epub",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
+    },
+    "801207017": {
+      "name": "baptismal-regeneration-of-elect-infants.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "801207113": {
+      "name": "baxter-a-key-for-catholics.epub",
+      "count": 0,
+      "days": {}
+    },
+    "801207155": {
+      "name": "baxter-a-key-for-catholics.pdf",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
+    },
+    "801207226": {
+      "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.epub",
+      "count": 0,
+      "days": {}
+    },
+    "801207272": {
+      "name": "baxter-cure-of-melancholy-and-gods-goodness-vindicated.pdf",
+      "count": 0,
+      "days": {}
+    },
+    "801207294": {
+      "name": "baxter-three-anti-papist-works.epub",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
+    },
+    "801207329": {
+      "name": "baxter-three-anti-papist-works.pdf",
+      "count": 3,
+      "days": {
+        "2026-11-27": 3
+      }
+    },
+    "801207388": {
+      "name": "james-hadow-two-works.epub",
+      "count": 0,
+      "days": {}
+    },
+    "801207412": {
+      "name": "james-hadow-two-works.pdf",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
+    },
+    "801207448": {
+      "name": "reformed-confessions-reader.epub",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
+    },
+    "801207498": {
+      "name": "reformed-confessions-reader.pdf",
+      "count": 1,
+      "days": {
+        "2026-11-27": 1
+      }
     }
   }
 }
