@@ -45,7 +45,9 @@ for (const book of products) {
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
   const info = schema["@graph"].find(item => Array.isArray(item["@type"]) && item["@type"].includes("Book"));
   assert.equal(info.name, book.title);
-  assert.equal(info.offers.price, book.price);
+  assert.equal(info.offers.price, book.salePrice ?? book.price);
+  const regularPrice = book.salePrice ? `<s class="regular-price">$${book.price}</s> ` : "";
+  assert.ok(html.includes(`<p class="print-price">${regularPrice}$${info.offers.price}<span>${book.currency}</span></p>`));
   assert.equal(info.offers.priceCurrency, "USD");
   assert.equal(info.numberOfPages, book.printPages);
   assert.deepEqual(info.editor.map(editor => editor.name), book.editors);

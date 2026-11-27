@@ -11,8 +11,12 @@ const escape = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;
 const json = value => JSON.stringify(value).replace(/</g, "\\u003c");
 const credits = book => `Edited by ${book.editors.join(" & ")}`;
 const byline = book => book.author || credits(book);
-const price = book => `$${book.price}`;
 const bookUrl = book => `/books/${book.slug}/`;
+
+function printPrice(book) {
+  const regular = book.salePrice ? `<s class="regular-price">$${escape(book.price)}</s> ` : "";
+  return `<p class="print-price">${regular}$${escape(book.salePrice ?? book.price)}<span>${escape(book.currency)}</span></p>`;
+}
 
 function cartButton(book) {
   const widget = book.luluCartWidget;
@@ -30,8 +34,8 @@ function head({ title, description, prefix, pathname = "/", book, schema }) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f7f7">
-    <title>${escape(title)}</title>
-    <meta name="description" content="${escape(description)}">
+    <title>${escape(book?.title ?? title)}</title>
+    <meta name="description" content="${escape(book ? book.description.join(" ") : description)}">
     <link rel="canonical" href="${origin}${pathname}">
     <meta property="og:type" content="${book ? "book" : "website"}">
     <meta property="og:site_name" content="Kidderminster Press">
@@ -50,7 +54,7 @@ function head({ title, description, prefix, pathname = "/", book, schema }) {
     <link rel="apple-touch-icon" href="${prefix}apple-touch-icon.png">
     <link rel="mask-icon" href="${prefix}safari-pinned-tab.svg" color="#292929">
     <link rel="stylesheet" href="${prefix}assets/styles.css?v=shared-footer-1">
-    <link rel="stylesheet" href="${prefix}assets/storefront.css?v=simple-cards-1">
+    <link rel="stylesheet" href="${prefix}assets/storefront.css?v=${book?.salePrice ? "sale-prices-1" : "simple-cards-1"}">
     <script defer src="${prefix}assets/mobile-menu.js?v=footer-back-1"></script>
     <script type="module" src="${prefix}assets/products.js"></script>
     <script type="application/ld+json">${json(schema)}</script>
@@ -137,7 +141,7 @@ for (const book of books) {
   const bookSchema = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": ["Book", "Product"], "@id": `${url}#book`, name: book.title, url, description: book.summary, image: `${origin}/assets/covers/${book.cover}`, ...(book.author ? { author: { "@type": "Person", name: book.author } } : {}), editor: book.editors.map(name => ({ "@type": "Person", name })), publisher: { "@type": "Organization", name: "Kidderminster Press", url: `${origin}/` }, inLanguage: "en", bookFormat: `https://schema.org/${book.printFormat}`, bookEdition: book.edition, numberOfPages: book.printPages, offers: { "@type": "Offer", price: book.price, priceCurrency: book.currency, url, seller: { "@type": "Organization", name: "Kidderminster Press" } } },
+      { "@type": ["Book", "Product"], "@id": `${url}#book`, name: book.title, url, description: book.summary, image: `${origin}/assets/covers/${book.cover}`, ...(book.author ? { author: { "@type": "Person", name: book.author } } : {}), editor: book.editors.map(name => ({ "@type": "Person", name })), publisher: { "@type": "Organization", name: "Kidderminster Press", url: `${origin}/` }, inLanguage: "en", bookFormat: `https://schema.org/${book.printFormat}`, bookEdition: book.edition, numberOfPages: book.printPages, offers: { "@type": "Offer", price: book.salePrice ?? book.price, priceCurrency: book.currency, url, seller: { "@type": "Organization", name: "Kidderminster Press" } } },
       { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Books", item: `${origin}/` }, { "@type": "ListItem", position: 2, name: book.title, item: url }] }
     ]
   };
@@ -157,7 +161,7 @@ for (const book of books) {
           ${book.author ? `<p class="product-author">${escape(book.author)}</p>` : ""}
           <p class="product-editor">${escape(credits(book))}</p>
           <section class="purchase-panel" data-print-purchase aria-labelledby="print-heading">
-            <div class="purchase-heading"><div><h2 id="print-heading">${escape(book.printFormat)}</h2><p>${escape(book.edition)}</p></div><p class="print-price">${price(book)}<span>USD</span></p></div>
+            <div class="purchase-heading"><div><h2 id="print-heading">${escape(book.printFormat)}</h2><p>${escape(book.edition)}</p></div>${printPrice(book)}</div>
             <div class="purchase-widget-slot" data-lulu-slot="${book.slug}">${cartButton(book)}<p class="lords-day-message" data-lords-day-message role="status" hidden>Books are not available for purchase on the Lord’s Day. Please check back tomorrow.</p></div>
           </section>
           <section id="ebooks" class="product-ebooks" aria-labelledby="ebooks-heading"><h2 id="ebooks-heading">Free ebook</h2><p>Download the complete book. No sign-up required.</p>${downloads(book)}</section>
