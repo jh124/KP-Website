@@ -6,6 +6,10 @@ const newsletter = (await readFile(new URL("templates/newsletter.html", import.m
   .replace("publicaions", "publications")
   .replace('<input type="email"', '<input aria-label="Email address" type="email"');
 const origin = "https://kidderminsterpress.com";
+const { checkoutUrl: supportCheckout } = JSON.parse(await readFile(new URL("data/support.json", root), "utf8"));
+if (supportCheckout !== null && !/^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+$/.test(supportCheckout)) {
+  throw new Error("Use a Stripe-hosted Payment Link for reader support, or null to leave it unpublished.");
+}
 const release = "https://github.com/jh124/KP-Website/releases/latest/download/";
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
 const json = value => JSON.stringify(value).replace(/</g, "\\u003c");
@@ -78,10 +82,18 @@ function header(prefix, current = "") {
     </header>`;
 }
 
+function supportLink() {
+  return supportCheckout ? `<a href="${escape(supportCheckout)}">Support Kidderminster Press</a>` : "";
+}
+
+function ebookSupport() {
+  return supportCheckout ? `<p class="ebook-support">${supportLink()}<br>If this free edition was useful to you, you can leave a tip to help us prepare more books like it. Every PDF and EPUB will remain free.</p>` : "";
+}
+
 function footer(prefix) {
   return `<footer class="site-footer storefront-footer wrap">
       <p>© <span id="year" data-current-year>${new Date().getFullYear()}</span> Kidderminster Press</p>
-      <div><a href="${prefix}about/">About</a><a href="https://x.com/kidderpress?s=11" target="_blank" rel="noopener noreferrer">Follow on X</a><a href="mailto:jack@kidderminsterpress.com">Contact: jack@kidderminsterpress.com</a></div>
+      <div><a href="${prefix}about/">About</a><a href="https://x.com/kidderpress?s=11" target="_blank" rel="noopener noreferrer">Follow on X</a><a href="mailto:jack@kidderminsterpress.com">Contact: jack@kidderminsterpress.com</a>${supportLink()}</div>
     </footer>`;
 }
 
@@ -164,7 +176,7 @@ for (const book of books) {
             <div class="purchase-heading"><div><h2 id="print-heading">${escape(book.printFormat)}</h2><p>${escape(book.edition)}</p></div>${printPrice(book)}</div>
             <div class="purchase-widget-slot" data-lulu-slot="${book.slug}">${cartButton(book)}<p class="lords-day-message" data-lords-day-message role="status" hidden>Books are not available for purchase on the Lord’s Day. Please check back tomorrow.</p></div>
           </section>
-          <section id="ebooks" class="product-ebooks" aria-labelledby="ebooks-heading"><h2 id="ebooks-heading">Free ebook</h2><p>Download the complete book. No sign-up required.</p>${downloads(book)}</section>
+          <section id="ebooks" class="product-ebooks" aria-labelledby="ebooks-heading"><h2 id="ebooks-heading">Free ebook</h2><p>Download the complete book. No sign-up required.</p>${downloads(book)}${ebookSupport()}</section>
         </div>
       </article>
       <div class="product-information">
